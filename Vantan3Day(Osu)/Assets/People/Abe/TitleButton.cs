@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 using UnityEditor;
 #endif
 
-namespace TitileScreen
+namespace TitleScreen
 {
     public class TitleButton : VisualElement
     {
