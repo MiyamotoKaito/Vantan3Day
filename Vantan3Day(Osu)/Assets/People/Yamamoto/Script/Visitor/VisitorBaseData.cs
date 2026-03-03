@@ -47,6 +47,4 @@ public class VisitorBaseData : ScriptableObject
     /// 封鎖
     /// </summary>
     public virtual async UniTask ExaminationBlockade(){}
-    
-    public virtual void Exit(){}
 }

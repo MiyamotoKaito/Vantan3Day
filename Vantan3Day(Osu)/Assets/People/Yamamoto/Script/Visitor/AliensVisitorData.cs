@@ -31,20 +31,27 @@ public class AliensVisitorData : VisitorBaseData
     public override async UniTask ExaminationNg()
     {
         Debug.LogWarning("立ち去る");
+        VisitorManager.OnExit?.Invoke();
+        VisitorManager.SetInput(false);
+        await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
+        VisitorManager.OnVisitor?.Invoke();
     }
 
     public override async UniTask ExaminationNeglect()
     {
         Debug.LogWarning("妨害実行");
+        VisitorManager.OnExit?.Invoke();
+        VisitorManager.SetInput(false);
+        await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
+        VisitorManager.OnVisitor?.Invoke();
     }
 
     public override async UniTask ExaminationBlockade()
     {
         Debug.LogWarning("封鎖後、妨害を実行");
-    }
-    
-    public override void Exit()
-    {
         VisitorManager.OnExit?.Invoke();
+        VisitorManager.SetInput(false);
+        await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
+        VisitorManager.OnVisitor?.Invoke();
     }
 }

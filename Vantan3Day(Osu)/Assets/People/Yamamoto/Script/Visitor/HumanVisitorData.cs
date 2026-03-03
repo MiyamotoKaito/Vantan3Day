@@ -12,8 +12,6 @@ public class HumanVisitorData : VisitorBaseData
     [SerializeField] private float _becomeBlurryTime;
     public float BecomeBlurryTime => _becomeBlurryTime;
     
-    //TODO：このDelayをインスペクターで設定できるようにする
-    
     public override async UniTask Visit(VisitorManager manager, float time)
     {
         VisitorManager = manager;
@@ -65,11 +63,5 @@ public class HumanVisitorData : VisitorBaseData
         VisitorManager.SetInput(false);
         await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
         VisitorManager.OnVisitor?.Invoke();
-    }
-    
-    public override void Exit()
-    {
-        VisitorManager.OnExit?.Invoke();
-        VisitorManager.SetInput(false);
     }
 }

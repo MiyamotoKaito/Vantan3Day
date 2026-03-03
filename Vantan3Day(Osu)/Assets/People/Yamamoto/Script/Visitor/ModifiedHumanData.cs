@@ -34,9 +34,4 @@ public class ModifiedHumanData : VisitorBaseData
     {
         
     }
-
-    public override void Exit()
-    {
-        VisitorManager.OnExit?.Invoke();
-    }
 }
