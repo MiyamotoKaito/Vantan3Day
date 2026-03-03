@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 936b762954eeee140929d1ebe7f03699, type: 3}
   m_Name: Human_0
   m_EditorClassIdentifier: Assembly-CSharp::HumanVisitorData
+  _sprite: {fileID: -7796864351666666146, guid: 44f9240063219354e88b4e1353b72b68, type: 3}
   _visitorType: 0
   _becomeBlurryTime: 0

@@ -5,6 +5,11 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ModifiedHumanData")]
 public class ModifiedHumanData : VisitorBaseData
 {
+    public override void Visit()
+    {
+        
+    }
+    
     public override void ExaminationOk()
     {
         

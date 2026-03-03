@@ -1,12 +1,13 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 /// <summary>
 /// 入国審査
 /// </summary>
 public class ImmigrationInspection : MonoBehaviour
 {
-    [Header("VisitorGeneration")] 
-    [SerializeField] private VisitorGeneration _visitorGeneration;
+    [Header("VisitorManager")] 
+    [SerializeField] private VisitorManager _visitorManager;
     
     /// <summary>
     /// 入力した審査の結果
@@ -23,31 +24,33 @@ public class ImmigrationInspection : MonoBehaviour
     /// </summary>
     private void ReviewInput()
     {
-        //TODO：仮の入力を実装
-        //TODO：のちに、InputSystemで対応させる
         //TODO：Q：OK　W：NG　E：放置　R：封鎖
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Keyboard.current.qKey.wasPressedThisFrame)
         {
             _examinationType = ExaminationType.Ok;
-            Debug.LogWarning(_examinationType + "OK");
+            //Debug.LogWarning(_examinationType + "OK");
+            ExaminationJudgment();
         }
 
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Keyboard.current.wKey.wasPressedThisFrame)
         {
             _examinationType = ExaminationType.Ng;
-            Debug.LogWarning(_examinationType + "NG");
+            //Debug.LogWarning(_examinationType + "NG");
+            ExaminationJudgment();
         }
 
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Keyboard.current.eKey.wasPressedThisFrame)
         {
             _examinationType = ExaminationType.Neglect;
-            Debug.LogWarning(_examinationType + "放置");
+            //Debug.LogWarning(_examinationType + "放置");
+            ExaminationJudgment();
         }
 
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Keyboard.current.rKey.wasPressedThisFrame)
         {
             _examinationType = ExaminationType.Blockade;
-            Debug.LogWarning(_examinationType + "封鎖");
+            //Debug.LogWarning(_examinationType + "封鎖");
+            ExaminationJudgment();
         }
     }
     
@@ -56,19 +59,26 @@ public class ImmigrationInspection : MonoBehaviour
     /// </summary>
     private void ExaminationJudgment()
     {
-        /*
-        var data = _visitorGeneration.CurrentVisitor.VisitorType;
-        switch (data)
+        //入力した審査
+        var visitorData = _visitorManager.CurrentVisitor;
+        switch (_examinationType)
         {
-            case VisitorType.Human:
+            case ExaminationType.Ok:
+                visitorData.ExaminationOk();
+                _visitorManager.onVisitor?.Invoke();
                 break;
-            case VisitorType.Alien:
+            case ExaminationType.Ng:
+                visitorData.ExaminationNg();
+                _visitorManager.onVisitor?.Invoke();
                 break;
-            case VisitorType.ArtificialHuman:
+            case ExaminationType.Neglect:
+                visitorData.ExaminationNeglect();
+                _visitorManager.onVisitor?.Invoke();
+                break;
+            case ExaminationType.Blockade:
+                visitorData.ExaminationBlockade();
+                _visitorManager.onVisitor?.Invoke();
                 break;
         }
-        */
-        
-        //TODO：ここで入力に応じた審査処理を来訪者データから呼び出す
     }
 }
