@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
-// プレイヤーの腕と手をマウスに追従させるコンポーネント
-// ・CurrentHand: マウスに合わせて移動する手の GameObject（ワールド座標で移動、範囲は PlayerConfig で指定）
-// ・CurrentArm: 手の方向を向くように回転する腕の GameObject（親のローカル回転を使用）
+/// <summary>
+/// ArmMover は手（CurrentHand）と腕（CurrentArm）を制御します。
+/// </summary>
 public class ArmMover : MonoBehaviour
 {
     [HideInInspector]
@@ -12,7 +12,7 @@ public class ArmMover : MonoBehaviour
     public GameObject CurrentArm;
 
     /// <summary>
-    ///  現在右手を操作しているか（初期値は右手）
+    /// 現在操作中の手が右手かどうか
     /// </summary>
     public bool IsRightHand { get; private set; } = true;
 
