@@ -33,6 +33,7 @@ public class Fly : MonoBehaviour
     private GameObject _currentGoal;
     private Vector2 _start;
     private float _time;
+    private bool _isGettingGoal = false;
     private void Start()
     {
         //_emargencyButton = FindObjectOfType<EmargencyButton>();
@@ -41,9 +42,10 @@ public class Fly : MonoBehaviour
     }
     private void Update()
     {
-        if (!GetGoal())
+        if (!_isGettingGoal)
         {
             Move();
+            GetGoal();
             return;
         }
         this.transform.position = Vector2.MoveTowards(this.transform.position,
@@ -71,28 +73,21 @@ public class Fly : MonoBehaviour
         if (other.CompareTag("RangeOfMotion"))
         {
             _direction *= -1; // 方向を反転
-            Debug.Log("ゴール");
-            FliesCountChanged?.Invoke(1);
         }
-        //if (collision.gameObject.TryGetComponent<Player>(out var player))
-        //{
-        //  FilesCountChanged?.Invoke(1);
-        //}
-        else if (other.gameObject == _currentGoal)
+        if (other.gameObject.TryGetComponent<ArmMover>(out var player))
         {
-            Debug.Log("ゴール");
             FliesCountChanged?.Invoke(1);
         }
     }
-    private bool GetGoal()
+    private void GetGoal()
     {
         _time += Time.deltaTime;
         if (_time > _waitTime)
         {
             _currentGoal = Goals[UnityEngine.Random.Range(0, Goals.Length)];
-            return true;
+            _isGettingGoal = true;
+            _time = 0f;
         }
-        return false;
     }
     /// <summary>
     /// ハエを殺す
