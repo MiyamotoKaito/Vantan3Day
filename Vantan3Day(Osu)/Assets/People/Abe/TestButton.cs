@@ -1,18 +1,19 @@
 using UnityEngine;
-namespace TitleScreen{
-public class TestButton : MonoBehaviour
+namespace TitleScreen
 {
-    [SerializeField]
-   TitleScreenPresenter _presenter;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public class TestButton : MonoBehaviour
     {
-        _presenter.ButtonInput(TitleButtonType.Start);
-        _presenter.ButtonInput(TitleButtonType.Options);
-        _presenter.ButtonInput(TitleButtonType.Quit);
+        [SerializeField]
+        TitleScreenPresenter _presenter;
+        // Start is called once before the first execution of Update after the MonoBehaviour is created
+        void Start()
+        {
+            _presenter.ButtonInput(TitleButtonType.Start);
+            _presenter.ButtonInput(TitleButtonType.Options);
+            _presenter.ButtonInput(TitleButtonType.Quit);
+
+        }
 
     }
-
-}
 
 }

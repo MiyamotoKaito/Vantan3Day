@@ -1,4 +1,3 @@
-using UnityEditor.Tilemaps;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -10,6 +9,7 @@ namespace TitleScreen
         Options,
         Quit
     }
+
     public class TitleScreenPresenter : MonoBehaviour
     {
         [SerializeField] UIDocument uiDocument;
@@ -40,40 +40,31 @@ namespace TitleScreen
                 return;
             }
 
-            // 画面（パネル）参照
             _titlePanel = root.Q<VisualElement>("TitlePanel");
             _optionsPanel = root.Q<VisualElement>("OptionsPanel");
 
-            // ボタン参照（TitleButtonのnameで取る）
             _start = root.Q<TitleButton>("start");
             _options = root.Q<TitleButton>("options");
             _quit = root.Q<TitleButton>("quit");
-
-            // Options側の戻るボタン（通常のButton）
             _back = root.Q<Button>("back");
 
             if (_titlePanel == null) Debug.LogWarning("[TitleScreenPresenter] TitlePanel not found.");
             if (_optionsPanel == null) Debug.LogWarning("[TitleScreenPresenter] OptionsPanel not found.");
-
             if (_start == null) Debug.LogWarning("[TitleScreenPresenter] start TitleButton not found.");
             if (_options == null) Debug.LogWarning("[TitleScreenPresenter] options TitleButton not found.");
             if (_quit == null) Debug.LogWarning("[TitleScreenPresenter] quit TitleButton not found.");
 
-            // ラベル設定（任意）
             if (_start != null) _start.Text = "Start";
             if (_options != null) _options.Text = "Options";
             if (_quit != null) _quit.Text = "Exit";
 
-            // イベント登録
             if (_start != null) _start.Clicked += OnTitleButtonClicked;
             if (_options != null) _options.Clicked += OnTitleButtonClicked;
             if (_quit != null) _quit.Clicked += OnTitleButtonClicked;
             if (_back != null) _back.clicked += ShowTitle;
 
-            // 初期状態：タイトル表示、オプション非表示
             ShowTitle();
 
-            // 初期状態：ボタンは隠す（入力で出す）
             _revealed = false;
             if (_start != null) _start.SetShown(false);
             if (_options != null) _options.SetShown(false);
@@ -82,12 +73,12 @@ namespace TitleScreen
 
         void OnDisable()
         {
-            // イベント解除（OnEnableが複数回走っても多重登録しないように）
             if (_start != null) _start.Clicked -= OnTitleButtonClicked;
             if (_options != null) _options.Clicked -= OnTitleButtonClicked;
             if (_quit != null) _quit.Clicked -= OnTitleButtonClicked;
             if (_back != null) _back.clicked -= ShowTitle;
         }
+
         public void ButtonInput(TitleButtonType buttonType)
         {
             switch (buttonType)
@@ -122,17 +113,14 @@ namespace TitleScreen
             {
                 case "start":
                     Debug.Log("START");
-                    // 例：SceneManager.LoadScene("Game");
+                    // SceneManager.LoadScene("Game");
                     break;
-
                 case "options":
                     ShowOptions();
                     break;
-
                 case "quit":
                     Application.Quit();
                     break;
-
                 default:
                     Debug.LogWarning($"[TitleScreenPresenter] Unknown TitleButton name: {button.name}");
                     break;
@@ -150,7 +138,5 @@ namespace TitleScreen
             if (_optionsPanel != null) _optionsPanel.style.display = DisplayStyle.None;
             if (_titlePanel != null) _titlePanel.style.display = DisplayStyle.Flex;
         }
-
-
     }
 }

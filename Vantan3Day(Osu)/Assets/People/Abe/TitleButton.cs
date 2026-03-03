@@ -10,9 +10,9 @@ namespace TitleScreen
     public class TitleButton : VisualElement
     {
         public new class UxmlFactory : UxmlFactory<TitleButton, UxmlTraits> { }
+
         const string UxmlPath = "Assets/UI Toolkit/Title-Button.uxml";
 
-        // 追加：押された通知（イベント登録方式でPresenterが購読できる）
         public event Action<TitleButton> Clicked;
 
         public new class UxmlTraits : VisualElement.UxmlTraits
@@ -68,12 +68,10 @@ namespace TitleScreen
 
         void OnClicked()
         {
-            // 追加：イベント通知（購読者がいれば呼ぶ）
             Clicked?.Invoke(this);
-
-            // 既存：SetActionで設定された処理も呼ぶ（互換維持）
             _onClicked?.Invoke();
         }
+
         public void SetShown(bool shown)
         {
             if (shown)
@@ -86,7 +84,7 @@ namespace TitleScreen
             {
                 _button.RemoveFromClassList("is-shown");
                 _button.AddToClassList("is-hidden");
-                _button.pickingMode = PickingMode.Ignore; // 隠れてる間クリック不可
+                _button.pickingMode = PickingMode.Ignore;
             }
         }
 
