@@ -9,8 +9,8 @@ public class InputBuffer : MonoBehaviour
     public InputAction DropAction => _dropAction;
 
     private const string MOVE_Camera_ACTION = "MoveCamera";
-    private const string Interactive_Action = "Interact"; 
-    private const string Drop_Action = "Drop";
+    private const string INTERACT_ACTION = "Interact"; 
+    private const string DROP_ACTION = "Drop";
 
     private InputAction _moveCameraAction;
     private InputAction _interactiveAction;
@@ -21,8 +21,8 @@ public class InputBuffer : MonoBehaviour
         if (TryGetComponent<PlayerInput>(out var playerInput))
         {
             _moveCameraAction = playerInput.actions[MOVE_Camera_ACTION];
-            _interactiveAction = playerInput.actions[Interactive_Action];
-            _dropAction = playerInput.actions[Drop_Action];
+            _interactiveAction = playerInput.actions[INTERACT_ACTION];
+            _dropAction = playerInput.actions[DROP_ACTION];
         }
     }
 }
