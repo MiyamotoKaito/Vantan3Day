@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -9,74 +7,79 @@ namespace TitileScreen
     {
         [SerializeField] UIDocument uiDocument;
 
-        Dictionary<string, Action> _actions;
-        Dictionary<string, string> _labels;
+        VisualElement _titlePanel;
+        VisualElement _optionsPanel;
 
-        public event Action OnStartClicked;
-        public event Action OnOptionsClicked;
-        public event Action OnQuitClicked;
+        TitleButton _startButton;
+        TitleButton _optionsButton;
+        TitleButton _quitButton;
 
-        void Awake()
-        {
-            _actions = new Dictionary<string, Action>
-            {
-                ["start"]   = () => OnStartClicked?.Invoke(),
-                ["options"] = () => OnOptionsClicked?.Invoke(),
-                ["quit"]    = () => OnQuitClicked?.Invoke(),
-            };
-
-            _labels = new Dictionary<string, string>
-            {
-                ["start"]   = "Start",
-                ["options"] = "Options",
-                ["quit"]    = "Exit",
-            };
-        }
+        Button _backButton;
 
         void OnEnable()
         {
-            if (uiDocument == null)
-            {
-                Debug.LogError("[TitleScreenPresenter] UIDocument is not assigned.");
-                return;
-            }
-
             var root = uiDocument.rootVisualElement;
-            if (root == null)
+
+            _titlePanel   = root.Q<VisualElement>("TitlePanel");
+            _optionsPanel = root.Q<VisualElement>("OptionsPanel");
+
+            _startButton   = root.Q<TitleButton>("start");
+            _optionsButton = root.Q<TitleButton>("options");
+            _quitButton    = root.Q<TitleButton>("quit");
+
+            _backButton = root.Q<Button>("back");
+
+            // イベント登録
+            if (_startButton   != null) _startButton.Clicked   += OnTitleButtonClicked;
+            if (_optionsButton != null) _optionsButton.Clicked += OnTitleButtonClicked;
+            if (_quitButton    != null) _quitButton.Clicked    += OnTitleButtonClicked;
+
+            if (_backButton != null)
+                _backButton.clicked += ShowTitle;
+
+            // 初期表示
+            ShowTitle();
+        }
+
+        void OnDisable()
+        {
+            // 必ず解除（重複防止）
+            if (_startButton   != null) _startButton.Clicked   -= OnTitleButtonClicked;
+            if (_optionsButton != null) _optionsButton.Clicked -= OnTitleButtonClicked;
+            if (_quitButton    != null) _quitButton.Clicked    -= OnTitleButtonClicked;
+
+            if (_backButton != null)
+                _backButton.clicked -= ShowTitle;
+        }
+
+        void OnTitleButtonClicked(TitleButton button)
+        {
+            switch (button.name)
             {
-                Debug.LogError("[TitleScreenPresenter] rootVisualElement is null.");
-                return;
+                case "start":
+                    Debug.Log("START GAME");
+                    break;
+
+                case "options":
+                    ShowOptions();
+                    break;
+
+                case "quit":
+                    Application.Quit();
+                    break;
             }
+        }
 
-            var buttons = root.Query<TitleButton>().ToList();
-            if (buttons == null || buttons.Count == 0)
-            {
-                Debug.LogError("[TitleScreenPresenter] No TitleButton found in UIDocument.");
-                return;
-            }
+        void ShowOptions()
+        {
+            _titlePanel.style.display   = DisplayStyle.None;
+            _optionsPanel.style.display = DisplayStyle.Flex;
+        }
 
-            foreach (var b in buttons)
-            {
-                // UXMLの name を "start/options/quit" にしておく
-                var key = b.name;
-
-                if (string.IsNullOrEmpty(key))
-                {
-                    Debug.LogWarning("[TitleScreenPresenter] TitleButton has empty name. Skipped.");
-                    continue;
-                }
-
-                if (!_actions.TryGetValue(key, out var action))
-                {
-                    Debug.LogWarning($"[TitleScreenPresenter] No action mapped for key '{key}'.");
-                    continue;
-                }
-
-                if (_labels.TryGetValue(key, out var label))
-                    b.Text = label;
-
-                b.SetAction(action);
-            }
+        void ShowTitle()
+        {
+            _optionsPanel.style.display = DisplayStyle.None;
+            _titlePanel.style.display   = DisplayStyle.Flex;
         }
     }
 }

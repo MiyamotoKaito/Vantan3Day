@@ -1,15 +1,21 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:ts="TitileScreen" editor-extension-mode="False">
     <ui:VisualElement name="Root" style="flex-grow: 1; background-color: rgb(37, 159, 66);">
+
+        <!-- タイトル画面 -->
         <ui:VisualElement name="TitlePanel" style="flex-grow: 1; flex-direction: column; justify-content: flex-end;">
             <ui:VisualElement name="MenuView" style="flex-direction: row; justify-content: space-evenly; align-items: center; height: 200px; margin-bottom: 10%;">
-                <ts:TitleButton name="start" text="Start&#10;"/>
-                <ts:TitleButton name="options" text="Option&#10;" style="font-size: 14px;"/>
-                <ts:TitleButton name="quit" text="Quit&#10;" style="font-size: 14px;"/>
+                <ts:TitleButton name="start"/>
+                <ts:TitleButton name="options"/>
+                <ts:TitleButton name="quit"/>
             </ui:VisualElement>
         </ui:VisualElement>
+
+        <!-- オプション画面（最初は隠す） -->
         <ui:VisualElement name="OptionsPanel" style="flex-grow: 1; display: none; flex-direction: column;">
-            <ui:Label text="Options" style="unity-font-style: bold; font-size: 32px; margin-top: 40px; margin-left: 40px;"/>
-            <ui:Button text="Back" name="back" style="margin-top: 40px; margin-left: 40px; width: 160px; height: 60px;"/>
+            <ui:Label text="Options" style="unity-font-style: bold; font-size: 32px; margin-top: 40px; margin-left: 40px;" />
+            <!-- ここにスライダーとか置く -->
+            <ui:Button text="Back" name="back" style="margin-top: 40px; margin-left: 40px; width: 160px; height: 60px;" />
         </ui:VisualElement>
+
     </ui:VisualElement>
 </ui:UXML>
