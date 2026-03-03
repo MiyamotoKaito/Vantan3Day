@@ -1,6 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Title.uss?fileID=7433441132597879392&amp;guid=fe0e52eec311cd14eb85046deed6325f&amp;type=3#Title"/>
-    <ui:VisualElement name="Root" style="flex-grow: 1;">
-        <ui:Button text="Button" name="Title-Button" class="title-button" style="background-image: none; -unity-background-image-tint-color: rgb(255, 255, 255);"/>
+    <ui:VisualElement name="Root">
+        <ui:Button text="Button" name="Title-Button" class="title-button is-hidden" style="height: 120px;"/>
     </ui:VisualElement>
 </ui:UXML>
