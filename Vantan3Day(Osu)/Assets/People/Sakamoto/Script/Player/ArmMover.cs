@@ -82,15 +82,7 @@ public class ArmMover : MonoBehaviour
         if (target == null)
             return;
 
-        // arm は hand の子になっている想定。
-        // 手基準のローカル座標で、arm の根元位置からターゲット位置へのベクトルを計算し角度を求める。
-        var targetLocal = handTransform.InverseTransformPoint(target.transform.position);
-        var armLocalPos = armTransform.localPosition; // arm のローカル位置（手基準）
-        var dirLocal = targetLocal - armLocalPos;
-        if (dirLocal.sqrMagnitude < 0.0001f)
-            return;
-
-        var angle = Mathf.Atan2(dirLocal.y, dirLocal.x) * Mathf.Rad2Deg + _angleOffset;
-        armTransform.localRotation = Quaternion.Euler(0f, 0f, angle);
+        var targetVector= target.transform.position - armTransform.position;
+        CurrentArm.transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(targetVector.y, targetVector.x) * Mathf.Rad2Deg + _angleOffset);
     }
 }
