@@ -37,7 +37,6 @@ public class CameraMover : MonoBehaviour
     private void MoveCamera(InputAction.CallbackContext context)
     {
         _moveInput = context.ReadValue<Vector2>();
-        Debug.Log($"CameraMover.MoveCamera: phase={context.phase}, input={_moveInput}");
     }
 
     private void Update()
