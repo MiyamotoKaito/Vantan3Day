@@ -67,6 +67,10 @@ public class Fly : MonoBehaviour
         {
             _direction *= -1; // 方向を反転
         }
+        //if (collision.gameObject.TryGetComponent<Player>(out var player))
+        //{
+
+        //}
     }
     private bool GetGoal()
     {
