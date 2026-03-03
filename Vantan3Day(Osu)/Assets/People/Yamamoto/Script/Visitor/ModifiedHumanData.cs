@@ -5,9 +5,11 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ModifiedHumanData")]
 public class ModifiedHumanData : VisitorBaseData
 {
-    public override void Visit()
+    public override void Visit(VisitorManager manager)
     {
-        
+        _visitorManager = manager;
+        _visitorManager.VisitorAwaitSet();
+        _visitorManager.OnEntry?.Invoke();
     }
     
     public override void ExaminationOk()
@@ -28,5 +30,10 @@ public class ModifiedHumanData : VisitorBaseData
     public override void ExaminationBlockade()
     {
         
+    }
+
+    public override void Exit()
+    {
+        _visitorManager.OnExit?.Invoke();
     }
 }

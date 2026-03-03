@@ -16,10 +16,14 @@ public class VisitorBaseData : ScriptableObject
     /// </summary>
     public VisitorType VisitorType => _visitorType;
     
+    public VisitorManager _visitorManager;
+    
+    //TODO：ここをUniTaskに変更し、退場処理を待機させ終了後、入国処理をおこなう
+    
     /// <summary>
     /// 来訪
     /// </summary>
-    public virtual void Visit(){}
+    public virtual void Visit(VisitorManager manager){}
 
     /// <summary>
     /// OK
@@ -40,4 +44,6 @@ public class VisitorBaseData : ScriptableObject
     /// 封鎖
     /// </summary>
     public virtual void ExaminationBlockade(){}
+    
+    public virtual void Exit(){}
 }

@@ -24,32 +24,29 @@ public class ImmigrationInspection : MonoBehaviour
     /// </summary>
     private void ReviewInput()
     {
+        if(!_visitorManager.IsExaminationInput) return;
         //TODO：Q：OK　W：NG　E：放置　R：封鎖
         if (Keyboard.current.qKey.wasPressedThisFrame)
         {
             _examinationType = ExaminationType.Ok;
-            //Debug.LogWarning(_examinationType + "OK");
             ExaminationJudgment();
         }
 
         if (Keyboard.current.wKey.wasPressedThisFrame)
         {
             _examinationType = ExaminationType.Ng;
-            //Debug.LogWarning(_examinationType + "NG");
             ExaminationJudgment();
         }
 
         if (Keyboard.current.eKey.wasPressedThisFrame)
         {
             _examinationType = ExaminationType.Neglect;
-            //Debug.LogWarning(_examinationType + "放置");
             ExaminationJudgment();
         }
 
         if (Keyboard.current.rKey.wasPressedThisFrame)
         {
             _examinationType = ExaminationType.Blockade;
-            //Debug.LogWarning(_examinationType + "封鎖");
             ExaminationJudgment();
         }
     }
@@ -65,19 +62,18 @@ public class ImmigrationInspection : MonoBehaviour
         {
             case ExaminationType.Ok:
                 visitorData.ExaminationOk();
-                _visitorManager.onVisitor?.Invoke();
                 break;
             case ExaminationType.Ng:
                 visitorData.ExaminationNg();
-                _visitorManager.onVisitor?.Invoke();
+                //_visitorManager.OnVisitor?.Invoke();
                 break;
             case ExaminationType.Neglect:
                 visitorData.ExaminationNeglect();
-                _visitorManager.onVisitor?.Invoke();
+                //_visitorManager.OnVisitor?.Invoke();
                 break;
             case ExaminationType.Blockade:
                 visitorData.ExaminationBlockade();
-                _visitorManager.onVisitor?.Invoke();
+                //_visitorManager.OnVisitor?.Invoke();
                 break;
         }
     }

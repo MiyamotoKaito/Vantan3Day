@@ -6,14 +6,20 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "AliensData")]
 public class AliensVisitorData : VisitorBaseData
 {
-    public override void Visit()
+    public override void Visit(VisitorManager manager)
     {
-        
+        _visitorManager = manager;
+        _visitorManager.VisitorAwaitSet();
+        _visitorManager.OnEntry?.Invoke();
+        _visitorManager.SetInput(true);
     }
     
     public override void ExaminationOk()
     {
         Debug.LogWarning("妨害後、通過");
+        _visitorManager.OnExit?.Invoke();
+        _visitorManager.SetInput(false);
+        //_visitorManager.OnVisitor?.Invoke();
     }
 
     public override void ExaminationNg()
@@ -29,5 +35,10 @@ public class AliensVisitorData : VisitorBaseData
     public override void ExaminationBlockade()
     {
         Debug.LogWarning("封鎖後、妨害を実行");
+    }
+    
+    public override void Exit()
+    {
+        _visitorManager.OnExit?.Invoke();
     }
 }
