@@ -74,6 +74,21 @@ namespace TitileScreen
             // 既存：SetActionで設定された処理も呼ぶ（互換維持）
             _onClicked?.Invoke();
         }
+        public void SetShown(bool shown)
+        {
+            if (shown)
+            {
+                _button.RemoveFromClassList("is-hidden");
+                _button.AddToClassList("is-shown");
+                _button.pickingMode = PickingMode.Position;
+            }
+            else
+            {
+                _button.RemoveFromClassList("is-shown");
+                _button.AddToClassList("is-hidden");
+                _button.pickingMode = PickingMode.Ignore; // 隠れてる間クリック不可
+            }
+        }
 
         static VisualElement BuildFromUxml()
         {
