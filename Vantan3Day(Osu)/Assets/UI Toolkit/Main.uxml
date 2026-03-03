@@ -1,4 +1,4 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:ts="TitileScreen" editor-extension-mode="False">
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:ts="TitleScreen" editor-extension-mode="False">
     <ui:VisualElement name="Root" style="flex-grow: 1; background-color: rgba(255, 255, 255, 0);">
         <ui:VisualElement name="TitlePanel" style="flex-grow: 1; flex-direction: column; justify-content: flex-end;">
             <ui:VisualElement name="MenuView" style="flex-direction: row; justify-content: space-evenly; align-items: center; height: 200px; margin-bottom: 10%;">

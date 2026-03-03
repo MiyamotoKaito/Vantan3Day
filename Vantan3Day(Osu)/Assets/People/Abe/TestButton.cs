@@ -1,5 +1,5 @@
 using UnityEngine;
-namespace TitileScreen{
+namespace TitleScreen{
 public class TestButton : MonoBehaviour
 {
     [SerializeField]

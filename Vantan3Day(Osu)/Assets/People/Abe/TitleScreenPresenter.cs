@@ -2,7 +2,7 @@ using UnityEditor.Tilemaps;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace TitileScreen
+namespace TitleScreen
 {
     public enum TitleButtonType
     {
