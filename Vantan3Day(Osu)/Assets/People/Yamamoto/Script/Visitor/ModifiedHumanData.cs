@@ -1,33 +1,35 @@
 using UnityEngine;
+using Cysharp.Threading.Tasks;
+
 /// <summary>
 /// 改造人間
 /// </summary>
 [CreateAssetMenu(menuName = "ModifiedHumanData")]
 public class ModifiedHumanData : VisitorBaseData
 {
-    public override void Visit(VisitorManager manager)
+    public override async UniTask Visit(VisitorManager manager)
     {
         _visitorManager = manager;
         _visitorManager.VisitorAwaitSet();
         _visitorManager.OnEntry?.Invoke();
     }
     
-    public override void ExaminationOk()
+    public override async UniTask ExaminationOk()
     {
         
     }
 
-    public override void ExaminationNg()
+    public override async UniTask ExaminationNg()
     {
         
     }
 
-    public override void ExaminationNeglect()
+    public override async UniTask ExaminationNeglect()
     {
         
     }
 
-    public override void ExaminationBlockade()
+    public override async UniTask ExaminationBlockade()
     {
         
     }

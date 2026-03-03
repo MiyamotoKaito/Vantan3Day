@@ -1,4 +1,5 @@
 using UnityEngine;
+using Cysharp.Threading.Tasks;
 
 /// <summary>
 /// 来訪者のベースデータ
@@ -23,27 +24,27 @@ public class VisitorBaseData : ScriptableObject
     /// <summary>
     /// 来訪
     /// </summary>
-    public virtual void Visit(VisitorManager manager){}
+    public virtual async UniTask Visit(VisitorManager manager){}
 
     /// <summary>
     /// OK
     /// </summary>
-    public virtual void ExaminationOk(){}
+    public virtual async UniTask ExaminationOk(){}
     
     /// <summary>
     /// NG
     /// </summary>
-    public virtual void ExaminationNg(){}
+    public virtual async UniTask ExaminationNg(){}
     
     /// <summary>
     /// 放置
     /// </summary>
-    public virtual void ExaminationNeglect(){}
+    public virtual async UniTask ExaminationNeglect(){}
     
     /// <summary>
     /// 封鎖
     /// </summary>
-    public virtual void ExaminationBlockade(){}
+    public virtual async UniTask ExaminationBlockade(){}
     
     public virtual void Exit(){}
 }

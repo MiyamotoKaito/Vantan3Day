@@ -1,4 +1,5 @@
 using UnityEngine;
+using Cysharp.Threading.Tasks;
 
 /// <summary>
 /// 人間
@@ -10,48 +11,56 @@ public class HumanVisitorData : VisitorBaseData
     [SerializeField] private float _becomeBlurryTime;
     public float BecomeBlurryTime => _becomeBlurryTime;
     
-    //TODO：基本的に、SetInputの後にOnExitを呼ぶ
-    
-    public override void Visit(VisitorManager manager)
+    public override async UniTask Visit(VisitorManager manager)
     {
         _visitorManager = manager;
         _visitorManager.VisitorAwaitSet();
+        await UniTask.Delay(1000);
         _visitorManager.OnEntry?.Invoke();
+        await UniTask.Delay(2000);
         _visitorManager.SetInput(true);
     }
-    
-    public override void ExaminationOk()
+
+    public override async UniTask ExaminationOk()
     {
         Debug.LogWarning("通過");
         _visitorManager.OnExit?.Invoke();
         _visitorManager.SetInput(false);
-        //_visitorManager.OnVisitor?.Invoke();
+        await UniTask.Delay(2000);
+        _visitorManager.OnVisitor?.Invoke();
     }
 
-    public override void ExaminationNg()
+    public override async UniTask ExaminationNg()
     {
         Debug.LogWarning("NGで物をぶつける");
         _visitorManager.OnThingThrow?.Invoke();
+        await UniTask.Delay(2000);
         _visitorManager.OnExit?.Invoke();
         _visitorManager.SetInput(false);
+        await UniTask.Delay(2000);
+        _visitorManager.OnVisitor?.Invoke();
     }
 
-    public override void ExaminationNeglect()
+    public override async UniTask ExaminationNeglect()
     {
         Debug.LogWarning("放置で物をぶつける");
         _visitorManager.OnThingThrow?.Invoke();
-        _visitorManager.OnThingThrow?.Invoke();
+        await UniTask.Delay(2000);
         _visitorManager.OnExit?.Invoke();
         _visitorManager.SetInput(false);
+        await UniTask.Delay(2000);
+        _visitorManager.OnVisitor?.Invoke();
     }
 
-    public override void ExaminationBlockade()
+    public override async UniTask ExaminationBlockade()
     {
         Debug.LogWarning("封鎖で物をぶつける");
         _visitorManager.OnThingThrow?.Invoke();
-        _visitorManager.OnThingThrow?.Invoke();
+        await UniTask.Delay(2000);
         _visitorManager.OnExit?.Invoke();
         _visitorManager.SetInput(false);
+        await UniTask.Delay(2000);
+        _visitorManager.OnVisitor?.Invoke();
     }
     
     public override void Exit()
