@@ -65,15 +65,12 @@ public class ImmigrationInspection : MonoBehaviour
                 break;
             case ExaminationType.Ng:
                 visitorData.ExaminationNg();
-                //_visitorManager.OnVisitor?.Invoke();
                 break;
             case ExaminationType.Neglect:
                 visitorData.ExaminationNeglect();
-                //_visitorManager.OnVisitor?.Invoke();
                 break;
             case ExaminationType.Blockade:
                 visitorData.ExaminationBlockade();
-                //_visitorManager.OnVisitor?.Invoke();
                 break;
         }
     }

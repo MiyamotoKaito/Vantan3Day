@@ -23,6 +23,7 @@ public class VisitorManager : MonoBehaviour
     [SerializeField] private Transform _exitPos;
     [Header("アニメーション時間")]
     [SerializeField] private float _animTime;
+    public float AnimTime => _animTime;
     /// <summary>
     /// 来訪者の設定
     /// 審査が終了後、呼び出す
@@ -81,7 +82,7 @@ public class VisitorManager : MonoBehaviour
     {
         var random = Random.Range(0, _visitors.Count);
         CurrentVisitor = _visitors[random];
-        CurrentVisitor.Visit(this);
+        CurrentVisitor.Visit(this, _animTime);
     }
 
     /// <summary>
@@ -105,7 +106,10 @@ public class VisitorManager : MonoBehaviour
     /// </summary>
     private void VisitorsEntry()
     {
-        _visitorImage.transform.DOMove(_entryPos.position, _animTime).SetEase(Ease.Linear);
+        _visitorImage.color = Color.black;
+        var sq = DOTween.Sequence();
+        sq.Append(_visitorImage.transform.DOMove(_entryPos.position, _animTime).SetEase(Ease.Linear))
+            .Append(_visitorImage.DOColor(Color.white, 0));
     }
 
     /// <summary>

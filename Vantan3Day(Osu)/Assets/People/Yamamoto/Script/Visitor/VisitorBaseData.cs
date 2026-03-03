@@ -1,5 +1,6 @@
 using UnityEngine;
 using Cysharp.Threading.Tasks;
+using UnityEngine.Serialization;
 
 /// <summary>
 /// 来訪者のベースデータ
@@ -17,14 +18,15 @@ public class VisitorBaseData : ScriptableObject
     /// </summary>
     public VisitorType VisitorType => _visitorType;
     
-    public VisitorManager _visitorManager;
-    
-    //TODO：ここをUniTaskに変更し、退場処理を待機させ終了後、入国処理をおこなう
+    [HideInInspector] public VisitorManager VisitorManager;
+    [HideInInspector] public float AwaitTime;
     
     /// <summary>
     /// 来訪
     /// </summary>
-    public virtual async UniTask Visit(VisitorManager manager){}
+    /// <param name="manager">VisitorManager：来訪者管理</param>>
+    /// <param name="time">待機時間</param>>
+    public virtual async UniTask Visit(VisitorManager manager, float time){}
 
     /// <summary>
     /// OK

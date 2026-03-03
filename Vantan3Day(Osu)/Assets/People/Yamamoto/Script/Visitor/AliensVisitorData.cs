@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
 
@@ -7,23 +8,24 @@ using Cysharp.Threading.Tasks;
 [CreateAssetMenu(menuName = "AliensData")]
 public class AliensVisitorData : VisitorBaseData
 {
-    public override async UniTask Visit(VisitorManager manager)
+    public override async UniTask Visit(VisitorManager manager, float time)
     {
-        _visitorManager = manager;
-        _visitorManager.VisitorAwaitSet();
+        VisitorManager = manager;
+        AwaitTime = time;
+        VisitorManager.VisitorAwaitSet();
         await UniTask.Delay(1000);
-        _visitorManager.OnEntry?.Invoke();
-        await UniTask.Delay(2000);
-        _visitorManager.SetInput(true);
+        VisitorManager.OnEntry?.Invoke();
+        await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
+        VisitorManager.SetInput(true);
     }
     
     public override async UniTask ExaminationOk()
     {
         Debug.LogWarning("妨害後、通過");
-        _visitorManager.OnExit?.Invoke();
-        _visitorManager.SetInput(false);
-        await UniTask.Delay(2000);
-        _visitorManager.OnVisitor?.Invoke();
+        VisitorManager.OnExit?.Invoke();
+        VisitorManager.SetInput(false);
+        await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
+        VisitorManager.OnVisitor?.Invoke();
     }
 
     public override async UniTask ExaminationNg()
@@ -43,6 +45,6 @@ public class AliensVisitorData : VisitorBaseData
     
     public override void Exit()
     {
-        _visitorManager.OnExit?.Invoke();
+        VisitorManager.OnExit?.Invoke();
     }
 }

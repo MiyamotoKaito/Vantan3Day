@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
 
@@ -11,61 +12,64 @@ public class HumanVisitorData : VisitorBaseData
     [SerializeField] private float _becomeBlurryTime;
     public float BecomeBlurryTime => _becomeBlurryTime;
     
-    public override async UniTask Visit(VisitorManager manager)
+    //TODO：このDelayをインスペクターで設定できるようにする
+    
+    public override async UniTask Visit(VisitorManager manager, float time)
     {
-        _visitorManager = manager;
-        _visitorManager.VisitorAwaitSet();
+        VisitorManager = manager;
+        AwaitTime = time;
+        VisitorManager.VisitorAwaitSet();
         await UniTask.Delay(1000);
-        _visitorManager.OnEntry?.Invoke();
-        await UniTask.Delay(2000);
-        _visitorManager.SetInput(true);
+        VisitorManager.OnEntry?.Invoke();
+        await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
+        VisitorManager.SetInput(true);
     }
 
     public override async UniTask ExaminationOk()
     {
         Debug.LogWarning("通過");
-        _visitorManager.OnExit?.Invoke();
-        _visitorManager.SetInput(false);
-        await UniTask.Delay(2000);
-        _visitorManager.OnVisitor?.Invoke();
+        VisitorManager.OnExit?.Invoke();
+        VisitorManager.SetInput(false);
+        await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
+        VisitorManager.OnVisitor?.Invoke();
     }
 
     public override async UniTask ExaminationNg()
     {
         Debug.LogWarning("NGで物をぶつける");
-        _visitorManager.OnThingThrow?.Invoke();
-        await UniTask.Delay(2000);
-        _visitorManager.OnExit?.Invoke();
-        _visitorManager.SetInput(false);
-        await UniTask.Delay(2000);
-        _visitorManager.OnVisitor?.Invoke();
+        VisitorManager.OnThingThrow?.Invoke();
+        await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
+        VisitorManager.OnExit?.Invoke();
+        VisitorManager.SetInput(false);
+        await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
+        VisitorManager.OnVisitor?.Invoke();
     }
 
     public override async UniTask ExaminationNeglect()
     {
         Debug.LogWarning("放置で物をぶつける");
-        _visitorManager.OnThingThrow?.Invoke();
-        await UniTask.Delay(2000);
-        _visitorManager.OnExit?.Invoke();
-        _visitorManager.SetInput(false);
-        await UniTask.Delay(2000);
-        _visitorManager.OnVisitor?.Invoke();
+        VisitorManager.OnThingThrow?.Invoke();
+        await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
+        VisitorManager.OnExit?.Invoke();
+        VisitorManager.SetInput(false);
+        await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
+        VisitorManager.OnVisitor?.Invoke();
     }
 
     public override async UniTask ExaminationBlockade()
     {
         Debug.LogWarning("封鎖で物をぶつける");
-        _visitorManager.OnThingThrow?.Invoke();
-        await UniTask.Delay(2000);
-        _visitorManager.OnExit?.Invoke();
-        _visitorManager.SetInput(false);
-        await UniTask.Delay(2000);
-        _visitorManager.OnVisitor?.Invoke();
+        VisitorManager.OnThingThrow?.Invoke();
+        await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
+        VisitorManager.OnExit?.Invoke();
+        VisitorManager.SetInput(false);
+        await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
+        VisitorManager.OnVisitor?.Invoke();
     }
     
     public override void Exit()
     {
-        _visitorManager.OnExit?.Invoke();
-        _visitorManager.SetInput(false);
+        VisitorManager.OnExit?.Invoke();
+        VisitorManager.SetInput(false);
     }
 }

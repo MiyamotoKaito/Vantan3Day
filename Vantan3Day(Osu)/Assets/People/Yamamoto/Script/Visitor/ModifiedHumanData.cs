@@ -7,11 +7,12 @@ using Cysharp.Threading.Tasks;
 [CreateAssetMenu(menuName = "ModifiedHumanData")]
 public class ModifiedHumanData : VisitorBaseData
 {
-    public override async UniTask Visit(VisitorManager manager)
+    public override async UniTask Visit(VisitorManager manager, float time)
     {
-        _visitorManager = manager;
-        _visitorManager.VisitorAwaitSet();
-        _visitorManager.OnEntry?.Invoke();
+        VisitorManager = manager;
+        AwaitTime = time;
+        VisitorManager.VisitorAwaitSet();
+        VisitorManager.OnEntry?.Invoke();
     }
     
     public override async UniTask ExaminationOk()
@@ -36,6 +37,6 @@ public class ModifiedHumanData : VisitorBaseData
 
     public override void Exit()
     {
-        _visitorManager.OnExit?.Invoke();
+        VisitorManager.OnExit?.Invoke();
     }
 }
