@@ -16,9 +16,11 @@ public class ArmMover : MonoBehaviour
     /// </summary>
     public bool IsRightHand { get; set; } = true;
 
-    [SerializeField] private PlayerConfig _playerConfig; // 手の移動範囲などを保持する ScriptableObject
-    [SerializeField] private Camera _camera; // 使用するカメラ（未設定時は Camera.main を使用）
-    [SerializeField] private float _angleOffset = 0f; // スプライトの向き補正（度数）
+    [SerializeField] private PlayerConfig _playerConfig;
+    [SerializeField] private Camera _camera;
+    [SerializeField] private float _angleOffset = -90f;
+    [SerializeField] private GameObject _rigthTarget;
+    [SerializeField] private GameObject _leftTarget;
 
     public void OnChange()
     {
@@ -70,19 +72,25 @@ public class ArmMover : MonoBehaviour
 
     private void ArmMove()
     {
+        if (CurrentArm == null || CurrentHand == null)
+            return;
+
         var armTransform = CurrentArm.transform;
-        // ワールド空間で手への方向ベクトルを計算
-        var dirWorld = CurrentHand.transform.position - armTransform.position;
-        if (dirWorld.sqrMagnitude < 0.0001f)
-            return; // ほとんど重なっている場合は回転不要
+        var handTransform = CurrentHand.transform;
 
-        // 親のローカル空間へ変換してから角度を求める（親の回転を考慮するため）
-        Vector3 dirLocal = armTransform.parent != null ? armTransform.parent.InverseTransformDirection(dirWorld) : dirWorld;
+        var target = IsRightHand ? _rigthTarget : _leftTarget;
+        if (target == null)
+            return;
 
-        // 2D 回転（Z 軸）の角度を計算しオフセットを適用
-        var angle = Mathf.Atan2(dirLocal.y, dirLocal.x) * Mathf.Rad2Deg + _angleOffset - 90f;
+        // arm は hand の子になっている想定。
+        // 手基準のローカル座標で、arm の根元位置からターゲット位置へのベクトルを計算し角度を求める。
+        var targetLocal = handTransform.InverseTransformPoint(target.transform.position);
+        var armLocalPos = armTransform.localPosition; // arm のローカル位置（手基準）
+        var dirLocal = targetLocal - armLocalPos;
+        if (dirLocal.sqrMagnitude < 0.0001f)
+            return;
 
-        // ローカル Z 回転を適用
+        var angle = Mathf.Atan2(dirLocal.y, dirLocal.x) * Mathf.Rad2Deg + _angleOffset;
         armTransform.localRotation = Quaternion.Euler(0f, 0f, angle);
     }
 }
