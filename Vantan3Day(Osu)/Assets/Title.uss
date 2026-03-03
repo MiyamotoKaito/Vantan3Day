@@ -1,0 +1,25 @@
+:root {
+}
+
+.title-button {
+    width: 420px;
+    height: 80px;
+    border-radius: 70px;
+    border-top-left-radius: 40px;
+    border-top-right-radius: 40px;
+    border-bottom-right-radius: 40px;
+    border-bottom-left-radius: 40px;
+    background-image: url("project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=-1304905567622442630&guid=86a03545247a4594cb8c83c89df84b30&type=3#arrow-down@2x");
+}
+
+.title-button:hover {
+    scale: 1 1;
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+    background-color: rgb(255, 17, 17);
+    transition-duration: 0s;
+    transition-timing-function: ease-in-out-bounce;
+    border-top-left-radius: 40px;
+    border-top-right-radius: 40px;
+    border-bottom-right-radius: 40px;
+    border-bottom-left-radius: 40px;
+}
