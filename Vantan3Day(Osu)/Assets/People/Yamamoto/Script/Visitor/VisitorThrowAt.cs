@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 using DG.Tweening;
+using Cy
 
 /// <summary>
 /// 来訪者がプレイヤーに物をぶつける処理

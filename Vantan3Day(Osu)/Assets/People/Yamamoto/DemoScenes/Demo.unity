@@ -279,7 +279,7 @@ MonoBehaviour:
   _entryPos: {fileID: 661069574}
   _exitPos: {fileID: 661804389}
   _animTime: 2
-  image: {fileID: 1753184636}
+  _visitorImage: {fileID: 0}
 --- !u!4 &1079117052
 Transform:
   m_ObjectHideFlags: 0
