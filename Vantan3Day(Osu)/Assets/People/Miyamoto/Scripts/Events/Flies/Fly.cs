@@ -1,8 +1,11 @@
 ﻿using System;
 using UnityEngine;
-
+/// <summary>
+/// ハエのクラス
+/// </summary>
 public class Fly : MonoBehaviour
 {
+    // ボタンに群がるハエの数が変更された時のイベント
     public event Action<int> FliesCountChanged;
     //private EmargencyButton _emargencyButton;
     [Header("ハエの動き")]
@@ -17,12 +20,14 @@ public class Fly : MonoBehaviour
     [Tooltip("ハエの上下の揺れの速さ")]
     private float _frequency;
 
+    //[SerializeField]
+    //private float 
     private int _direction = 1;
-    private float _startY;
+    private Vector2 _start;
     private void Start()
     {
         //_emargencyButton = FindObjectOfType<EmargencyButton>();
-        _startY = transform.position.y;
+        _start = transform.position;
     }
     private void Update()
     {
@@ -36,16 +41,22 @@ public class Fly : MonoBehaviour
         // ハエの横移動
         var x = transform.position.x + _speed * Time.deltaTime * _direction;
         // ハエの上下の揺れ
-        var y = _startY + Mathf.Sin(Time.time * _frequency) * _amplitude;
+        var y = _start.y + Mathf.Sin(Time.time * _frequency) * _amplitude;
         // ハエの位置を更新
         transform.position = new Vector3(x, y, 0);
     }
-    private void OnCollisionEnter2D(Collision2D other)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        // ハエが移動範囲の端に達したとき、方向を反転させる
-        if (other.gameObject.CompareTag("RangeOfMotion"))
+        if (collision.gameObject.CompareTag("RangeOfMotion"))
         {
-            _direction *= -1;
+            _direction *= -1; // 方向を反転
         }
+    }
+    /// <summary>
+    /// ハエを殺す
+    /// </summary>
+    public void Kill()
+    {
+        this.gameObject.SetActive(false);
     }
 }
