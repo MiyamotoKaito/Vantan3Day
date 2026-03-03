@@ -11,12 +11,19 @@ public class InGameManager : MonoBehaviour
     /// <summary>
     /// GameOver処理
     /// </summary>
-    public Action onGameOver;
+    public Action OnGameOver;
     
     private void Awake()
     {
-        if (Instance == null) Instance = this;
-        onGameOver += GameOver;
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
+        OnGameOver += GameOver;
     }
     
     /// <summary>

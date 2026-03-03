@@ -26,8 +26,8 @@ public class HumanVisitorData : VisitorBaseData
     public override async UniTask ExaminationOk()
     {
         Debug.LogWarning("通過");
-        VisitorManager.OnExit?.Invoke();
         VisitorManager.SetInput(false);
+        VisitorManager.OnExit?.Invoke();
         await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
         VisitorManager.OnVisitor?.Invoke();
     }
@@ -35,10 +35,10 @@ public class HumanVisitorData : VisitorBaseData
     public override async UniTask ExaminationNg()
     {
         Debug.LogWarning("NGで物をぶつける");
+        VisitorManager.SetInput(false);
         VisitorManager.OnThingThrow?.Invoke();
         await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
         VisitorManager.OnExit?.Invoke();
-        VisitorManager.SetInput(false);
         await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
         VisitorManager.OnVisitor?.Invoke();
     }
@@ -46,10 +46,10 @@ public class HumanVisitorData : VisitorBaseData
     public override async UniTask ExaminationNeglect()
     {
         Debug.LogWarning("放置で物をぶつける");
+        VisitorManager.SetInput(false);
         VisitorManager.OnThingThrow?.Invoke();
         await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
         VisitorManager.OnExit?.Invoke();
-        VisitorManager.SetInput(false);
         await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
         VisitorManager.OnVisitor?.Invoke();
     }
@@ -57,10 +57,10 @@ public class HumanVisitorData : VisitorBaseData
     public override async UniTask ExaminationBlockade()
     {
         Debug.LogWarning("封鎖で物をぶつける");
+        VisitorManager.SetInput(false);
         VisitorManager.OnThingThrow?.Invoke();
         await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
         VisitorManager.OnExit?.Invoke();
-        VisitorManager.SetInput(false);
         await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
         VisitorManager.OnVisitor?.Invoke();
     }

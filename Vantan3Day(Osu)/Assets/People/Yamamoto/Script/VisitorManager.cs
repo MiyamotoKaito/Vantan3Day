@@ -80,6 +80,7 @@ public class VisitorManager : MonoBehaviour
     /// </summary>
     private void VisitorGenerate()
     {
+        if(_visitors.Count == 0) return;
         var random = Random.Range(0, _visitors.Count);
         CurrentVisitor = _visitors[random];
         CurrentVisitor.Visit(this, _animTime);
