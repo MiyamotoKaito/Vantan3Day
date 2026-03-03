@@ -1,0 +1,22 @@
+:root {
+}
+
+.title {
+}
+
+.action-button:hover {
+    scale: 1 1;
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+    background-color: rgb(255, 17, 17);
+    transition-duration: 0s;
+    transition-timing-function: ease-in-out-bounce;
+}
+
+.action-button {
+    width: 140px;
+    height: 140px;
+    border-top-left-radius: 70px;
+    border-top-right-radius: 70px;
+    border-bottom-right-radius: 70px;
+    border-bottom-left-radius: 70px;
+}
