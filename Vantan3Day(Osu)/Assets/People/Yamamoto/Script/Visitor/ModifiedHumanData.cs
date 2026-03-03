@@ -1,0 +1,47 @@
+using System;
+using UnityEngine;
+using Cysharp.Threading.Tasks;
+
+/// <summary>
+/// 改造人間
+/// </summary>
+[CreateAssetMenu(menuName = "ModifiedHumanData")]
+public class ModifiedHumanData : VisitorBaseData
+{
+    public override async UniTask Visit(VisitorManager manager, float time)
+    {
+        VisitorManager = manager;
+        AwaitTime = time;
+        VisitorManager.VisitorAwaitSet();
+        await UniTask.Delay(1000);
+        VisitorManager.OnEntry?.Invoke();
+        await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
+        VisitorManager.SetInput(true);
+    }
+    
+    public override async UniTask ExaminationOk()
+    {
+        //TODO：妨害実行
+        InGameManager.Instance.OnGameOver?.Invoke();
+    }
+
+    public override async UniTask ExaminationNg()
+    {
+        //TODO：妨害実行
+        InGameManager.Instance.OnGameOver?.Invoke();
+    }
+
+    public override async UniTask ExaminationNeglect()
+    {
+        //TODO：妨害実行
+        InGameManager.Instance.OnGameOver?.Invoke();
+    }
+
+    public override async UniTask ExaminationBlockade()
+    {
+        VisitorManager.SetInput(false);
+        VisitorManager.OnExit?.Invoke();
+        await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
+        VisitorManager.OnVisitor?.Invoke();
+    }
+}
