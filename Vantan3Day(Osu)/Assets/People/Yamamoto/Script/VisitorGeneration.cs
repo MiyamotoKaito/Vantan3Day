@@ -14,4 +14,6 @@ public class VisitorGeneration : MonoBehaviour
     /// 現在の来訪者を保持
     /// </summary>
     public VisitorBaseData CurrentVisitor { get; private set; }
+    
+    
 }

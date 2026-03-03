@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 /// <summary>
@@ -8,6 +7,11 @@ public class ImmigrationInspection : MonoBehaviour
 {
     [Header("VisitorGeneration")] 
     [SerializeField] private VisitorGeneration _visitorGeneration;
+    
+    /// <summary>
+    /// 入力した審査の結果
+    /// </summary>
+    private ExaminationType _examinationType;
 
     private void Update()
     {
@@ -21,19 +25,29 @@ public class ImmigrationInspection : MonoBehaviour
     {
         //TODO：仮の入力を実装
         //TODO：のちに、InputSystemで対応させる
+        //TODO：Q：OK　W：NG　E：放置　R：封鎖
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            
+            _examinationType = ExaminationType.Ok;
+            Debug.LogWarning(_examinationType + "OK");
         }
 
         if (Input.GetKeyDown(KeyCode.W))
         {
-            
+            _examinationType = ExaminationType.Ng;
+            Debug.LogWarning(_examinationType + "NG");
         }
 
         if (Input.GetKeyDown(KeyCode.E))
         {
-            
+            _examinationType = ExaminationType.Neglect;
+            Debug.LogWarning(_examinationType + "放置");
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            _examinationType = ExaminationType.Blockade;
+            Debug.LogWarning(_examinationType + "封鎖");
         }
     }
     
@@ -42,6 +56,7 @@ public class ImmigrationInspection : MonoBehaviour
     /// </summary>
     private void ExaminationJudgment()
     {
+        /*
         var data = _visitorGeneration.CurrentVisitor.VisitorType;
         switch (data)
         {
@@ -52,5 +67,8 @@ public class ImmigrationInspection : MonoBehaviour
             case VisitorType.ArtificialHuman:
                 break;
         }
+        */
+        
+        //TODO：ここで入力に応じた審査処理を来訪者データから呼び出す
     }
 }
