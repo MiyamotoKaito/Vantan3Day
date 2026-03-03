@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Rendering;
 /// <summary>
 /// ハエのクラス
 /// </summary>
@@ -19,11 +20,19 @@ public class Fly : MonoBehaviour
     [SerializeField]
     [Tooltip("ハエの上下の揺れの速さ")]
     private float _frequency;
-
-    //[SerializeField]
-    //private float 
     private int _direction = 1;
+
+    [Header("目標設定")]
+    [SerializeField]
+    [Tooltip("ハエの群がる場所")]
+    private GameObject[] Goals;
+    [SerializeField]
+    [Tooltip("ハエが標的を定めるまでの時間")]
+    private float _waitTime;
+
+    private GameObject _currentGoal;
     private Vector2 _start;
+    private float _time;
     private void Start()
     {
         //_emargencyButton = FindObjectOfType<EmargencyButton>();
@@ -31,7 +40,14 @@ public class Fly : MonoBehaviour
     }
     private void Update()
     {
-        Move();
+        if (!GetGoal())
+        {
+            Move();
+            return;
+        }
+        this.transform.position = Vector2.MoveTowards(this.transform.position,
+            _currentGoal.transform.position,
+            _speed * Time.deltaTime);
     }
     /// <summary>
     /// ハエの挙動
@@ -51,6 +67,16 @@ public class Fly : MonoBehaviour
         {
             _direction *= -1; // 方向を反転
         }
+    }
+    private bool GetGoal()
+    {
+        _time += Time.deltaTime;
+        if (_time > _waitTime)
+        {
+            _currentGoal = Goals[UnityEngine.Random.Range(0, Goals.Length)];
+            return true;
+        }
+        return false;
     }
     /// <summary>
     /// ハエを殺す
