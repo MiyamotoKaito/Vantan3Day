@@ -14,7 +14,7 @@ public class ArmMover : MonoBehaviour
     /// <summary>
     ///  現在右手を操作しているか（初期値は右手）
     /// </summary>
-    public bool IsRightHand { get; set; } = true;
+    public bool IsRightHand { get; private set; } = true;
 
     [SerializeField] private PlayerConfig _playerConfig;
     [SerializeField] private Camera _camera;
@@ -82,7 +82,7 @@ public class ArmMover : MonoBehaviour
         if (target == null)
             return;
 
-        var targetVector= target.transform.position - armTransform.position;
+        var targetVector = target.transform.position - armTransform.position;
         CurrentArm.transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(targetVector.y, targetVector.x) * Mathf.Rad2Deg + _angleOffset);
     }
 }
