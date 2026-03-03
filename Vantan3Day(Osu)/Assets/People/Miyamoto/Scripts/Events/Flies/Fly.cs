@@ -37,6 +37,7 @@ public class Fly : MonoBehaviour
     {
         //_emargencyButton = FindObjectOfType<EmargencyButton>();
         _start = transform.position;
+
     }
     private void Update()
     {
@@ -48,6 +49,10 @@ public class Fly : MonoBehaviour
         this.transform.position = Vector2.MoveTowards(this.transform.position,
             _currentGoal.transform.position,
             _speed * Time.deltaTime);
+    }
+    public void Init(int direction)
+    {
+        _direction = direction;
     }
     /// <summary>
     /// ハエの挙動
@@ -61,16 +66,23 @@ public class Fly : MonoBehaviour
         // ハエの位置を更新
         transform.position = new Vector3(x, y, 0);
     }
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if (collision.gameObject.CompareTag("RangeOfMotion"))
+        if (other.CompareTag("RangeOfMotion"))
         {
             _direction *= -1; // 方向を反転
+            Debug.Log("ゴール");
+            FliesCountChanged?.Invoke(1);
         }
         //if (collision.gameObject.TryGetComponent<Player>(out var player))
         //{
-
+        //  FilesCountChanged?.Invoke(1);
         //}
+        else if (other.gameObject == _currentGoal)
+        {
+            Debug.Log("ゴール");
+            FliesCountChanged?.Invoke(1);
+        }
     }
     private bool GetGoal()
     {
