@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d10dab553e4c32419b14052bcd8307b, type: 3}
   m_Name: PlayerConfig
   m_EditorClassIdentifier: Assembly-CSharp::PlayerConfig
-  _armMinX: 0
-  _armMinY: 0
-  _armMaxX: 0
-  _armMaxY: 0
+  _rightHandMinX: -5
+  _rightHandMaxX: 15
+  _leftHandMinX: -15
+  _leftHandMaxX: 5
+  _handMinY: -3
+  _handMaxY: 0
