@@ -8,6 +8,9 @@ public class InGameManager : MonoBehaviour
 {
     public static InGameManager Instance;
     
+    [Header("GameOverUI")]
+    [SerializeField] private GameObject _gameOverUI;
+    
     /// <summary>
     /// GameOver処理
     /// </summary>
@@ -28,11 +31,10 @@ public class InGameManager : MonoBehaviour
     }
     
     /// <summary>
-    /// 仮のゲームオーバー処理
-    /// ゲームオーバー時に起こる処理の中身を記述
+    /// GameOver処理
     /// </summary>
     private void GameOver()
     {
-        Debug.LogWarning("ゲームオーバー");
+        _gameOverUI.SetActive(true);
     }
 }
