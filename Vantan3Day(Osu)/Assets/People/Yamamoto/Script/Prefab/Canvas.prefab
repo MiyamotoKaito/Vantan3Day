@@ -364,7 +364,7 @@ MonoBehaviour:
   _genePos: {fileID: 1033305125448887358}
   _thing:
   - {fileID: 6973354707901236384, guid: 42ed9bfb35374ff4ebefc1c74f84b057, type: 3}
-  _animTime: 1.5
+  _animTime: 0.5
   _enlargement: {x: 4, y: 4, z: 4}
 --- !u!1 &7325029720337614971
 GameObject:
