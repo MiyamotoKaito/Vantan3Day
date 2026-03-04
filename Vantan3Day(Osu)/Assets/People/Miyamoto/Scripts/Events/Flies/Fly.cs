@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
@@ -38,7 +39,6 @@ public class Fly : MonoBehaviour, IPointerClickHandler
     [SerializeField]
     [Tooltip("目的地到達後の横の揺れ幅")]
     private float _goalAmp;
-    private List<GoalObject> _goals = new();
     private GoalObject _currentGoal;
 
     private Vector2 _start;
@@ -69,17 +69,6 @@ public class Fly : MonoBehaviour, IPointerClickHandler
             MoveToGoal();
     }
     /// <summary>
-    /// ゴールを取得
-    /// </summary>
-    private void GetGoal()
-    {
-        var goals = GameObject.FindObjectsByType<GoalObject>(FindObjectsSortMode.None);
-        foreach (var goal in goals)
-        {
-            _goals.Add(goal);
-        }
-    }
-    /// <summary>
     /// 初期化
     /// </summary>
     /// <param name="direction"></param>
@@ -88,7 +77,6 @@ public class Fly : MonoBehaviour, IPointerClickHandler
         Debug.Log("ハエ生成");
         _direction = direction;
         transform.rotation = Quaternion.Euler(0f, _direction > 0f ? 180f : 0f, 0f);
-        GetGoal();
     }
     /// <summary>
     /// ハエの挙動
@@ -121,9 +109,21 @@ public class Fly : MonoBehaviour, IPointerClickHandler
         _time += Time.deltaTime;
         if (_time > _waitTime)
         {
-            _currentGoal = _goals[UnityEngine.Random.Range(0, _goals.Count)];
+            var goals = FindObjectsByType<GoalObject>(FindObjectsSortMode.None);
+
+            if (goals.Length <= 0) return;
+
+            _currentGoal = goals[UnityEngine.Random.Range(0, goals.Length)];
             _isGettingGoal = true;
             _time = 0f;
+            if (transform.rotation.y == 0 || transform.position.x < _currentGoal.Position.x)
+            {
+                Return();
+            }
+            else if (transform.rotation.y == 180 || transform.position.x > _currentGoal.Position.x)
+            {
+                Return();
+            }
         }
     }
     /// <summary>
@@ -135,7 +135,7 @@ public class Fly : MonoBehaviour, IPointerClickHandler
             return;
 
         this.transform.position = Vector2.MoveTowards(this.transform.position,
-                                                      _currentGoal.transform.position,
+                                                      _currentGoal.Position,
                                                       _speed * Time.deltaTime);
         CheckGoal();
     }
@@ -146,7 +146,7 @@ public class Fly : MonoBehaviour, IPointerClickHandler
     {
         if (!_isGoal)
         {
-            if (Vector2.Distance(this.transform.position, _currentGoal.transform.position) < _distance)
+            if (Vector2.Distance(this.transform.position, _currentGoal.Position) < _distance)
             {
                 _isGoal = true;
                 Patrol().Forget();
@@ -186,7 +186,7 @@ public class Fly : MonoBehaviour, IPointerClickHandler
     {
         while (_isGoal)
         {
-            var centerX = _currentGoal.transform.position.x;
+            var centerX = _currentGoal.Position.x;
             var currentX = transform.position.x;
 
             // 範囲外なら中心に向かって移動
@@ -195,7 +195,7 @@ public class Fly : MonoBehaviour, IPointerClickHandler
                 var dir = centerX > currentX ? 1 : -1;
                 var nextPos = Vector2.MoveTowards(
                     transform.position,
-                    _currentGoal.transform.position,
+                    _currentGoal.Position,
                     _speed * Time.deltaTime
                 );
                 transform.position = nextPos;

@@ -23,6 +23,7 @@ public class EmargencyButton : GoalObject, IPointerClickHandler
         // 当たったオブジェクトがアイテム且つY軸が上だったらボタンを押せるようにする
         if (other.TryGetComponent<Item>(out var item) && item.transform.position.y > transform.position.y)
         {
+            Debug.Log("GAMEOVER");
             ButtonPush().Forget();
         }
     }
