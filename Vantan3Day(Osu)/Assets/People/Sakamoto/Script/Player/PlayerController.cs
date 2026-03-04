@@ -49,6 +49,20 @@ public class PlayerController : MonoBehaviour
         _armMover.CurrentArm = _armMover.CurrentArm == _rightArm ? _leftArm : _rightArm;
     }
 
+    // ドロップ処理：現在選択中の手にあるアイテムをドロップさせる
+    public void DropFromActiveHand()
+    {
+        Debug.Log("DropFromActiveHand called");
+        var hand = IsRightHand ? _rightHand : _leftHand;
+        if (hand == null) return;
+
+        var item = hand.GetComponentInChildren<Item>();
+        if (item == null) return;
+
+        StartCoroutine(item.Drop());
+        Debug.Log("Item dropped from " + (IsRightHand ? "right" : "left") + " hand");
+    }
+
     private void OnChange()
     {
         if (IsRightHand) IsRightHand = false;

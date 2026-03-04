@@ -1,10 +1,12 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class Item : MonoBehaviour
 {
     public bool IsPickable { get; private set; } = true;
 
     [SerializeField] private string _handTag = "Hand";
+    [SerializeField] private float _dropDelay = 2f;
 
     private Collider2D _collider;
     private Rigidbody2D _rb;
@@ -15,11 +17,12 @@ public class Item : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
     }
 
-    public void Drop()
+    public IEnumerator Drop()
     {
         this.gameObject.transform.SetParent(null);
         _rb.bodyType = RigidbodyType2D.Dynamic;
         this._collider.enabled = true;
+        yield return new WaitForSeconds(_dropDelay);
         IsPickable = true;
     }
 
