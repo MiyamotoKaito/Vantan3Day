@@ -49,6 +49,8 @@ public class VisitorThrowAt : MonoBehaviour
     /// </summary>
     private void ToLaunch()
     {
-        _throwObj.transform.DOScale(_enlargement, _animTime);
+        var sq = DOTween.Sequence();
+        sq.Append(_throwObj.transform.DOScale(_enlargement, _animTime))
+            .Join(_throwObj.transform.DORotate(new Vector3(0, 0, 180), _animTime, RotateMode.WorldAxisAdd));
     }
 }

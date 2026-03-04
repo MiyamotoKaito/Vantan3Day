@@ -22,6 +22,7 @@ public class AliensVisitorData : VisitorBaseData
     public override async UniTask ExaminationOk()
     {
         Debug.LogWarning("妨害後、通過");
+        VisitorManager.SetNeglectTimeFlag(false);
         VisitorManager.SetInput(false);
         VisitorManager.OnExit?.Invoke();
         await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
@@ -31,8 +32,9 @@ public class AliensVisitorData : VisitorBaseData
     public override async UniTask ExaminationNg()
     {
         Debug.LogWarning("立ち去る");
+        VisitorManager.SetNeglectTimeFlag(false);
         VisitorManager.SetInput(false);
-        VisitorManager.OnExit?.Invoke();
+        VisitorManager.OnLeave?.Invoke();
         await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
         VisitorManager.OnVisitor?.Invoke();
     }
@@ -40,6 +42,7 @@ public class AliensVisitorData : VisitorBaseData
     public override async UniTask ExaminationNeglect()
     {
         Debug.LogWarning("妨害実行");
+        VisitorManager.SetNeglectTimeFlag(false);
         VisitorManager.SetInput(false);
         VisitorManager.OnExit?.Invoke();
         await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
@@ -49,6 +52,7 @@ public class AliensVisitorData : VisitorBaseData
     public override async UniTask ExaminationBlockade()
     {
         Debug.LogWarning("封鎖後、妨害を実行");
+        VisitorManager.SetNeglectTimeFlag(false);
         VisitorManager.SetInput(false);
         VisitorManager.OnExit?.Invoke();
         await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
