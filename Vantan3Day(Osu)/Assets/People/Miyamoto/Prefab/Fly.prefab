@@ -109,10 +109,9 @@ MonoBehaviour:
   _speed: 1
   _amplitude: 0.2
   _frequency: 2
-  Goals:
-  - {fileID: 5757462467460389680, guid: 269089c6a2f64fd42b330f272959e78c, type: 3}
-  - {fileID: 8409802084906188788, guid: 8d40d76c1ba37204689fdccdfbbed18a, type: 3}
   _waitTime: 10
+  _distance: 1
+  _goalAmp: 1
 --- !u!58 &746871047107867254
 CircleCollider2D:
   m_ObjectHideFlags: 0

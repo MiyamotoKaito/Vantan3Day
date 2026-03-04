@@ -451,6 +451,45 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &1057152176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1057152170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f18670f1100cbff43a6351d44f0cbd6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EmargencyButton
+--- !u!50 &1057152177
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1057152170}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &1350692480
 GameObject:
   m_ObjectHideFlags: 0
@@ -1005,6 +1044,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5757462467460389680, guid: 269089c6a2f64fd42b330f272959e78c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1057152173}
+    - targetCorrespondingSourceObject: {fileID: 5757462467460389680, guid: 269089c6a2f64fd42b330f272959e78c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1057152176}
+    - targetCorrespondingSourceObject: {fileID: 5757462467460389680, guid: 269089c6a2f64fd42b330f272959e78c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1057152177}
   m_SourcePrefab: {fileID: 100100000, guid: 269089c6a2f64fd42b330f272959e78c, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

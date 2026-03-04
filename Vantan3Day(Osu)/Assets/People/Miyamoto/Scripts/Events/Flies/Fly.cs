@@ -1,14 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.Rendering;
+using UnityEngine.EventSystems;
 /// <summary>
 /// ハエのクラス
 /// </summary>
-public class Fly : MonoBehaviour
+public class Fly : MonoBehaviour, IPointerClickHandler
 {
     // ボタンに群がるハエの数が変更された時のイベント
     public event Action<int> FliesCountChanged;
-    //private EmargencyButton _emargencyButton;
     [Header("ハエの動き")]
     [SerializeField]
     [Tooltip("ハエの飛び回る速さ")]
@@ -24,37 +26,64 @@ public class Fly : MonoBehaviour
 
     [Header("目標設定")]
     [SerializeField]
-    [Tooltip("ハエの群がる場所")]
-    private GameObject[] Goals;
-    [SerializeField]
     [Tooltip("ハエが標的を定めるまでの時間")]
     private float _waitTime;
+    [SerializeField]
+    [Tooltip("目的に到達可能域までの距離")]
+    private float _distance;
+    [SerializeField]
+    [Tooltip("目的地到達後の横の揺れ幅")]
+    private float _goalAmp;
+    private List<GoalObject> _goals = new();
+    private GoalObject _currentGoal;
 
-    private GameObject _currentGoal;
     private Vector2 _start;
     private float _time;
-    private bool _isGettingGoal = false;
+    private bool _isGettingGoal;
+    private bool _isGoal;
+    private bool _isReturn;
+
+    private CancellationTokenSource _cts;
     private void Start()
     {
-        //_emargencyButton = FindObjectOfType<EmargencyButton>();
         _start = transform.position;
-
+        _cts = new CancellationTokenSource();
     }
     private void Update()
     {
-        if (!_isGettingGoal)
+        if (_isReturn) return;
+
+        // 上を徘徊
+        if (!_isGettingGoal && !_isGoal)
         {
             Move();
-            GetGoal();
+            SetGoal();
             return;
         }
-        this.transform.position = Vector2.MoveTowards(this.transform.position,
-            _currentGoal.transform.position,
-            _speed * Time.deltaTime);
+        // Patrol中はMoveToGoalを呼ばない
+        if (!_isGoal)
+            MoveToGoal();
     }
+    /// <summary>
+    /// ゴールを取得
+    /// </summary>
+    private void GetGoal()
+    {
+        var goals = GameObject.FindObjectsByType<GoalObject>(FindObjectsSortMode.None);
+        foreach (var goal in goals)
+        {
+            _goals.Add(goal);
+        }
+    }
+    /// <summary>
+    /// 初期化
+    /// </summary>
+    /// <param name="direction"></param>
     public void Init(int direction)
     {
+        Debug.Log("ハエ生成");
         _direction = direction;
+        GetGoal();
     }
     /// <summary>
     /// ハエの挙動
@@ -72,28 +101,136 @@ public class Fly : MonoBehaviour
     {
         if (other.CompareTag("RangeOfMotion"))
         {
-            _direction *= -1; // 方向を反転
+            Return(); // 方向を反転
         }
-        if (other.gameObject.TryGetComponent<ArmMover>(out var player))
+        if (other.gameObject.TryGetComponent<EmargencyButton>(out var button))
         {
             FliesCountChanged?.Invoke(1);
         }
     }
-    private void GetGoal()
+    /// <summary>
+    /// ゴールをセット
+    /// </summary>
+    private void SetGoal()
     {
         _time += Time.deltaTime;
         if (_time > _waitTime)
         {
-            _currentGoal = Goals[UnityEngine.Random.Range(0, Goals.Length)];
+            _currentGoal = _goals[UnityEngine.Random.Range(0, _goals.Count)];
             _isGettingGoal = true;
             _time = 0f;
         }
     }
     /// <summary>
+    /// ゴールに向かって動く
+    /// </summary>
+    private void MoveToGoal()
+    {
+        if (_isGoal)
+            return;
+
+        this.transform.position = Vector2.MoveTowards(this.transform.position,
+                                                      _currentGoal.transform.position,
+                                                      _speed * Time.deltaTime);
+        CheckGoal();
+    }
+    /// <summary>
+    /// ゴールに到達したかチェック
+    /// </summary>
+    private void CheckGoal()
+    {
+        if (!_isGoal)
+        {
+            if (Vector2.Distance(this.transform.position, _currentGoal.transform.position) < _distance)
+            {
+                _isGoal = true;
+                Patrol().Forget();
+            }
+        }
+    }
+    /// <summary>
     /// ハエを殺す
     /// </summary>
-    public void Kill()
+    private void Kill()
     {
         this.gameObject.SetActive(false);
+    }
+    /// <summary>
+    /// 腕についていて振り払われた時に呼び出すメソッド
+    /// </summary>
+    public void Return()
+    {
+        _direction *= -1;
+    }
+    /// <summary>
+    /// 上に戻る
+    /// </summary>
+    private void ReturnToHigh()
+    {
+        _isGoal = false;
+        _isReturn = true;
+        MoveToHigh().Forget();
+    }
+    /// <summary>
+    /// 目的地付近で徘徊する
+    /// </summary>
+    /// <returns></returns>
+    private async UniTask Patrol()
+    {
+        var centerX = _currentGoal.transform.position.x;
+
+        // 開始時にcenterXから_amplitude以内に補正
+        var startX = Mathf.Clamp(transform.position.x, centerX - _goalAmp, centerX + _goalAmp);
+        transform.position = new Vector3(startX, transform.position.y, 0);
+
+        while (_isGoal)
+        {
+            var nextX = transform.position.x + _speed * Time.deltaTime * _direction;
+
+            if (Mathf.Abs(nextX - centerX) >= _goalAmp)
+            {
+                Return();
+            }
+
+            transform.position = new Vector3(transform.position.x + _speed * Time.deltaTime * _direction, transform.position.y, 0);
+            await UniTask.Yield(PlayerLoopTiming.Update, _cts.Token);
+        }
+    }
+    /// <summary>
+    /// 上に向かって動く処理
+    /// </summary>
+    /// <returns></returns>
+    private async UniTask MoveToHigh()
+    {
+        Debug.Log($"MoveToHigh開始 現在地:{transform.position} 目標:{_start}");
+        Vector2 currentPos = transform.position;
+        while (true)
+        {
+            currentPos = Vector2.MoveTowards(currentPos, _start, _speed * Time.deltaTime);
+            transform.position = currentPos;
+            await UniTask.Yield(PlayerLoopTiming.Update, _cts.Token);
+
+            if (Vector2.Distance(currentPos, _start) < 0.01f)
+            {
+                Debug.Log("到着");
+                break;
+            }
+        }
+        _isReturn = false;
+        _isGoal = false;
+        _isGettingGoal = false;
+        Debug.Log("フラグリセット完了");
+    }
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (_isGettingGoal)
+        {
+            ReturnToHigh();
+        }
+    }
+    private void OnDestroy()
+    {
+        _cts?.Cancel();
+        _cts?.Dispose();
     }
 }

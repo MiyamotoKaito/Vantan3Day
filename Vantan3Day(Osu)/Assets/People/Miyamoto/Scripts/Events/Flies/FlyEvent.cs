@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+[System.Serializable]
 public class FlyEvent : IEvent
 {
     [Header("ハエ")]

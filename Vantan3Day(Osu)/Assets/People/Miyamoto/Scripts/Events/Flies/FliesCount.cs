@@ -6,11 +6,11 @@ public class FliesCount : IDisposable
 {
     private int _count;
     private List<Fly> _flies = new List<Fly>();
-    //private EmargencyButton _emargencyButton;
-    public FliesCount()
+    private EmargencyButton _emargencyButton;
+    public FliesCount(EmargencyButton button)
     {
         _count = 0;
-        //_emargencyButton = emargencyButton;
+        _emargencyButton = button;
     }
     /// <summary>
     /// 
@@ -27,10 +27,10 @@ public class FliesCount : IDisposable
     private void FliesCountChanged(int value)
     {
         _count += value;
-        Debug.Log($"ハエのがボタンを押した");
+
         if (_count <= 3)
         {
-
+            Debug.Log($"ハエがボタンを押した");
         }
     }
 

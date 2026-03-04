@@ -6,6 +6,7 @@ using UnityEngine;
 /// <summary>
 ///　配達イベント
 /// </summary>
+[Serializable]
 public class DeliveryEvent : IEvent
 {
     /// <summary>
