@@ -14,10 +14,16 @@ public class PlayerController : GoalObject
     ///  ハエが手にいる状態。
     /// </summary>
     public bool IsFlying { get; private set; } = false;
+
     /// <summary>
-    /// OkボタンNGボタンを押すイベント
+    /// OkボタンNGボタンを押すイベント。
     /// </summary>
     public event Action<ExaminationType> ButtonPressed;
+
+    /// <summary>
+    /// 荷物をすでに持っているかどうか。
+    /// </summary>
+    public bool IsPickUped => _isPickUped;
 
     [SerializeField] private GameObject _rightHand;
     [SerializeField] private GameObject _rightArm;
@@ -32,6 +38,7 @@ public class PlayerController : GoalObject
     private ArmMover _armMover;
     private DropAction _dropAction;
     private Interacter _interacter;
+    private bool _isPickUped = false;
 
     public void Init(InputBuffer inputBuffer)
     {
@@ -85,6 +92,7 @@ public class PlayerController : GoalObject
     public void PickUp()
     {
         _currentRenderer.sprite = _pushRenderer;
+        _isPickUped = true;
     }
 
     // ドロップ処理：現在選択中の手にあるアイテムをドロップさせる
@@ -99,6 +107,7 @@ public class PlayerController : GoalObject
         if (!IsRightHand)
             _currentRenderer.sprite = _idleRenderer;
         StartCoroutine(item.Drop());
+        _isPickUped = false;
     }
 
     public void InteractFromActiveHand()

@@ -36,6 +36,8 @@ public class Item : MonoBehaviour
             return;
         // 衝突したオブジェクトから Arm を探す（親方向と子方向の両方をチェック）
         var arm = collision.GetComponentInParent<Arm>() ?? collision.GetComponentInChildren<Arm>();
+        //荷物を持っていたら弾く。
+        if (arm.PlayerController.IsPickUped) return;
         if (arm == null)
         {
             Debug.Log("Item.OnTriggerEnter2D: Arm component not found on collided object " + collision.gameObject.name + ". Allowing pickup by default.");
