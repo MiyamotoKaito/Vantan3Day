@@ -60,8 +60,7 @@ public class ImmigrationInspection : MonoBehaviour
         _neglectText.text = _neglectTimer.ToString("0.0");
         if (_neglectTimer <= 0) //放置処理の実行
         {
-            //TODO：ここでゲームオーバー処理を行う
-            
+            visitor.ExaminationNeglect();
             
             _neglectTimer = 0;
             _visitorManager.SetNeglectTimeFlag(false);
