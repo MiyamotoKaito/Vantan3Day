@@ -29,6 +29,8 @@ public class DropAction : MonoBehaviour
         if (_playerController == null)
             _playerController = GetComponent<PlayerController>();
 
+        if (_playerController.IsFlying) return; // 飛行中はドロップできない
+
         _playerController?.DropFromActiveHand();
     } 
 }

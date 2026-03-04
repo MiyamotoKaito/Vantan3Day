@@ -26,10 +26,14 @@ public class Item : MonoBehaviour
         IsPickable = true;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag(_handTag) && IsPickable)
         {
+            if (TryGetComponent(out PlayerController playerController) && IsPickable)
+            {
+                if (playerController.IsFlying) return; // 飛行中は拾えない
+            }
             this.gameObject.transform.SetParent(collision.gameObject.transform);
             this.gameObject.transform.localPosition = Vector3.zero;
             _rb.bodyType = RigidbodyType2D.Kinematic;

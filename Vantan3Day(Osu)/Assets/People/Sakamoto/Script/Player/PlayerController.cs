@@ -8,6 +8,11 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     public bool IsRightHand { get; private set; } = true;
 
+    /// <summary>
+    ///  ハエが手にいる状態。
+    /// </summary>
+    public bool IsFlying { get; private set; } = false;
+
     [SerializeField] private GameObject _rightHand;
     [SerializeField] private GameObject _rightArm;
     [SerializeField] private GameObject _leftHand;
@@ -52,7 +57,6 @@ public class PlayerController : MonoBehaviour
     // ドロップ処理：現在選択中の手にあるアイテムをドロップさせる
     public void DropFromActiveHand()
     {
-        Debug.Log("DropFromActiveHand called");
         var hand = IsRightHand ? _rightHand : _leftHand;
         if (hand == null) return;
 
@@ -60,7 +64,6 @@ public class PlayerController : MonoBehaviour
         if (item == null) return;
 
         StartCoroutine(item.Drop());
-        Debug.Log("Item dropped from " + (IsRightHand ? "right" : "left") + " hand");
     }
 
     private void OnChange()
