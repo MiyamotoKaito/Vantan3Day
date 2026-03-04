@@ -98,7 +98,13 @@ public class PlayerController : MonoBehaviour
             if (hit.collider != null)
             {
                 Debug.Log("クリックした: " + hit.collider.name);
-                if(hit.collider.TryGetComponent<IPointerClickHandler>(out var clickHandler))
+                // 右手に当たったクリックは無視する
+                var arm = hit.collider.GetComponentInParent<Arm>();
+                if (arm != null && arm.IsRightArm)
+                {
+                    Debug.Log("右手のクリックは無視します: " + hit.collider.name);
+                }
+                else if (hit.collider.TryGetComponent<IPointerClickHandler>(out var clickHandler))
                 {
                     clickHandler.OnPointerClick(null);
                 }

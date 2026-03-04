@@ -1003,6 +1003,7 @@ MonoBehaviour:
   _currentRenderer: {fileID: 1884507339}
   _startRenderer: {fileID: -1972518800041915616, guid: 0e4c3f6a45351b7489f7764044606518, type: 3}
   _endRenderer: {fileID: -2235998516134044220, guid: c9f011269fd25b447be848e29a8b54e9, type: 3}
+  _openRenderer: {fileID: -5510674743022067618, guid: 8ec3514c59d460049b45952b33f47427, type: 3}
   _animator: {fileID: 0}
 --- !u!212 &1884507339
 SpriteRenderer:
