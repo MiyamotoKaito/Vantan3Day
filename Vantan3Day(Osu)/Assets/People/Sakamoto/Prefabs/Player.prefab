@@ -54,7 +54,7 @@ MonoBehaviour:
   _currentRenderer: {fileID: 0}
   _idleRenderer: {fileID: 2882049016101181721, guid: 4399e24a1f81e984597e312e36af5e73, type: 3}
   _pushRenderer: {fileID: -1471352497108970364, guid: 8cb489376042fa841b64173d42c7ec71, type: 3}
-  arms:
+  _arms:
   - {fileID: 0}
   - {fileID: 0}
 --- !u!114 &3246035062808394917
@@ -70,6 +70,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ArmMover
   CurrentHand: {fileID: 0}
+  PreviousHand: {fileID: 0}
   CurrentArm: {fileID: 0}
   _playerConfig: {fileID: 11400000, guid: f040abbdfc59c894f8058dfb7b9f410c, type: 2}
   _camera: {fileID: 0}
