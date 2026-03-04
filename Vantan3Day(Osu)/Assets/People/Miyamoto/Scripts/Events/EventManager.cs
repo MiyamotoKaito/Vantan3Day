@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using NUnit.Framework;
 using UnityEngine;
 
 public class EventManager : MonoBehaviour
@@ -11,40 +13,20 @@ public class EventManager : MonoBehaviour
     private FliesCount _fliesCount;
     private float time = 0;
 
-    [Header("ハエ")]
-    [SerializeField]
-    private GameObject _fly;
-    [SerializeField]
-    private Vector3[] _initPos;
+    [SerializeReference, SubclassSelector]
+    private List<IEvent> _event;
 
     private void Awake()
-    {
-
-    }
-    private void Start()
     {
         _fliesCount = new FliesCount();
     }
     private void Update()
     {
-         time += Time.deltaTime;
+        time += Time.deltaTime;
         if (time > _interval)
         {
-            OnEvent();
+            _event[UnityEngine.Random.Range(0, _event.Count)].OnEvent(this);
             time = 0;
         }
-    }
-
-    private void OnEvent()
-    {
-        GenerateFly();
-    }
-
-    private void GenerateFly()
-    {
-      var obj = Instantiate(_fly, _initPos[UnityEngine.Random.Range(0, _initPos.Length)], Quaternion.identity);
-        obj.TryGetComponent<Fly>(out var fly);
-        fly.Init(UnityEngine.Random.Range(0, 2) == 0 ? -1 : 1);
-        _fliesCount.Register(fly);
     }
 }
