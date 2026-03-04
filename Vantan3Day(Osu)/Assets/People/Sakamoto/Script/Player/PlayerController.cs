@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
@@ -17,6 +18,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject _rightArm;
     [SerializeField] private GameObject _leftHand;
     [SerializeField] private GameObject _leftArm;
+    [SerializeField] private SpriteRenderer _currentRenderer;
+    [SerializeField] private Sprite _idleRenderer;
+    [SerializeField] private Sprite _pushRenderer;
+    [SerializeField] private Arm[] arms;
 
     private InputBuffer _inputBuffer;
     private ArmMover _armMover;
@@ -34,7 +39,10 @@ public class PlayerController : MonoBehaviour
         _armMover.Init();
         _dropAction.Init(inputBuffer);
         _interacter.Init(inputBuffer);
+        foreach (Arm arm in arms) arm.Init(this);
         RegistAction();
+        IsRightHand = true;
+        IsFlying = false;
     }
 
     private void OnDestroy()
@@ -57,6 +65,11 @@ public class PlayerController : MonoBehaviour
         _armMover.CurrentArm = _armMover.CurrentArm == _rightArm ? _leftArm : _rightArm;
     }
 
+    public void PickUp()
+    {
+        _currentRenderer.sprite = _pushRenderer;
+    }
+
     // ドロップ処理：現在選択中の手にあるアイテムをドロップさせる
     public void DropFromActiveHand()
     {
@@ -66,6 +79,8 @@ public class PlayerController : MonoBehaviour
         var item = hand.GetComponentInChildren<Item>();
         if (item == null) return;
 
+        if (!IsRightHand)
+            _currentRenderer.sprite = _idleRenderer;
         StartCoroutine(item.Drop());
     }
 
@@ -74,8 +89,18 @@ public class PlayerController : MonoBehaviour
         var hand = IsRightHand ? _rightHand : _leftHand;
         if (hand == null) return;
 
+        //手にあるアイテムを取得
         var item = hand.GetComponentInChildren<Item>();
-        if (item == null) return;
+        if (item == null)
+        {
+            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
+            if (hit.collider != null)
+            {
+                Debug.Log("クリックした: " + hit.collider.name);
+                hit.collider.GetComponent<IPointerClickHandler>()?.OnPointerClick(null);
+            }
+        }
 
         //itemにある処理を呼び出す（インタラクト）
     }
