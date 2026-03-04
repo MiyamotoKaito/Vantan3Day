@@ -22,25 +22,33 @@ public class ModifiedHumanData : VisitorBaseData
     public override async UniTask ExaminationOk()
     {
         //TODO：妨害実行
-        InGameManager.Instance.OnGameOver?.Invoke();
+        var ob = new CompulsoryGameOver();
+        ob.ObstructionExecution();
+        VisitorManager.SetNeglectTimeFlag(false);
     }
 
     public override async UniTask ExaminationNg()
     {
         //TODO：妨害実行
-        InGameManager.Instance.OnGameOver?.Invoke();
+        var ob = new CompulsoryGameOver();
+        ob.ObstructionExecution();
+        VisitorManager.SetNeglectTimeFlag(false);
     }
 
     public override async UniTask ExaminationNeglect()
     {
         //TODO：妨害実行
-        InGameManager.Instance.OnGameOver?.Invoke();
+        var ob = new CompulsoryGameOver();
+        ob.ObstructionExecution();
+        VisitorManager.SetNeglectTimeFlag(false);
     }
 
     public override async UniTask ExaminationBlockade()
     {
+        Debug.LogWarning("立ち去る");
+        VisitorManager.SetNeglectTimeFlag(false);
         VisitorManager.SetInput(false);
-        VisitorManager.OnExit?.Invoke();
+        VisitorManager.OnLeave?.Invoke();
         await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
         VisitorManager.OnVisitor?.Invoke();
     }

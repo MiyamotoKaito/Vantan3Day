@@ -9,8 +9,6 @@ public enum ExaminationType
     Ok,
     [InspectorName("NG印")]
     Ng,
-    [InspectorName("放置")]
-    Neglect,
     [InspectorName("封鎖")]
     Blockade
 }

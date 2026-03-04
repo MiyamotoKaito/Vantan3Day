@@ -8,9 +8,10 @@ using Cysharp.Threading.Tasks;
 [CreateAssetMenu(menuName = "HumanData")]
 public class HumanVisitorData : VisitorBaseData
 {
-    [Header("視界がぼやける時間")]
-    [SerializeField] private float _becomeBlurryTime;
-    public float BecomeBlurryTime => _becomeBlurryTime;
+    [Header("視界妨害のレベル")] 
+    [SerializeField] private ObstructionViewLevel _level;
+    [Header("視界妨害時間")]
+    [SerializeField] private float _obstructionViewTime;
     
     public override async UniTask Visit(VisitorManager manager, float time)
     {
@@ -26,6 +27,7 @@ public class HumanVisitorData : VisitorBaseData
     public override async UniTask ExaminationOk()
     {
         Debug.LogWarning("通過");
+        VisitorManager.SetNeglectTimeFlag(false);
         VisitorManager.SetInput(false);
         VisitorManager.OnExit?.Invoke();
         await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
@@ -35,7 +37,10 @@ public class HumanVisitorData : VisitorBaseData
     public override async UniTask ExaminationNg()
     {
         Debug.LogWarning("NGで物をぶつける");
+        VisitorManager.SetNeglectTimeFlag(false);
         VisitorManager.SetInput(false);
+        var ob = new BecomeBlurry(_obstructionViewTime, _level);
+        ob.ObstructionExecution();
         VisitorManager.OnThingThrow?.Invoke();
         await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
         VisitorManager.OnExit?.Invoke();
@@ -46,7 +51,10 @@ public class HumanVisitorData : VisitorBaseData
     public override async UniTask ExaminationNeglect()
     {
         Debug.LogWarning("放置で物をぶつける");
+        VisitorManager.SetNeglectTimeFlag(false);
         VisitorManager.SetInput(false);
+        var ob = new BecomeBlurry(_obstructionViewTime, _level);
+        ob.ObstructionExecution();
         VisitorManager.OnThingThrow?.Invoke();
         await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
         VisitorManager.OnExit?.Invoke();
@@ -57,7 +65,10 @@ public class HumanVisitorData : VisitorBaseData
     public override async UniTask ExaminationBlockade()
     {
         Debug.LogWarning("封鎖で物をぶつける");
+        VisitorManager.SetNeglectTimeFlag(false);
         VisitorManager.SetInput(false);
+        var ob = new BecomeBlurry(_obstructionViewTime, _level);
+        ob.ObstructionExecution();
         VisitorManager.OnThingThrow?.Invoke();
         await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
         VisitorManager.OnExit?.Invoke();

@@ -1,3 +1,5 @@
+using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -6,17 +8,72 @@ using UnityEngine.InputSystem;
 /// </summary>
 public class ImmigrationInspection : MonoBehaviour
 {
-    [Header("VisitorManager")] 
-    [SerializeField] private VisitorManager _visitorManager;
+    [Header("放置時間")]
+    [SerializeField] private float _neglectTime;
+    private float _neglectTimer; //放置時間のタイマー
+
+    [Header("放置時間のデバッグUI")] 
+    [SerializeField] private TextMeshProUGUI _neglectText;
+
+    /// <summary>
+    /// 入国審査
+    /// プレイヤーが呼び出す
+    /// </summary>
+    public Action<ExaminationType> OnExamination;
     
     /// <summary>
     /// 入力した審査の結果
     /// </summary>
     private ExaminationType _examinationType;
 
+    private VisitorManager _visitorManager;
+   
+    private void Awake()
+    {
+        _visitorManager = FindObjectOfType<VisitorManager>();
+        OnExamination += (type) =>
+        {
+            if (_visitorManager.IsExaminationInput)
+            {
+                ConductAnExamination(type);
+            }
+        };
+        _visitorManager.OnNeglectSet += SetNeglectTimer;
+        _visitorManager.OnNeglectSet?.Invoke();
+    }
+
     private void Update()
     {
+        NeglectTimeUpdate();
         ReviewInput();
+    }
+
+    /// <summary>
+    /// 放置タイマーの更新
+    /// </summary>
+    private void NeglectTimeUpdate()
+    {
+        var visitor = _visitorManager.CurrentVisitor;
+        if(visitor == null || !_visitorManager.IsNeglectTimeStart) return;
+        //タイマーを減算
+        _neglectTimer -= Time.deltaTime;
+        _neglectText.text = _neglectTimer.ToString("0.0");
+        if (_neglectTimer <= 0) //放置処理の実行
+        {
+            visitor.ExaminationNeglect();
+            
+            _neglectTimer = 0;
+            _visitorManager.SetNeglectTimeFlag(false);
+        }
+    }
+
+    /// <summary>
+    /// 放置タイマーの設定
+    /// </summary>
+    private void SetNeglectTimer()
+    {
+        _neglectTimer = _neglectTime;
+        _neglectText.text = _neglectTimer.ToString("0.0");
     }
 
     /// <summary>
@@ -24,53 +81,44 @@ public class ImmigrationInspection : MonoBehaviour
     /// </summary>
     private void ReviewInput()
     {
-        if(!_visitorManager.IsExaminationInput) return;
-        //TODO：Q：OK　W：NG　E：放置　R：封鎖
+        //TODO：ここはプレイヤーに処理が出来るまで、仮の入力を実装しておく
         if (Keyboard.current.qKey.wasPressedThisFrame)
         {
             _examinationType = ExaminationType.Ok;
-            ExaminationJudgment();
+            OnExamination?.Invoke(ExaminationType.Ok);
         }
 
         if (Keyboard.current.wKey.wasPressedThisFrame)
         {
             _examinationType = ExaminationType.Ng;
-            ExaminationJudgment();
-        }
-
-        if (Keyboard.current.eKey.wasPressedThisFrame)
-        {
-            _examinationType = ExaminationType.Neglect;
-            ExaminationJudgment();
+            OnExamination?.Invoke(ExaminationType.Ng);
         }
 
         if (Keyboard.current.rKey.wasPressedThisFrame)
         {
             _examinationType = ExaminationType.Blockade;
-            ExaminationJudgment();
+            OnExamination?.Invoke(ExaminationType.Blockade);
         }
     }
     
     /// <summary>
-    /// 審査の判定を行う
+    /// 審査内容の判定
     /// </summary>
-    private void ExaminationJudgment()
+    /// <param name="type">審査方法</param>
+    private void ConductAnExamination(ExaminationType type)
     {
-        //入力した審査
-        var visitorData = _visitorManager.CurrentVisitor;
-        switch (_examinationType)
+        var data = _visitorManager.CurrentVisitor;
+        if(data == null) return;
+        switch (type)
         {
             case ExaminationType.Ok:
-                visitorData.ExaminationOk();
+                data.ExaminationOk();
                 break;
             case ExaminationType.Ng:
-                visitorData.ExaminationNg();
-                break;
-            case ExaminationType.Neglect:
-                visitorData.ExaminationNeglect();
+                data.ExaminationNg();
                 break;
             case ExaminationType.Blockade:
-                visitorData.ExaminationBlockade();
+                data.ExaminationBlockade();
                 break;
         }
     }
