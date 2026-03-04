@@ -1,6 +1,5 @@
 ﻿using Cysharp.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class Arm : GoalObject
 {
@@ -74,6 +73,7 @@ public class Arm : GoalObject
             // Rigidbody2D.velocity can be zero if the arm is moved by transform.
             // Use measured local velocity instead.
             Debug.Log($"Arm collided with Fly. Measured velocity: {_vel.magnitude}");
+            _playerController.SetIsFly(IsActive && fly.IsArm);
             if (_vel.magnitude > _speed)
             {
                 fly.MoveToHigh().Forget();

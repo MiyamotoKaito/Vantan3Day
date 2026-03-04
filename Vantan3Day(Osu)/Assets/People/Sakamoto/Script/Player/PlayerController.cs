@@ -184,4 +184,9 @@ public class PlayerController : MonoBehaviour
         if (IsRightHand) IsRightHand = false;
         else IsRightHand = true;
     }
+
+    public void SetIsFly(bool isFlying)
+    {
+        IsFlying = isFlying;
+    }
 }
