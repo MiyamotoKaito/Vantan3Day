@@ -45,7 +45,7 @@ public class PlayerController : GoalObject
         _armMover.Init();
         _dropAction.Init(inputBuffer);
         _interacter.Init(inputBuffer);
-        foreach (Arm arm in arms) arm.Init(this);
+        foreach (Arm arm in arms) arm.Init(_armMover, this);
         RegistAction();
         IsRightHand = true;
         IsFlying = false;
