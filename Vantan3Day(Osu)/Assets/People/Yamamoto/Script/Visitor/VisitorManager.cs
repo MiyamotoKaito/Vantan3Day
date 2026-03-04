@@ -32,7 +32,7 @@ public class VisitorManager : MonoBehaviour
     [Header("来訪者Image")] 
     [SerializeField] private Image _visitorImage;
     [Header("来訪者情報カード")]
-    [SerializeField] private Image _visitorInfoCard;
+    [SerializeField] private SpriteRenderer _visitorInfoCard;
     /// <summary>
     /// 来訪者の設定
     /// 審査が終了後、呼び出す
@@ -140,7 +140,6 @@ public class VisitorManager : MonoBehaviour
     private void VisitorInfoCardSwitch(bool flag)
     {
         _visitorInfoCard.enabled = flag;
-        Debug.LogWarning(flag);
     }
 
     /// <summary>
