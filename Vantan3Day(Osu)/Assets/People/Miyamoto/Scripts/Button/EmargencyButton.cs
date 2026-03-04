@@ -17,12 +17,14 @@ public class EmargencyButton : GoalObject, IPointerClickHandler
     {
         _animator = GetComponent<Animator>();
         _pos = this.transform.position;
+        _isActiveObject = false;
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
         // 当たったオブジェクトがアイテム且つY軸が上だったらボタンを押せるようにする
         if (other.TryGetComponent<Item>(out var item) && item.transform.position.y > transform.position.y)
         {
+            Debug.Log("GAMEOVER");
             ButtonPush().Forget();
         }
     }
