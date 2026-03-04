@@ -568,12 +568,16 @@ PrefabInstance:
       objectReference: {fileID: 1753184636}
     - target: {fileID: 7449917105691346987, guid: d9d83f90d61ad12409e774c5a1c346c2, type: 3}
       propertyPath: _visitors.Array.size
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7449917105691346987, guid: d9d83f90d61ad12409e774c5a1c346c2, type: 3}
+      propertyPath: '_visitors.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 9dd1c42163cdf7c4fa265043e451769f, type: 2}
     - target: {fileID: 7449917105691346987, guid: d9d83f90d61ad12409e774c5a1c346c2, type: 3}
       propertyPath: '_visitors.Array.data[1]'
       value: 
-      objectReference: {fileID: 11400000, guid: 7e8c5216cca816c4abab16f9f83b242c, type: 2}
+      objectReference: {fileID: 11400000, guid: 9dd1c42163cdf7c4fa265043e451769f, type: 2}
     - target: {fileID: 7449917105691346987, guid: d9d83f90d61ad12409e774c5a1c346c2, type: 3}
       propertyPath: '_visitors.Array.data[2]'
       value: 

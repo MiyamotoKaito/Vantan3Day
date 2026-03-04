@@ -16,5 +16,5 @@ MonoBehaviour:
   _visitorType: 0
   VisitorManager: {fileID: 0}
   AwaitTime: 2
-  _level: 1
+  _level: 0
   _obstructionViewTime: 10
