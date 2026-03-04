@@ -25,6 +25,7 @@ public class AliensVisitorData : VisitorBaseData
         VisitorManager.SetNeglectTimeFlag(false);
         VisitorManager.SetInput(false);
         VisitorManager.VisitorFaceChange(GetFaceVariations(FaceVariationsType.Anger));
+        VisitorManager.OnBattely?.Invoke();
         VisitorManager.OnExit?.Invoke();
         await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
         VisitorManager.OnVisitor?.Invoke();
@@ -48,6 +49,7 @@ public class AliensVisitorData : VisitorBaseData
         VisitorManager.SetInput(false);
         VisitorManager.VisitorFaceChange(GetFaceVariations(FaceVariationsType.Anger));
         //VisitorManager.OnExit?.Invoke();
+        VisitorManager.OnBattely?.Invoke();
         VisitorManager.OnGoBack?.Invoke();
         await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
         VisitorManager.OnVisitor?.Invoke();
