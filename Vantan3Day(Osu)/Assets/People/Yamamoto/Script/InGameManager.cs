@@ -18,12 +18,13 @@ public class InGameManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
+            OnGameOver += GameOver;
         }
         else
         {
             Destroy(this);
+            OnGameOver -= GameOver;
         }
-        OnGameOver += GameOver;
     }
     
     /// <summary>
