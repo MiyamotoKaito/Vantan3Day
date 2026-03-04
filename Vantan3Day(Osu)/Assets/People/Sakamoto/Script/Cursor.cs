@@ -1,23 +1,24 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class Cursor : MonoBehaviour
+public class Cursor : MonoBehaviour, IPointerClickHandler
 {
-    [SerializeField] private GameObject _startRenderer;
-    [SerializeField] private GameObject _changeRenderer;
+    [SerializeField] private SpriteRenderer _currentRenderer;
+    [SerializeField] private Sprite _startRenderer;
+    [SerializeField] private Sprite _endRenderer;
+    [SerializeField] private Animator _animator;
 
     private void Start()
     {
-        _startRenderer.SetActive(true);
-        _changeRenderer.SetActive(false);
+        _currentRenderer.sprite = _startRenderer;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Hand"))
         {
-            _changeRenderer.SetActive(true);
-            _startRenderer.SetActive(false);
+            _currentRenderer.sprite = _endRenderer;
         }
     }
 
@@ -25,8 +26,14 @@ public class Cursor : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Hand"))
         {
-            _changeRenderer.SetActive(false);
-            _startRenderer.SetActive(true);
+            _currentRenderer.sprite = _startRenderer;
         }
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        _currentRenderer.sprite = null;
+        Debug.Log("Cursor.OnPointerClick: Clicked on cursor object " + gameObject.name);
+        //_animator.SetTrigger("Clicked");
     }
 }

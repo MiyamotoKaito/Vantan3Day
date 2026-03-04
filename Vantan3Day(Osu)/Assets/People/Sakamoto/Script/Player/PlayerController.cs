@@ -98,7 +98,10 @@ public class PlayerController : MonoBehaviour
             if (hit.collider != null)
             {
                 Debug.Log("クリックした: " + hit.collider.name);
-                hit.collider.GetComponent<IPointerClickHandler>()?.OnPointerClick(null);
+                if(hit.collider.TryGetComponent<IPointerClickHandler>(out var clickHandler))
+                {
+                    clickHandler.OnPointerClick(null);
+                }
             }
         }
 
