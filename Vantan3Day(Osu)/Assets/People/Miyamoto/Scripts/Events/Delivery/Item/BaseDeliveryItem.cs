@@ -8,8 +8,8 @@ public abstract class BaseDeliveryItem : MonoBehaviour, IDelivery, IPointerClick
 
     [SerializeField]
     protected DeliveryConfig _deliveryConfig;
-    [SerializeField]
-    protected GameObject _provider;
+    // [SerializeField]
+    // protected GameObject _provider;
     protected Animator _animator;
 
     public abstract void GetEffect();
