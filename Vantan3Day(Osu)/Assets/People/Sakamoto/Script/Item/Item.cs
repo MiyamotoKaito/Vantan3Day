@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using UnityEngine;
-
 public class Item : MonoBehaviour
 {
     public bool IsPickable { get; private set; } = true;
@@ -8,6 +7,7 @@ public class Item : MonoBehaviour
     [SerializeField] private PlayerController _plaeyrController;
     [SerializeField] private string _handTag = "Hand";
     [SerializeField] private float _dropDelay = 2f;
+    public ExaminationType type;
     private SpriteRenderer _spriteRenderer;
 
     private Collider2D _collider;
