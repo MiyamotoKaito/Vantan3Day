@@ -8,8 +8,12 @@ public class EventManager : MonoBehaviour
     [SerializeField]
     [Tooltip("イベントが起きるまでのインターバル")]
     private float _interval;
+    private float _time = 0;
+    [Header("ハエ")]
+    [SerializeField]
+    private int _maxFlyCount;
     private FliesCount _fliesCount;
-    private float time = 0;
+
     private EmargencyButton _button;
 
     [SerializeReference, SubclassSelector]
@@ -17,15 +21,16 @@ public class EventManager : MonoBehaviour
 
     private void Awake()
     {
-        _fliesCount = new FliesCount(_button);
+        _button = FindAnyObjectByType<EmargencyButton>();
+        _fliesCount = new FliesCount(_button, _maxFlyCount);
     }
     private void Update()
     {
-        time += Time.deltaTime;
-        if (time > _interval)
+        _time += Time.deltaTime;
+        if (_time > _interval)
         {
             _event[UnityEngine.Random.Range(0, _event.Count)].OnEvent(this);
-            time = 0;
+            _time = 0;
         }
     }
 }
