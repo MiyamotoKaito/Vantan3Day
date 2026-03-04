@@ -9,6 +9,8 @@ public class ArmMover : MonoBehaviour
     [HideInInspector]
     public GameObject CurrentHand;
     [HideInInspector]
+    public GameObject PreviousHand;
+    [HideInInspector]
     public GameObject CurrentArm;
 
     [SerializeField] private PlayerConfig _playerConfig;
