@@ -21,16 +21,19 @@ public class PlayerController : MonoBehaviour
     private InputBuffer _inputBuffer;
     private ArmMover _armMover;
     private DropAction _dropAction;
+    private Interacter _interacter;
 
     public void Init(InputBuffer inputBuffer)
     {
         _inputBuffer = inputBuffer;
         _armMover = GetComponent<ArmMover>();
         _dropAction = GetComponent<DropAction>();
+        _interacter = GetComponent<Interacter>();
         _armMover.CurrentHand = _armMover.CurrentHand != null ? _armMover.CurrentHand : _rightHand;
         _armMover.CurrentArm = _armMover.CurrentArm != null ? _armMover.CurrentArm : _rightArm;
         _armMover.Init();
         _dropAction.Init(inputBuffer);
+        _interacter.Init(inputBuffer);
         RegistAction();
     }
 
@@ -64,6 +67,17 @@ public class PlayerController : MonoBehaviour
         if (item == null) return;
 
         StartCoroutine(item.Drop());
+    }
+
+    public void InteractFromActiveHand()
+    {
+        var hand = IsRightHand ? _rightHand : _leftHand;
+        if (hand == null) return;
+
+        var item = hand.GetComponentInChildren<Item>();
+        if (item == null) return;
+
+        //itemにある処理を呼び出す（インタラクト）
     }
 
     private void OnChange()
