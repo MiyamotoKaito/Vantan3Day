@@ -17,7 +17,7 @@ public class Day : MonoBehaviour
     private void FinishDay()
     {
         _dayCount++;
-        SceneManager.LoadScene("UI");
+       SceneManager.Instance.OnSceneLoaded?.Invoke("UI");
         _timer.ResetTimer();
         Debug.Log("Day " + _dayCount);
     }
