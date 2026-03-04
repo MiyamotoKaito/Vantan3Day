@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
-public class PlayerController : GoalObject
+public class PlayerController : MonoBehaviour
 {
     /// <summary>
     /// 現在操作中の手が右手かどうか
@@ -183,10 +183,5 @@ public class PlayerController : GoalObject
     {
         if (IsRightHand) IsRightHand = false;
         else IsRightHand = true;
-    }
-
-    private void Update()
-    {
-        _pos = _armMover.PreviousHand.transform.position;
     }
 }
