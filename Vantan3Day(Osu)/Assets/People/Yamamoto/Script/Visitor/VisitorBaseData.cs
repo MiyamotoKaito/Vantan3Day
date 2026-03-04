@@ -1,6 +1,6 @@
+using System.Collections.Generic;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
-using UnityEngine.Serialization;
 
 /// <summary>
 /// 来訪者のベースデータ
@@ -11,12 +11,11 @@ public class VisitorBaseData : ScriptableObject
     [SerializeField] private Sprite _sprite;
     [Header("来訪者の種類")]
     [SerializeField] private VisitorType _visitorType;
+    [Header("来訪者の顔差分")]
+    [SerializeField] private List<FaceVariationsInfo> _sprites;
+    public List<FaceVariationsInfo> FaceVariations => _sprites;
     
     public Sprite Sprite => _sprite;
-    /// <summary>
-    /// 来訪者の種類
-    /// </summary>
-    public VisitorType VisitorType => _visitorType;
     
     [HideInInspector] public VisitorManager VisitorManager;
     [HideInInspector] public float AwaitTime;
@@ -47,4 +46,14 @@ public class VisitorBaseData : ScriptableObject
     /// 封鎖
     /// </summary>
     public virtual async UniTask ExaminationBlockade(){}
+
+    /// <summary>
+    /// 差分を取得する
+    /// </summary>
+    /// <returns>差分を返す</returns>
+    /// <param name="type">顔差分の種類</param>>
+    public virtual Sprite GetFaceVariations(FaceVariationsType type)
+    {
+        return null;
+    }
 }

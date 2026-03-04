@@ -24,6 +24,7 @@ public class AliensVisitorData : VisitorBaseData
         Debug.LogWarning("妨害後、通過");
         VisitorManager.SetNeglectTimeFlag(false);
         VisitorManager.SetInput(false);
+        VisitorManager.VisitorFaceChange(GetFaceVariations(FaceVariationsType.Anger));
         VisitorManager.OnExit?.Invoke();
         await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
         VisitorManager.OnVisitor?.Invoke();
@@ -34,7 +35,8 @@ public class AliensVisitorData : VisitorBaseData
         Debug.LogWarning("立ち去る");
         VisitorManager.SetNeglectTimeFlag(false);
         VisitorManager.SetInput(false);
-        VisitorManager.OnLeave?.Invoke();
+        //VisitorManager.OnLeave?.Invoke();
+        VisitorManager.OnGoBack?.Invoke();
         await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
         VisitorManager.OnVisitor?.Invoke();
     }
@@ -44,7 +46,9 @@ public class AliensVisitorData : VisitorBaseData
         Debug.LogWarning("妨害実行");
         VisitorManager.SetNeglectTimeFlag(false);
         VisitorManager.SetInput(false);
-        VisitorManager.OnExit?.Invoke();
+        VisitorManager.VisitorFaceChange(GetFaceVariations(FaceVariationsType.Anger));
+        //VisitorManager.OnExit?.Invoke();
+        VisitorManager.OnGoBack?.Invoke();
         await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
         VisitorManager.OnVisitor?.Invoke();
     }
@@ -54,8 +58,21 @@ public class AliensVisitorData : VisitorBaseData
         Debug.LogWarning("封鎖後、妨害を実行");
         VisitorManager.SetNeglectTimeFlag(false);
         VisitorManager.SetInput(false);
-        VisitorManager.OnExit?.Invoke();
+        VisitorManager.VisitorFaceChange(GetFaceVariations(FaceVariationsType.Anger));
+        //VisitorManager.OnExit?.Invoke();
+        VisitorManager.OnGoBack?.Invoke();
         await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
         VisitorManager.OnVisitor?.Invoke();
+    }
+
+    public override Sprite GetFaceVariations(FaceVariationsType type)
+    {
+        Sprite sp = null;
+        foreach (var face in FaceVariations)
+        { 
+            if(face.Type == type) sp = face.Sprite;
+        }
+
+        return sp;
     }
 }

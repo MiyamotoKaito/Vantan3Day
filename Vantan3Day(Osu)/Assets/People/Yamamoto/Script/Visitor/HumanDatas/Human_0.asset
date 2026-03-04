@@ -14,7 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HumanVisitorData
   _sprite: {fileID: -7796864351666666146, guid: 44f9240063219354e88b4e1353b72b68, type: 3}
   _visitorType: 0
+  _sprites:
+  - _type: 0
+    _sprite: {fileID: -7796864351666666146, guid: 44f9240063219354e88b4e1353b72b68, type: 3}
+  - _type: 1
+    _sprite: {fileID: 8402123624798229798, guid: 6ce68d3c7f7b12e4eae49b09b757bb98, type: 3}
   VisitorManager: {fileID: 0}
   AwaitTime: 2
-  _level: 1
+  _level: 0
   _obstructionViewTime: 10

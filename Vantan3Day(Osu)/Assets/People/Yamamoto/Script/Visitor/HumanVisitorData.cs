@@ -43,7 +43,8 @@ public class HumanVisitorData : VisitorBaseData
         ob.ObstructionExecution();
         VisitorManager.OnThingThrow?.Invoke();
         await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
-        VisitorManager.OnExit?.Invoke();
+        //VisitorManager.OnExit?.Invoke();
+        VisitorManager.OnGoBack?.Invoke();
         await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
         VisitorManager.OnVisitor?.Invoke();
     }
@@ -57,7 +58,8 @@ public class HumanVisitorData : VisitorBaseData
         ob.ObstructionExecution();
         VisitorManager.OnThingThrow?.Invoke();
         await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
-        VisitorManager.OnExit?.Invoke();
+        //VisitorManager.OnExit?.Invoke();
+        VisitorManager.OnGoBack?.Invoke();
         await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
         VisitorManager.OnVisitor?.Invoke();
     }
@@ -71,8 +73,20 @@ public class HumanVisitorData : VisitorBaseData
         ob.ObstructionExecution();
         VisitorManager.OnThingThrow?.Invoke();
         await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
-        VisitorManager.OnExit?.Invoke();
+        //VisitorManager.OnExit?.Invoke();
+        VisitorManager.OnGoBack?.Invoke();
         await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
         VisitorManager.OnVisitor?.Invoke();
+    }
+
+    public override Sprite GetFaceVariations(FaceVariationsType type)
+    {
+        Sprite sp = null;
+        foreach (var face in FaceVariations)
+        { 
+            if(face.Type == type) sp = face.Sprite;
+        }
+
+        return sp;
     }
 }
