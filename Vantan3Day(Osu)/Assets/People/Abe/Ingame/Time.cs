@@ -26,11 +26,12 @@ public class Timer : MonoBehaviour
             OnTimerFinished?.Invoke();
             return;
         }
-        _timer -= Time.deltaTime;
         if (_timer <= 0f)
         {
             _isCleared = true;
+            return;
         }
+        _timer -= Time.deltaTime;
     }
     public float GetTime()
     {
