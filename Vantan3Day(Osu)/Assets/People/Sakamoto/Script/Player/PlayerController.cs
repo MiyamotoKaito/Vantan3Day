@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
-public class PlayerController : GoalObject
+public class PlayerController : MonoBehaviour
 {
     /// <summary>
     /// 現在操作中の手が右手かどうか
@@ -185,8 +185,8 @@ public class PlayerController : GoalObject
         else IsRightHand = true;
     }
 
-    private void Update()
+    public void SetIsFly(bool isFlying)
     {
-        _pos = _armMover.PreviousHand.transform.position;
+        IsFlying = isFlying;
     }
 }
