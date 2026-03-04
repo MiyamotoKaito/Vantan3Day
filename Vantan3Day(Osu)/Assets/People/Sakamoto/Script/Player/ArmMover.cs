@@ -11,29 +11,20 @@ public class ArmMover : MonoBehaviour
     [HideInInspector]
     public GameObject CurrentArm;
 
-    /// <summary>
-    /// 現在操作中の手が右手かどうか
-    /// </summary>
-    public bool IsRightHand { get; private set; } = true;
-
     [SerializeField] private PlayerConfig _playerConfig;
     [SerializeField] private Camera _camera;
     [SerializeField] private float _angleOffset = -90f;
     [SerializeField] private GameObject _rigthTarget;
     [SerializeField] private GameObject _leftTarget;
+    private PlayerController _playerController;
 
-    public void OnChange()
+    public void Init()
     {
-        if (IsRightHand) IsRightHand = false;
-        else IsRightHand = true;
+        if (_camera == null) _camera = Camera.main;
+        _playerController = GetComponent<PlayerController>();
     }
 
     private void Reset()
-    {
-        if (_camera == null) _camera = Camera.main;
-    }
-
-    private void Awake()
     {
         if (_camera == null) _camera = Camera.main;
     }
@@ -60,7 +51,7 @@ public class ArmMover : MonoBehaviour
         var worldPos = _camera.ScreenToWorldPoint(screenPoint);
 
         // X の制限は左右で異なる設定を使用する
-        if (IsRightHand)
+        if (_playerController.IsRightHand)
             worldPos.x = Mathf.Clamp(worldPos.x, _playerConfig.RightHandMinX, _playerConfig.RightHandMaxX);
         else
             worldPos.x = Mathf.Clamp(worldPos.x, _playerConfig.LeftHandMinX, _playerConfig.LeftHandMaxX);
@@ -78,7 +69,7 @@ public class ArmMover : MonoBehaviour
         var armTransform = CurrentArm.transform;
         var handTransform = CurrentHand.transform;
 
-        var target = IsRightHand ? _rigthTarget : _leftTarget;
+        var target = _playerController.IsRightHand ? _rigthTarget : _leftTarget;
         if (target == null)
             return;
 
