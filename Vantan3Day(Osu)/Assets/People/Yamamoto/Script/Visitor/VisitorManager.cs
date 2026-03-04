@@ -89,7 +89,7 @@ public class VisitorManager : MonoBehaviour
         OnExit += VisitorsExit;
         OnLeave += VisitorsLeave;
         OnGoBack += VisitorsGoBack;
-        //OnBattely += _battely.TriggerEvent;
+        OnBattely += _battely.TriggerEvent;
         OnVisitor?.Invoke();
     }
 
