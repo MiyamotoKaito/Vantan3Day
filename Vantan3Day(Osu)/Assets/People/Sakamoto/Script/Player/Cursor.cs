@@ -14,7 +14,7 @@ public class Cursor : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!collision.gameObject.CompareTag("Hand"))
+        if (collision.gameObject.CompareTag("Hand"))
         {
             _changeRenderer.SetActive(true);
             _startRenderer.SetActive(false);
