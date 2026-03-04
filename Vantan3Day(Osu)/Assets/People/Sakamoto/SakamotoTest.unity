@@ -602,11 +602,10 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6958260704091593992, guid: 520f35190b93af34f82a3ca7a4466ace, type: 3}
   m_PrefabInstance: {fileID: 7809716575366345981}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &744510655
+--- !u!114 &744510655 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 5907291056074692596, guid: 520f35190b93af34f82a3ca7a4466ace, type: 3}
+  m_PrefabInstance: {fileID: 7809716575366345981}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 744510650}
   m_Enabled: 1
@@ -614,7 +613,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f586df81aeb20a489d1a54a25badd9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Arm
-  _isRightArm: 1
 --- !u!114 &934620352
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -684,11 +682,10 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4618769848189383643, guid: 520f35190b93af34f82a3ca7a4466ace, type: 3}
   m_PrefabInstance: {fileID: 7809716575366345981}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1152082919
+--- !u!114 &1152082919 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 8643328057339434683, guid: 520f35190b93af34f82a3ca7a4466ace, type: 3}
+  m_PrefabInstance: {fileID: 7809716575366345981}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1152082914}
   m_Enabled: 1
@@ -696,7 +693,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f586df81aeb20a489d1a54a25badd9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Arm
-  _isRightArm: 0
 --- !u!1 &1242693842
 GameObject:
   m_ObjectHideFlags: 0
@@ -1549,20 +1545,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5662693212810474213, guid: 520f35190b93af34f82a3ca7a4466ace, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6958260704091593992, guid: 520f35190b93af34f82a3ca7a4466ace, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 744510655}
-    - targetCorrespondingSourceObject: {fileID: 4618769848189383643, guid: 520f35190b93af34f82a3ca7a4466ace, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1152082919}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 520f35190b93af34f82a3ca7a4466ace, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
