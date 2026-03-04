@@ -49,6 +49,12 @@ public class VisitorThrowAt : MonoBehaviour
     /// </summary>
     private void ToLaunch()
     {
+        //差分を切替
+        if (_visitorManager.CurrentVisitor != null)
+        {
+            var sp = _visitorManager.CurrentVisitor.GetFaceVariations(FaceVariationsType.Anger);
+            _visitorManager.VisitorFaceChange(sp);
+        }
         var sq = DOTween.Sequence();
         sq.Append(_throwObj.transform.DOScale(_enlargement, _animTime))
             .Join(_throwObj.transform.DORotate(new Vector3(0, 0, 180), _animTime, RotateMode.WorldAxisAdd));

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
@@ -13,6 +14,10 @@ public class PlayerController : GoalObject
     ///  ハエが手にいる状態。
     /// </summary>
     public bool IsFlying { get; private set; } = false;
+    /// <summary>
+    /// OkボタンNGボタンを押すイベント
+    /// </summary>
+    public event Action<ExaminationType> ButtonPressed;
 
     [SerializeField] private GameObject _rightHand;
     [SerializeField] private GameObject _rightArm;
@@ -111,6 +116,13 @@ public class PlayerController : GoalObject
                     clickHandler.OnPointerClick(null);
                 }
             }
+        }
+        else
+        {
+            //TODO 書類の上のみで反応するようにする
+            // アイテムがある場合はインタラクト処理を呼び出す
+            ButtonPressed?.Invoke(item.type);
+             Debug.Log(item.type);
         }
 
         //itemにある処理を呼び出す（インタラクト）

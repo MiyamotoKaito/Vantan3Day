@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using DG.Tweening;
+using Ingame;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
@@ -21,8 +21,12 @@ public class VisitorManager : MonoBehaviour
     [SerializeField] private Transform _entryPos;
     [Header("退場場所")]
     [SerializeField] private Transform _exitPos;
+    [Header("戻る場所")]
+    [SerializeField] private Transform _backPos;
     [Header("アニメーション時間")]
     [SerializeField] private float _animTime;
+
+    [SerializeField] private Battely _battely;
     /// <summary>
     /// 来訪者の設定
     /// 審査が終了後、呼び出す
@@ -41,6 +45,10 @@ public class VisitorManager : MonoBehaviour
     /// </summary>
     public Action OnLeave;
     /// <summary>
+    /// 来訪者が戻る
+    /// </summary>
+    public Action OnGoBack;
+    /// <summary>
     /// 物を投げつけるまでの一連の流れ
     /// </summary>
     public Action OnThingThrow;
@@ -48,6 +56,8 @@ public class VisitorManager : MonoBehaviour
     /// 放置時間の設定
     /// </summary>
     public Action OnNeglectSet;
+
+    public Action  OnBattely;
     /// <summary>
     /// 現在の来訪者を保持
     /// </summary>
@@ -76,6 +86,8 @@ public class VisitorManager : MonoBehaviour
         OnEntry += VisitorsEntry;
         OnExit += VisitorsExit;
         OnLeave += VisitorsLeave;
+        OnGoBack += VisitorsGoBack;
+        OnBattely += _battely.TriggerEvent;
         OnVisitor?.Invoke();
     }
 
@@ -105,6 +117,15 @@ public class VisitorManager : MonoBehaviour
     private void VisitorsSettings()
     {
         _visitorImage.sprite = CurrentVisitor.Sprite;
+    }
+
+    /// <summary>
+    /// 差分を切替
+    /// </summary>
+    /// <param name="sp">差分</param>>
+    public void VisitorFaceChange(Sprite sp)
+    {
+        _visitorImage.sprite = sp;
     }
 
     /// <summary>
@@ -152,6 +173,19 @@ public class VisitorManager : MonoBehaviour
         //段々、透明にしていく
         DOTween.ToAlpha(() =>
             _visitorImage.color, color => _visitorImage.color = color, 0, _animTime)
+            .OnComplete(() =>
+            {
+                SetNeglectTimeFlag(false);
+                OnNeglectSet?.Invoke();
+            });
+    }
+
+    /// <summary>
+    /// 戻るアニメーション
+    /// </summary>
+    private void VisitorsGoBack()
+    {
+        _visitorImage.transform.DOMove(_backPos.position, _animTime).SetEase(Ease.Linear)
             .OnComplete(() =>
             {
                 SetNeglectTimeFlag(false);
