@@ -1,10 +1,11 @@
-using System;
+﻿using System;
 using UnityEngine.UI;
 using UnityEngine;
 namespace Ingame
 {
     public class Battely : MonoBehaviour
     {
+        public float CurrentEnergy => _energy;
         [SerializeField]
         private float _energy = 50;
         [SerializeField]
