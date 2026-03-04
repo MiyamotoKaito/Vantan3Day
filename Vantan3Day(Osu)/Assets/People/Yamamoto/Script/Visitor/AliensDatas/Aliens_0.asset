@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdb17c22e9ccf9b40ad7ef422043e9d9, type: 3}
   m_Name: Aliens_0
   m_EditorClassIdentifier: Assembly-CSharp::AliensVisitorData
-  _sprite: {fileID: -6071130488745949440, guid: d37dffe3c9489034c8b52927c823a934, type: 3}
+  _sprite: {fileID: 21300000, guid: dd934ce67185f854785d0dae00052f8f, type: 3}
   _visitorType: 1
   _sprites:
   - _type: 0
-    _sprite: {fileID: -6071130488745949440, guid: d37dffe3c9489034c8b52927c823a934, type: 3}
+    _sprite: {fileID: 21300000, guid: dd934ce67185f854785d0dae00052f8f, type: 3}
   - _type: 1
-    _sprite: {fileID: 7328555208482181505, guid: 2e0a11c1d64141a42a4982195dd3e418, type: 3}
+    _sprite: {fileID: 21300000, guid: ced4e7506f1873743a47ff573a58fca3, type: 3}
   VisitorManager: {fileID: 0}
   AwaitTime: 2

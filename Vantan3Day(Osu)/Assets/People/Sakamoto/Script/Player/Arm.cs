@@ -6,6 +6,7 @@ public class Arm : GoalObject
     public bool IsActive { get; private set; } = true;
     public bool IsRightArm => _isRightArm;
     public PlayerController PlayerController => _playerController;
+    public bool OnPapperArm = false;
     /// <summary>
     /// 右手か左手か。
     /// </summary>
@@ -58,6 +59,10 @@ public class Arm : GoalObject
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.CompareTag("Pepper"))
+        {
+            OnPapperArm = true;
+        }
         if (_playerController.IsPickUped) return;
         if (collision.gameObject.CompareTag("Fly") && IsActive)
         {
@@ -84,6 +89,10 @@ public class Arm : GoalObject
 
     private void OnTriggerExit2D(Collider2D collision)
     {
+        if (collision.CompareTag("Pepper"))
+        {
+            OnPapperArm = false;
+        }
         if (_playerController.IsPickUped) return;
         if (collision.gameObject.CompareTag("Fly") && IsActive)
         {
