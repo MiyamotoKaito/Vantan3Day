@@ -22,6 +22,7 @@ public class HumanVisitorData : VisitorBaseData
         VisitorManager.OnEntry?.Invoke();
         await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
         VisitorManager.SetInput(true);
+        VisitorManager.OnVisitorInfoCard?.Invoke(true);
     }
 
     public override async UniTask ExaminationOk()
@@ -30,6 +31,7 @@ public class HumanVisitorData : VisitorBaseData
         VisitorManager.SetNeglectTimeFlag(false);
         VisitorManager.SetInput(false);
         VisitorManager.OnExit?.Invoke();
+        VisitorManager.OnVisitorInfoCard?.Invoke(false);
         await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
         VisitorManager.OnVisitor?.Invoke();
     }
@@ -43,8 +45,8 @@ public class HumanVisitorData : VisitorBaseData
         ob.ObstructionExecution();
         VisitorManager.OnThingThrow?.Invoke();
         await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
-        //VisitorManager.OnExit?.Invoke();
         VisitorManager.OnGoBack?.Invoke();
+        VisitorManager.OnVisitorInfoCard?.Invoke(false);
         await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
         VisitorManager.OnVisitor?.Invoke();
     }
@@ -58,8 +60,8 @@ public class HumanVisitorData : VisitorBaseData
         ob.ObstructionExecution();
         VisitorManager.OnThingThrow?.Invoke();
         await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
-        //VisitorManager.OnExit?.Invoke();
         VisitorManager.OnGoBack?.Invoke();
+        VisitorManager.OnVisitorInfoCard?.Invoke(false);
         await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
         VisitorManager.OnVisitor?.Invoke();
     }
@@ -73,8 +75,8 @@ public class HumanVisitorData : VisitorBaseData
         ob.ObstructionExecution();
         VisitorManager.OnThingThrow?.Invoke();
         await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
-        //VisitorManager.OnExit?.Invoke();
         VisitorManager.OnGoBack?.Invoke();
+        VisitorManager.OnVisitorInfoCard?.Invoke(false);
         await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
         VisitorManager.OnVisitor?.Invoke();
     }

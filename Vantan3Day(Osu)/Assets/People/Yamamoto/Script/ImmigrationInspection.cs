@@ -26,6 +26,9 @@ public class ImmigrationInspection : MonoBehaviour
     private void Awake()
     {
         _visitorManager = FindObjectOfType<VisitorManager>();
+        _visitorManager.OnNeglectSet += SetNeglectTimer;
+        _visitorManager.OnNeglectSet?.Invoke();
+        if(_playerController == null) return;
         _playerController.ButtonPressed += (type) =>
         {
             if (_visitorManager.IsExaminationInput)
@@ -33,12 +36,16 @@ public class ImmigrationInspection : MonoBehaviour
                 ConductAnExamination(type);
             }
         };
-        _visitorManager.OnNeglectSet += SetNeglectTimer;
-        _visitorManager.OnNeglectSet?.Invoke();
     }
 
     private void Update()
     {
+        //TODO：デバッグ用のビルド前には消しておく
+        if (Keyboard.current.qKey.wasPressedThisFrame)
+        {
+            Debug.Log("a");
+            ConductAnExamination(ExaminationType.Ok);
+        }
         NeglectTimeUpdate();
     }
 
