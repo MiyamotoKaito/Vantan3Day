@@ -1,0 +1,15 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:ts="TitleScreen" editor-extension-mode="False">
+    <ui:VisualElement name="Root" style="flex-grow: 1; background-color: rgba(255, 255, 255, 0); background-image: none;">
+        <ui:VisualElement name="TitlePanel" style="flex-grow: 1; flex-direction: column; justify-content: flex-end; opacity: 1; display: flex;">
+            <ui:VisualElement name="MenuView" style="flex-direction: row; justify-content: flex-start; align-items: auto; height: 200px; margin-bottom: 10%; align-content: auto;">
+                <ts:TitleButton name="start" text="Start&#10;" style="transition-duration: 0.2s; position: absolute;"/>
+                <ts:TitleButton name="options" text="Option&#10;" style="font-size: 14px; position: absolute;"/>
+                <ts:TitleButton name="quit" text="Quit&#10;" style="font-size: 14px; position: absolute;"/>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="OptionsPanel" style="flex-grow: 1; display: none; flex-direction: column;">
+            <ui:Label text="Options" style="unity-font-style: bold; font-size: 32px; margin-top: 40px; margin-left: 40px;"/>
+            <ui:Button text="Back" name="back" style="margin-top: 40px; margin-left: 40px; width: 160px; height: 60px;"/>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

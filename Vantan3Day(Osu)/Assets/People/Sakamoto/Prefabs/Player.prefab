@@ -1,0 +1,83 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2868081480168787510
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1716077276439831760}
+  - component: {fileID: 1807848505861410377}
+  - component: {fileID: 3246035062808394917}
+  - component: {fileID: 5779468794243478838}
+  m_Layer: 0
+  m_Name: Player
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1716077276439831760
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2868081480168787510}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.13433, y: -3.12061, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1807848505861410377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2868081480168787510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7aff49192d10e5f48bba1c036bc5184e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerController
+  _rightHand: {fileID: 0}
+  _rightArm: {fileID: 0}
+  _leftHand: {fileID: 0}
+  _leftArm: {fileID: 0}
+--- !u!114 &3246035062808394917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2868081480168787510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d9a7b0d7f1d59a4ba32b50043928e02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ArmMover
+  CurrentHand: {fileID: 0}
+  CurrentArm: {fileID: 0}
+  _playerConfig: {fileID: 11400000, guid: f040abbdfc59c894f8058dfb7b9f410c, type: 2}
+  _camera: {fileID: 0}
+  _angleOffset: -90
+  _rigthTarget: {fileID: 0}
+  _leftTarget: {fileID: 0}
+--- !u!114 &5779468794243478838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2868081480168787510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5883a214b6cf48418ba13f69da6fef7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DropAction
