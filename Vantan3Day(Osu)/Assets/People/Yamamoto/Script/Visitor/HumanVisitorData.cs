@@ -8,10 +8,6 @@ using Cysharp.Threading.Tasks;
 [CreateAssetMenu(menuName = "HumanData")]
 public class HumanVisitorData : VisitorBaseData
 {
-    [Header("視界がぼやける時間")]
-    [SerializeField] private float _becomeBlurryTime;
-    public float BecomeBlurryTime => _becomeBlurryTime;
-    
     public override async UniTask Visit(VisitorManager manager, float time)
     {
         VisitorManager = manager;

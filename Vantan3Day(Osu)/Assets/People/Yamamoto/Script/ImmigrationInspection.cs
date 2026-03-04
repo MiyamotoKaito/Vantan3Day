@@ -104,7 +104,7 @@ public class ImmigrationInspection : MonoBehaviour
     /// <summary>
     /// 審査内容の判定
     /// </summary>
-    /// <param name="type">入国した審査方法</param>
+    /// <param name="type">審査方法</param>
     private void ConductAnExamination(ExaminationType type)
     {
         var data = _visitorManager.CurrentVisitor;
