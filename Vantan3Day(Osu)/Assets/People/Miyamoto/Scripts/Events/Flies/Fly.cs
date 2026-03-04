@@ -158,9 +158,9 @@ public class Fly : MonoBehaviour, IPointerClickHandler
     /// <summary>
     /// ハエを殺す
     /// </summary>
-    private void Kill()
+    public void Kill()
     {
-        this.gameObject.SetActive(false);
+        Destroy(gameObject);
     }
     /// <summary>
     /// 振り向きメソッド
