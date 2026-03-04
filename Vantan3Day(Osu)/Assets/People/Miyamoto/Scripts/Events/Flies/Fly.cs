@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
 /// <summary>
@@ -22,6 +23,8 @@ public class Fly : MonoBehaviour, IPointerClickHandler
     [SerializeField]
     [Tooltip("ハエの上下の揺れの速さ")]
     private float _frequency;
+    [SerializeField]
+    private float _animDuration;
     private int _direction = 1;
 
     [Header("目標設定")]
@@ -83,6 +86,7 @@ public class Fly : MonoBehaviour, IPointerClickHandler
     {
         Debug.Log("ハエ生成");
         _direction = direction;
+        transform.rotation = Quaternion.Euler(0f, _direction > 0f ? 180f : 0f, 0f);
         GetGoal();
     }
     /// <summary>
@@ -161,6 +165,8 @@ public class Fly : MonoBehaviour, IPointerClickHandler
     public void Return()
     {
         _direction *= -1;
+
+        transform.DORotate(transform.rotation.y == 0? new Vector3(0, 180, 0) : new Vector3(0, 0, 0), _animDuration,RotateMode.Fast);
     }
     /// <summary>
     /// 上に戻る
