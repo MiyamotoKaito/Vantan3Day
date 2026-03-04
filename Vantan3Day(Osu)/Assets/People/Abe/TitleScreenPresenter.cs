@@ -13,9 +13,20 @@ namespace TitleScreen
     public class TitleScreenPresenter : MonoBehaviour
     {
         [SerializeField] UIDocument uiDocument;
+        [SerializeField] Camera worldCamera;
+        [SerializeField] Transform startTarget;
+        [SerializeField] Transform optionsTarget;
+        [SerializeField] Transform quitTarget;
+        [SerializeField] Vector3 startLocalOffset;
+        [SerializeField] Vector3 optionsLocalOffset;
+        [SerializeField] Vector3 quitLocalOffset;
+        [SerializeField] Vector2 screenOffset;
+        [SerializeField] bool hideWhenTargetIsBehindCamera = true;
 
         VisualElement _titlePanel;
         VisualElement _optionsPanel;
+        VisualElement _menuView;
+        VisualElement _root;
 
         TitleButton _start;
         TitleButton _options;
@@ -33,23 +44,25 @@ namespace TitleScreen
                 return;
             }
 
-            var root = uiDocument.rootVisualElement;
-            if (root == null)
+            _root = uiDocument.rootVisualElement;
+            if (_root == null)
             {
                 Debug.LogError("[TitleScreenPresenter] rootVisualElement is null.");
                 return;
             }
 
-            _titlePanel = root.Q<VisualElement>("TitlePanel");
-            _optionsPanel = root.Q<VisualElement>("OptionsPanel");
+            _titlePanel = _root.Q<VisualElement>("TitlePanel");
+            _optionsPanel = _root.Q<VisualElement>("OptionsPanel");
+            _menuView = _root.Q<VisualElement>("MenuView");
 
-            _start = root.Q<TitleButton>("start");
-            _options = root.Q<TitleButton>("options");
-            _quit = root.Q<TitleButton>("quit");
-            _back = root.Q<Button>("back");
+            _start = _root.Q<TitleButton>("start");
+            _options = _root.Q<TitleButton>("options");
+            _quit = _root.Q<TitleButton>("quit");
+            _back = _root.Q<Button>("back");
 
             if (_titlePanel == null) Debug.LogWarning("[TitleScreenPresenter] TitlePanel not found.");
             if (_optionsPanel == null) Debug.LogWarning("[TitleScreenPresenter] OptionsPanel not found.");
+            if (_menuView == null) Debug.LogWarning("[TitleScreenPresenter] MenuView not found.");
             if (_start == null) Debug.LogWarning("[TitleScreenPresenter] start TitleButton not found.");
             if (_options == null) Debug.LogWarning("[TitleScreenPresenter] options TitleButton not found.");
             if (_quit == null) Debug.LogWarning("[TitleScreenPresenter] quit TitleButton not found.");
@@ -58,10 +71,17 @@ namespace TitleScreen
             if (_options != null) _options.Text = "Options";
             if (_quit != null) _quit.Text = "Exit";
 
-            if (_start != null) _start.Clicked += OnTitleButtonClicked;
-            if (_options != null) _options.Clicked += OnTitleButtonClicked;
-            if (_quit != null) _quit.Clicked += OnTitleButtonClicked;
+            if (_start != null) _start.SetAction(OnTitleButtonClicked);
+            if (_options != null) _options.SetAction(OnTitleButtonClicked);
+            if (_quit != null) _quit.SetAction(OnTitleButtonClicked);
             if (_back != null) _back.clicked += ShowTitle;
+
+            if (worldCamera == null) worldCamera = Camera.main;
+
+            SetupFollowContainerStyle();
+            SetupFollowButtonStyle(_start);
+            SetupFollowButtonStyle(_options);
+            SetupFollowButtonStyle(_quit);
 
             ShowTitle();
 
@@ -73,43 +93,39 @@ namespace TitleScreen
 
         void OnDisable()
         {
-            if (_start != null) _start.Clicked -= OnTitleButtonClicked;
-            if (_options != null) _options.Clicked -= OnTitleButtonClicked;
-            if (_quit != null) _quit.Clicked -= OnTitleButtonClicked;
+            if (_start != null) _start.ClearAction(OnTitleButtonClicked);
+            if (_options != null) _options.ClearAction(OnTitleButtonClicked);
+            if (_quit != null) _quit.ClearAction(OnTitleButtonClicked);
             if (_back != null) _back.clicked -= ShowTitle;
         }
 
-        public void ButtonInput(TitleButtonType buttonType)
+        void Update()
+        {
+            UpdateButtonFollow(_start, startTarget, startLocalOffset);
+            UpdateButtonFollow(_options, optionsTarget, optionsLocalOffset);
+            UpdateButtonFollow(_quit, quitTarget, quitLocalOffset);
+        }
+
+
+        public void ButtonInput(TitleButtonType buttonType,bool shown )
         {
             switch (buttonType)
             {
                 case TitleButtonType.Start:
-                    RevealWithDelay(_start, 40);
+                    _start.SetShown(shown);
                     break;
                 case TitleButtonType.Options:
-                    RevealWithDelay(_options, 40);
+                    _options.SetShown(shown);
                     break;
                 case TitleButtonType.Quit:
-                    RevealWithDelay(_quit, 40);
+                    _quit.SetShown(shown);
                     break;
             }
         }
 
-        void RevealWithDelay(TitleButton button, long delayMs)
+      public  void OnTitleButtonClicked(TitleButton button)
         {
-            if (button == null) return;
-
-            button.schedule.Execute(() =>
-            {
-                button.SetShown(true);
-            }).StartingIn(delayMs);
-        }
-
-        void OnTitleButtonClicked(TitleButton button)
-        {
-            if (button == null) return;
-
-            switch (button.name)
+            switch (button.name.ToLower())
             {
                 case "start":
                     Debug.Log("START");
@@ -137,6 +153,56 @@ namespace TitleScreen
         {
             if (_optionsPanel != null) _optionsPanel.style.display = DisplayStyle.None;
             if (_titlePanel != null) _titlePanel.style.display = DisplayStyle.Flex;
+        }
+
+        void SetupFollowButtonStyle(TitleButton button)
+        {
+            if (button == null) return;
+            button.style.position = Position.Absolute;
+        }
+
+        void SetupFollowContainerStyle()
+        {
+            if (_menuView == null) return;
+
+            _menuView.style.position = Position.Absolute;
+            _menuView.style.left = 0f;
+            _menuView.style.top = 0f;
+            _menuView.style.right = 0f;
+            _menuView.style.bottom = 0f;
+            _menuView.style.height = StyleKeyword.Auto;
+            _menuView.style.marginBottom = 0f;
+        }
+
+        void UpdateButtonFollow(TitleButton button, Transform target, Vector3 localOffset)
+        {
+            if (button == null || target == null || _root == null || _root.panel == null || worldCamera == null) return;
+
+            var worldPos = target.TransformPoint(localOffset);
+            var screenPos = worldCamera.WorldToScreenPoint(worldPos);
+            var isBehind = screenPos.z <= 0f;
+
+            if (hideWhenTargetIsBehindCamera && isBehind)
+            {
+                button.style.display = DisplayStyle.None;
+                return;
+            }
+
+            button.style.display = DisplayStyle.Flex;
+
+            var panelPos = RuntimePanelUtils.ScreenToPanel(_root.panel, new Vector2(screenPos.x,screenPos.y));
+            var rootHeight = _root.resolvedStyle.height;
+            if (rootHeight > 0f)
+            {
+                panelPos.y = rootHeight - panelPos.y;
+            }
+            panelPos += screenOffset;
+
+            var width = button.resolvedStyle.width > 0f ? button.resolvedStyle.width : 420f;
+            var height = button.resolvedStyle.height > 0f ? button.resolvedStyle.height : 80f;
+
+            button.style.left = panelPos.x - (width * 0.5f);
+            button.style.top = panelPos.y - (height * 0.5f);
         }
     }
 }

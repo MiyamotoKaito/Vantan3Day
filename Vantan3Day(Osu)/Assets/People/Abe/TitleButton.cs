@@ -22,15 +22,9 @@ namespace TitleScreen
                 name = "text",
                 defaultValue = "Button",
             };
-
-            public override void Init(VisualElement ve, IUxmlAttributes bag, CreationContext cc)
-            {
-                base.Init(ve, bag, cc);
-                ((TitleButton)ve).Text = _textAttribute.GetValueFromBag(bag, cc);
-            }
         }
 
-        readonly Button _button;
+        public readonly Button _button;
         Action _onClicked;
 
         public TitleButton()
@@ -41,18 +35,12 @@ namespace TitleScreen
             _button = container.Q<Button>("Title-Button");
             if (_button == null)
             {
-                _button = container.Q<Button>();
-            }
-
-            if (_button == null)
-            {
-                _button = new Button();
-                _button.text = "Button";
-                _button.AddToClassList("title-button");
-                hierarchy.Add(_button);
+                Debug.Log("Button is null");
             }
 
             _button.clicked += OnClicked;
+            SetShown(false);
+
         }
 
         public string Text
@@ -61,32 +49,32 @@ namespace TitleScreen
             set => _button.text = value;
         }
 
-        public void SetAction(Action action)
+        public void SetAction(Action<TitleButton> action)
         {
-            _onClicked = action;
+            Clicked += action;
+        }
+
+        public void ClearAction(Action<TitleButton> action)
+        {
+            Clicked -= action;
         }
 
         void OnClicked()
         {
             Clicked?.Invoke(this);
-            _onClicked?.Invoke();
         }
 
         public void SetShown(bool shown)
         {
-            if (shown)
-            {
-                _button.RemoveFromClassList("is-hidden");
-                _button.AddToClassList("is-shown");
-                _button.pickingMode = PickingMode.Position;
-            }
-            else
-            {
-                _button.RemoveFromClassList("is-shown");
-                _button.AddToClassList("is-hidden");
-                _button.pickingMode = PickingMode.Ignore;
-            }
+            if (_button == null) return;
+
+            _button.EnableInClassList("is-shown", shown);
+            _button.EnableInClassList("is-hidden", !shown);
+            _button.pickingMode = shown ? PickingMode.Position : PickingMode.Ignore;
         }
+
+
+
 
         static VisualElement BuildFromUxml()
         {
