@@ -8,6 +8,11 @@ using Cysharp.Threading.Tasks;
 [CreateAssetMenu(menuName = "HumanData")]
 public class HumanVisitorData : VisitorBaseData
 {
+    [Header("視界妨害のレベル")] 
+    [SerializeField] private ObstructionViewLevel _level;
+    [Header("視界妨害時間")]
+    [SerializeField] private float _obstructionViewTime;
+    
     public override async UniTask Visit(VisitorManager manager, float time)
     {
         VisitorManager = manager;
@@ -34,6 +39,8 @@ public class HumanVisitorData : VisitorBaseData
         Debug.LogWarning("NGで物をぶつける");
         VisitorManager.SetNeglectTimeFlag(false);
         VisitorManager.SetInput(false);
+        var ob = new BecomeBlurry(_obstructionViewTime, _level);
+        ob.ObstructionExecution();
         VisitorManager.OnThingThrow?.Invoke();
         await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
         VisitorManager.OnExit?.Invoke();
@@ -46,6 +53,8 @@ public class HumanVisitorData : VisitorBaseData
         Debug.LogWarning("放置で物をぶつける");
         VisitorManager.SetNeglectTimeFlag(false);
         VisitorManager.SetInput(false);
+        var ob = new BecomeBlurry(_obstructionViewTime, _level);
+        ob.ObstructionExecution();
         VisitorManager.OnThingThrow?.Invoke();
         await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
         VisitorManager.OnExit?.Invoke();
@@ -58,6 +67,8 @@ public class HumanVisitorData : VisitorBaseData
         Debug.LogWarning("封鎖で物をぶつける");
         VisitorManager.SetNeglectTimeFlag(false);
         VisitorManager.SetInput(false);
+        var ob = new BecomeBlurry(_obstructionViewTime, _level);
+        ob.ObstructionExecution();
         VisitorManager.OnThingThrow?.Invoke();
         await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
         VisitorManager.OnExit?.Invoke();
