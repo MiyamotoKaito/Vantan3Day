@@ -158,6 +158,10 @@ public class PlayerController : MonoBehaviour
                     clickHandler.OnPointerClick(null);
                     foreach (var arms in _arms) arms.Attack();
                 }
+                else if(best.TryGetComponent<Item>(out var tool))
+                {
+                    tool.Excute();
+                }
                 else
                 {
                     Debug.Log($"InteractFromActiveHand: target {best.gameObject.name} has no IPointerClickHandler");
