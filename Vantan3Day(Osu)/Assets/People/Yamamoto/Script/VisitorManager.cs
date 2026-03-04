@@ -37,6 +37,10 @@ public class VisitorManager : MonoBehaviour
     /// </summary>
     public Action OnExit;
     /// <summary>
+    /// 来訪者が立ち去る
+    /// </summary>
+    public Action OnLeave;
+    /// <summary>
     /// 物を投げつけるまでの一連の流れ
     /// </summary>
     public Action OnThingThrow;
@@ -71,6 +75,7 @@ public class VisitorManager : MonoBehaviour
         };
         OnEntry += VisitorsEntry;
         OnExit += VisitorsExit;
+        OnLeave += VisitorsLeave;
         OnVisitor?.Invoke();
     }
 
@@ -123,7 +128,6 @@ public class VisitorManager : MonoBehaviour
             {
                 if (CurrentVisitor != null)
                 {
-                    //CurrentVisitor.IsNeglectTime = true;
                     SetNeglectTimeFlag(true);
                     OnNeglectSet?.Invoke();
                 }
@@ -140,11 +144,18 @@ public class VisitorManager : MonoBehaviour
             {
                 if (CurrentVisitor != null)
                 {
-                    //CurrentVisitor.IsNeglectTime = false;
                     SetNeglectTimeFlag(false);
                     OnNeglectSet?.Invoke();
                 }
             });
+    }
+
+    /// <summary>
+    /// 立ち去るアニメーション
+    /// </summary>
+    private void VisitorsLeave()
+    {
+        //TODO：通過で向かう場所じゃないところに向かわせる
     }
 
     /// <summary>
