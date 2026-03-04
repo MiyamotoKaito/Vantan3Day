@@ -27,56 +27,60 @@ public class HumanVisitorData : VisitorBaseData
 
     public override async UniTask ExaminationOk()
     {
+        if(!VisitorManager.IsExaminationInput)return;
         Debug.LogWarning("通過");
         VisitorManager.SetNeglectTimeFlag(false);
         VisitorManager.SetInput(false);
-        VisitorManager.OnExit?.Invoke();
         VisitorManager.OnVisitorInfoCard?.Invoke(false);
+        VisitorManager.OnExit?.Invoke();
         await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
         VisitorManager.OnVisitor?.Invoke();
     }
 
     public override async UniTask ExaminationNg()
     {
+        if(!VisitorManager.IsExaminationInput)return;
         Debug.LogWarning("NGで物をぶつける");
         VisitorManager.SetNeglectTimeFlag(false);
         VisitorManager.SetInput(false);
         var ob = new BecomeBlurry(_obstructionViewTime, _level);
         ob.ObstructionExecution();
+        VisitorManager.OnVisitorInfoCard?.Invoke(false);
         VisitorManager.OnThingThrow?.Invoke();
         await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
         VisitorManager.OnGoBack?.Invoke();
-        VisitorManager.OnVisitorInfoCard?.Invoke(false);
         await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
         VisitorManager.OnVisitor?.Invoke();
     }
 
     public override async UniTask ExaminationNeglect()
     {
+        if(!VisitorManager.IsExaminationInput)return;
         Debug.LogWarning("放置で物をぶつける");
         VisitorManager.SetNeglectTimeFlag(false);
         VisitorManager.SetInput(false);
         var ob = new BecomeBlurry(_obstructionViewTime, _level);
         ob.ObstructionExecution();
+        VisitorManager.OnVisitorInfoCard?.Invoke(false);
         VisitorManager.OnThingThrow?.Invoke();
         await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
         VisitorManager.OnGoBack?.Invoke();
-        VisitorManager.OnVisitorInfoCard?.Invoke(false);
         await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
         VisitorManager.OnVisitor?.Invoke();
     }
 
     public override async UniTask ExaminationBlockade()
     {
+        if(!VisitorManager.IsExaminationInput)return;
         Debug.LogWarning("封鎖で物をぶつける");
         VisitorManager.SetNeglectTimeFlag(false);
         VisitorManager.SetInput(false);
         var ob = new BecomeBlurry(_obstructionViewTime, _level);
         ob.ObstructionExecution();
+        VisitorManager.OnVisitorInfoCard?.Invoke(false);
         VisitorManager.OnThingThrow?.Invoke();
         await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
         VisitorManager.OnGoBack?.Invoke();
-        VisitorManager.OnVisitorInfoCard?.Invoke(false);
         await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
         VisitorManager.OnVisitor?.Invoke();
     }

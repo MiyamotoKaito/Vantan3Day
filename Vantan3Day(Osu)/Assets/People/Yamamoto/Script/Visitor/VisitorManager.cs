@@ -33,6 +33,7 @@ public class VisitorManager : MonoBehaviour
     [SerializeField] private Image _visitorImage;
     [Header("来訪者情報カード")]
     [SerializeField] private SpriteRenderer _visitorInfoCard;
+    
     /// <summary>
     /// 来訪者の設定
     /// 審査が終了後、呼び出す
