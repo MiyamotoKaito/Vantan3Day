@@ -39,6 +39,8 @@ namespace TitleScreen
                 {
                     Debug.Log("click");
                     _animator.SetBool("Push", true);
+                   testButton.Click(_currentHover.buttonType);
+                    
                 }
                 else if (Input.GetMouseButtonUp(0))
                 {

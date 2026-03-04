@@ -17,8 +17,10 @@ namespace TitleScreen
             _presenter.ButtonInput(type,false);
         }
 
-        public void Click(TitleButton button)
+        public void Click(TitleButtonType type)
         {
+            TitleButton button = new TitleButton();
+            button.name = type.ToString();
             _presenter.OnTitleButtonClicked(button);
         }
 

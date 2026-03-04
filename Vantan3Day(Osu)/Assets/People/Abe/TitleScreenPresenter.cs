@@ -35,6 +35,7 @@ namespace TitleScreen
         Button _back;
 
         bool _revealed;
+        bool _isOptionsShown;
 
         void OnEnable()
         {
@@ -86,6 +87,7 @@ namespace TitleScreen
             ShowTitle();
 
             _revealed = false;
+            _isOptionsShown = false;
             if (_start != null) _start.SetShown(false);
             if (_options != null) _options.SetShown(false);
             if (_quit != null) _quit.SetShown(false);
@@ -109,6 +111,11 @@ namespace TitleScreen
 
         public void ButtonInput(TitleButtonType buttonType,bool shown )
         {
+            if (_isOptionsShown && buttonType != TitleButtonType.Options)
+            {
+                return;
+            }
+
             switch (buttonType)
             {
                 case TitleButtonType.Start:
@@ -125,6 +132,13 @@ namespace TitleScreen
 
       public  void OnTitleButtonClicked(TitleButton button)
         {
+            if (button == null) return;
+
+            if (_isOptionsShown && !string.Equals(button.name, "options", System.StringComparison.OrdinalIgnoreCase))
+            {
+                return;
+            }
+
             switch (button.name.ToLower())
             {
                 case "start":
@@ -145,12 +159,16 @@ namespace TitleScreen
 
         void ShowOptions()
         {
+            _isOptionsShown = true;
             if (_titlePanel != null) _titlePanel.style.display = DisplayStyle.None;
             if (_optionsPanel != null) _optionsPanel.style.display = DisplayStyle.Flex;
+            if (_start != null) _start.SetShown(false);
+            if (_quit != null) _quit.SetShown(false);
         }
 
         void ShowTitle()
         {
+            _isOptionsShown = false;
             if (_optionsPanel != null) _optionsPanel.style.display = DisplayStyle.None;
             if (_titlePanel != null) _titlePanel.style.display = DisplayStyle.Flex;
         }
