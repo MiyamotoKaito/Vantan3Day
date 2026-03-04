@@ -12,5 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dd640cd34a8fb24e85869d4364ea967, type: 3}
   m_Name: Battely
   m_EditorClassIdentifier: Assembly-CSharp::DeliveryConfig
-  _itemImage: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
-  _providerImage: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
+  _itemImage: {fileID: -7508107349151861696, guid: 10f79f16aa0ac9242b2ba5b633935532, type: 3}

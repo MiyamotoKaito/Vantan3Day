@@ -4,5 +4,4 @@
 public class DeliveryConfig : ScriptableObject
 {
     public Sprite _itemImage;
-    public Sprite _providerImage;
 }
