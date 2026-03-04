@@ -371,7 +371,8 @@ MonoBehaviour:
     - rid: 7451256252418490556
       type: {class: DeliveryEvent, ns: , asm: Assembly-CSharp}
       data:
-        _provider: {fileID: 1979328838575782708, guid: f93a3e9ff83c0bf4abd2382211badab6, type: 3}
+        _providerList:
+        - {fileID: 1979328838575782708, guid: f93a3e9ff83c0bf4abd2382211badab6, type: 3}
         _deliverySpeed: 1
         _posList:
         - _startPos: {x: -17.86, y: -0.92, z: 0}
@@ -678,7 +679,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1000
   m_MaskInteraction: 0
   m_Sprite: {fileID: -4262669045039813912, guid: 61b3b157d121a0149bcb13c953572c06, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

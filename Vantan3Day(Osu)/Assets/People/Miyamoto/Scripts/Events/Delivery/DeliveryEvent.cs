@@ -34,7 +34,7 @@ public class DeliveryEvent : IEvent
     }
 
     [SerializeField]
-    private GameObject _provider;
+    private List<GameObject> _providerList;
     [SerializeField]
     private float _deliverySpeed;
     [SerializeField]
@@ -58,7 +58,7 @@ public class DeliveryEvent : IEvent
         // 配達中フラグをTrueに
         selected.IsDelivery(true);
 
-        var obj = UnityEngine.Object.Instantiate(_provider, selected.StartPos, Quaternion.identity);
+        var obj = UnityEngine.Object.Instantiate(_providerList[UnityEngine.Random.Range(0, _providerList.Count)], selected.StartPos, Quaternion.identity);
         obj.transform.DOMove(selected.EndPos, _deliverySpeed);
 
         var item = obj.GetComponent<BaseDeliveryItem>();

@@ -1,8 +1,13 @@
 ﻿using UnityEngine;
 
-public abstract class GoalObject : MonoBehaviour 
+public abstract class GoalObject : MonoBehaviour
 {
-    public Vector2 Position => _pos;
+    public virtual Vector2 Position
+    {
+        get => _pos;
+        protected set => _pos = value;
+    }
+
     protected Vector2 _pos;
 }
 
