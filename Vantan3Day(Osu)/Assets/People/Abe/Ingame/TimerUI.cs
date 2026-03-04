@@ -8,7 +8,7 @@ public class TimerUI : MonoBehaviour
 
     void Update()
     {
-       string time =  _timer.GetTime().ToString();
+       string time =  _timer.GetTime().ToString("F2");
        Debug.Log(time);
     }
 }

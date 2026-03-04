@@ -1,8 +1,14 @@
+using System;
 using UnityEngine;
 
 public class Timer : MonoBehaviour
 {
+    [SerializeField]
+    private float _clearTime;
     private float _timer;
+    private bool _isCleared;
+    private bool _closeTimer;
+    public event Action OnTimerFinished;
 
     private void Start()
     {
@@ -10,7 +16,21 @@ public class Timer : MonoBehaviour
     }
     private void Update()
     {
-        _timer += Time.deltaTime;
+        if (_closeTimer)
+        {
+            return;
+        }
+        if (_isCleared)
+        {
+            _closeTimer = true;
+            OnTimerFinished?.Invoke();
+            return;
+        }
+        _timer -= Time.deltaTime;
+        if (_timer <= 0f)
+        {
+            _isCleared = true;
+        }
     }
     public float GetTime()
     {
@@ -19,7 +39,9 @@ public class Timer : MonoBehaviour
 
     public void ResetTimer()
     {
-        _timer = 0f;
+        _timer = _clearTime;
+        _isCleared = false;
+        _closeTimer = false;
     }
 
 }
