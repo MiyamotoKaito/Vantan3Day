@@ -1,37 +1,30 @@
 .title-button {
     width: 420px;
     height: 80px;
-
     border-top-left-radius: 40px;
     border-top-right-radius: 40px;
     border-bottom-right-radius: 40px;
     border-bottom-left-radius: 40px;
-
     background-image: url("project://database/Assets/UI%20Toolkit/unity_speech_bubble_top_middle.png?fileID=2800000&guid=49845d454c9648f4192740a67789a718&type=3#unity_speech_bubble_top_middle");
-
     font-size: 24px;
     background-color: rgb(30, 170, 255);
-
-    /* ここにまとめる */
     transform-origin: 50% 50%;
     transition-property: scale, opacity, background-color;
-    transition-duration: 0.2s;
+    transition-duration: 0.2s, 1s, 0.2s;
     transition-timing-function: ease-out-circ;
+    opacity: 1;
 }
 
-/* 最初は隠す */
 .title-button.is-hidden {
     scale: 0 0;
     opacity: 0;
 }
 
-/* 表示状態 */
 .title-button.is-shown {
     scale: 1 1;
     opacity: 1;
 }
 
-/* hoverは表示中だけ */
 .title-button.is-shown:hover {
     scale: 1.1 1.1;
     -unity-background-image-tint-color: rgb(255, 255, 255);

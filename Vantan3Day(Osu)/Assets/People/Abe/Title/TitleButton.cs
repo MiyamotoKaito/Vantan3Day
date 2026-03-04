@@ -5,14 +5,14 @@ using UnityEngine.UIElements;
 using UnityEditor;
 #endif
 
-namespace TitileScreen
+namespace TitleScreen
 {
     public class TitleButton : VisualElement
     {
         public new class UxmlFactory : UxmlFactory<TitleButton, UxmlTraits> { }
+
         const string UxmlPath = "Assets/UI Toolkit/Title-Button.uxml";
 
-        // 追加：押された通知（イベント登録方式でPresenterが購読できる）
         public event Action<TitleButton> Clicked;
 
         public new class UxmlTraits : VisualElement.UxmlTraits
@@ -22,15 +22,9 @@ namespace TitileScreen
                 name = "text",
                 defaultValue = "Button",
             };
-
-            public override void Init(VisualElement ve, IUxmlAttributes bag, CreationContext cc)
-            {
-                base.Init(ve, bag, cc);
-                ((TitleButton)ve).Text = _textAttribute.GetValueFromBag(bag, cc);
-            }
         }
 
-        readonly Button _button;
+        public readonly Button _button;
         Action _onClicked;
 
         public TitleButton()
@@ -41,18 +35,12 @@ namespace TitileScreen
             _button = container.Q<Button>("Title-Button");
             if (_button == null)
             {
-                _button = container.Q<Button>();
-            }
-
-            if (_button == null)
-            {
-                _button = new Button();
-                _button.text = "Button";
-                _button.AddToClassList("title-button");
-                hierarchy.Add(_button);
+                Debug.Log("Button is null");
             }
 
             _button.clicked += OnClicked;
+            SetShown(false);
+
         }
 
         public string Text
@@ -61,34 +49,32 @@ namespace TitileScreen
             set => _button.text = value;
         }
 
-        public void SetAction(Action action)
+        public void SetAction(Action<TitleButton> action)
         {
-            _onClicked = action;
+            Clicked += action;
+        }
+
+        public void ClearAction(Action<TitleButton> action)
+        {
+            Clicked -= action;
         }
 
         void OnClicked()
         {
-            // 追加：イベント通知（購読者がいれば呼ぶ）
             Clicked?.Invoke(this);
-
-            // 既存：SetActionで設定された処理も呼ぶ（互換維持）
-            _onClicked?.Invoke();
         }
+
         public void SetShown(bool shown)
         {
-            if (shown)
-            {
-                _button.RemoveFromClassList("is-hidden");
-                _button.AddToClassList("is-shown");
-                _button.pickingMode = PickingMode.Position;
-            }
-            else
-            {
-                _button.RemoveFromClassList("is-shown");
-                _button.AddToClassList("is-hidden");
-                _button.pickingMode = PickingMode.Ignore; // 隠れてる間クリック不可
-            }
+            if (_button == null) return;
+
+            _button.EnableInClassList("is-shown", shown);
+            _button.EnableInClassList("is-hidden", !shown);
+            _button.pickingMode = shown ? PickingMode.Position : PickingMode.Ignore;
         }
+
+
+
 
         static VisualElement BuildFromUxml()
         {
