@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45b8013c6701d294bb835702eb5ec10b, type: 3}
   m_Name: ObstructionViewLevelData
   m_EditorClassIdentifier: Assembly-CSharp::ObstructionViewLevelData
-  _level1: 10
-  _level2: 20
-  _level3: 30
-  _level4: 40
-  _level5: 50
+  _level1: 5
+  _level2: 10
+  _level3: 15
+  _level4: 25
+  _level5: 30

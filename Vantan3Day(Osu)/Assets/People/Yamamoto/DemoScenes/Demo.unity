@@ -560,6 +560,10 @@ PrefabInstance:
       propertyPath: _visitorImage
       value: 
       objectReference: {fileID: 1753184636}
+    - target: {fileID: 7449917105691346987, guid: d9d83f90d61ad12409e774c5a1c346c2, type: 3}
+      propertyPath: _visitors.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7524775947123519613, guid: d9d83f90d61ad12409e774c5a1c346c2, type: 3}
       propertyPath: m_Name
       value: VisitorManager
