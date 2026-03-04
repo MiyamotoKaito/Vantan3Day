@@ -17,6 +17,7 @@ public class AliensVisitorData : VisitorBaseData
         VisitorManager.OnEntry?.Invoke();
         await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
         VisitorManager.SetInput(true);
+        VisitorManager.OnVisitorInfoCard?.Invoke(true);
     }
     
     public override async UniTask ExaminationOk()
@@ -27,6 +28,7 @@ public class AliensVisitorData : VisitorBaseData
         VisitorManager.VisitorFaceChange(GetFaceVariations(FaceVariationsType.Anger));
         VisitorManager.OnBattely?.Invoke();
         VisitorManager.OnExit?.Invoke();
+        VisitorManager.OnVisitorInfoCard?.Invoke(false);
         await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
         VisitorManager.OnVisitor?.Invoke();
     }
@@ -36,8 +38,8 @@ public class AliensVisitorData : VisitorBaseData
         Debug.LogWarning("立ち去る");
         VisitorManager.SetNeglectTimeFlag(false);
         VisitorManager.SetInput(false);
-        //VisitorManager.OnLeave?.Invoke();
         VisitorManager.OnGoBack?.Invoke();
+        VisitorManager.OnVisitorInfoCard?.Invoke(false);
         await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
         VisitorManager.OnVisitor?.Invoke();
     }
@@ -48,9 +50,9 @@ public class AliensVisitorData : VisitorBaseData
         VisitorManager.SetNeglectTimeFlag(false);
         VisitorManager.SetInput(false);
         VisitorManager.VisitorFaceChange(GetFaceVariations(FaceVariationsType.Anger));
-        //VisitorManager.OnExit?.Invoke();
         VisitorManager.OnBattely?.Invoke();
         VisitorManager.OnGoBack?.Invoke();
+        VisitorManager.OnVisitorInfoCard?.Invoke(false);
         await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
         VisitorManager.OnVisitor?.Invoke();
     }
@@ -61,8 +63,8 @@ public class AliensVisitorData : VisitorBaseData
         VisitorManager.SetNeglectTimeFlag(false);
         VisitorManager.SetInput(false);
         VisitorManager.VisitorFaceChange(GetFaceVariations(FaceVariationsType.Anger));
-        //VisitorManager.OnExit?.Invoke();
         VisitorManager.OnGoBack?.Invoke();
+        VisitorManager.OnVisitorInfoCard?.Invoke(false);
         await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
         VisitorManager.OnVisitor?.Invoke();
     }
