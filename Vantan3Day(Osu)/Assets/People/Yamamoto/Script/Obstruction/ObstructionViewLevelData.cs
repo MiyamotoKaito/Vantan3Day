@@ -7,14 +7,19 @@ using UnityEngine;
 public class ObstructionViewLevelData : ScriptableObject
 {
     [Header("レベル１")]
+    [Range(0, 100)]
     [SerializeField] private int _level1;
     [Header("レベル２")]
+    [Range(0, 100)]
     [SerializeField] private int _level2;
     [Header("レベル３")]
+    [Range(0, 100)]
     [SerializeField] private int _level3;
     [Header("レベル４")]
+    [Range(0, 100)]
     [SerializeField] private int _level4;
     [Header("レベル５")]
+    [Range(0, 100)]
     [SerializeField] private int _level5;
     
     public int Level1 => _level1;
