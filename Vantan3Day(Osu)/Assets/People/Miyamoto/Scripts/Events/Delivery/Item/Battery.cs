@@ -4,17 +4,13 @@ using UnityEngine;
 
 public class Battery : BaseDeliveryItem
 {
-    private Battely _battely;
-    [SerializeField]
-    private float _reChargeAmount;
-    private void Start()
-    {
-        _battely = FindAnyObjectByType<Battely>();
-    }
+
+    [SerializeReference, SubclassSelector]
+    private IEvent _rechargeEvent;
     public override void GetEffect()
     {
         //電力を上げる処理
         Debug.Log("Good");
-        _battely.RechargeEnergy(_reChargeAmount);
+        _rechargeEvent.OnEvent(null);
     }
 }

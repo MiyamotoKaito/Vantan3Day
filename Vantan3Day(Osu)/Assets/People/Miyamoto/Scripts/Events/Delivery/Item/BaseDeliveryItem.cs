@@ -24,7 +24,6 @@ public abstract class BaseDeliveryItem : MonoBehaviour, IDelivery, IPointerClick
     public void OnPointerClick(PointerEventData eventData)
     {
         GetEffect();
-        _isReturn = true;
         _animator.SetTrigger("Open");
         Return();
     }
@@ -48,6 +47,7 @@ public abstract class BaseDeliveryItem : MonoBehaviour, IDelivery, IPointerClick
     {
         if (_isReturn) return;
 
+        _isReturn = true;
         OnClicked?.Invoke();
         Sequence seq = DOTween.Sequence();
         seq.Append(transform.DORotate(transform.rotation.y == 0 ?
