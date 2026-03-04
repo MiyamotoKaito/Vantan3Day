@@ -25,7 +25,7 @@ public class VisitorManager : MonoBehaviour
     [SerializeField] private Transform _backPos;
     [Header("アニメーション時間")]
     [SerializeField] private float _animTime;
-
+    [Header("バッテリー")]
     [SerializeField] private Battely _battely;
     /// <summary>
     /// 来訪者の設定
@@ -56,7 +56,9 @@ public class VisitorManager : MonoBehaviour
     /// 放置時間の設定
     /// </summary>
     public Action OnNeglectSet;
-
+    /// <summary>
+    /// バッテリーの変動
+    /// </summary>
     public Action  OnBattely;
     /// <summary>
     /// 現在の来訪者を保持
