@@ -109,7 +109,9 @@ public class Fly : MonoBehaviour, IPointerClickHandler
         _time += Time.deltaTime;
         if (_time > _waitTime)
         {
-            var goals = FindObjectsByType<GoalObject>(FindObjectsSortMode.None);
+            var goals = FindObjectsByType<GoalObject>(FindObjectsSortMode.None)
+                        .Where(g => !g.IsActiveObject) // 非アクティブなGoalObjectのみ
+                         .ToArray();
 
             if (goals.Length <= 0) return;
 

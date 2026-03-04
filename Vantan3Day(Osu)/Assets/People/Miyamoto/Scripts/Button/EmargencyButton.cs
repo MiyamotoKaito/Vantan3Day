@@ -17,6 +17,7 @@ public class EmargencyButton : GoalObject, IPointerClickHandler
     {
         _animator = GetComponent<Animator>();
         _pos = this.transform.position;
+        _isActiveObject = false;
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
