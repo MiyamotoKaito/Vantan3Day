@@ -6,6 +6,7 @@ public class EmargencyButton : GoalObject, IPointerClickHandler
 {
     private Animator _animator;
     private PlayerController _player;
+    private bool _isPush;
     public void OnPointerClick(PointerEventData eventData)
     {
         // GAMEOVER
@@ -17,7 +18,7 @@ public class EmargencyButton : GoalObject, IPointerClickHandler
         _animator = GetComponent<Animator>();
         _pos = this.transform.position;
     }
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         // 当たったオブジェクトがアイテム且つY軸が上だったらボタンを押せるようにする
         if (other.TryGetComponent<Item>(out var item) && item.transform.position.y > transform.position.y)
@@ -31,8 +32,9 @@ public class EmargencyButton : GoalObject, IPointerClickHandler
     /// <returns></returns>
     public async UniTask ButtonPush()
     {
+        if (_isPush) return;
         _animator.SetTrigger("Push");
-
+        _isPush = true;
         await UniTask.NextFrame();
         await UniTask.WaitUntil(() =>
                                 // BaseLayerのアニメーションが終わるまで待つ
