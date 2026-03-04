@@ -31,7 +31,8 @@ namespace TitleScreen
         TitleButton _start;
         TitleButton _options;
         TitleButton _quit;
-
+        [SerializeField]
+        GameStart gameStart;
         Button _back;
 
         bool _revealed;
@@ -143,7 +144,7 @@ namespace TitleScreen
             {
                 case "start":
                     Debug.Log("START");
-                    // SceneManager.LoadScene("Game");
+                    gameStart.StartGame();
                     break;
                 case "options":
                     ShowOptions();

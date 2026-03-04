@@ -1,4 +1,3 @@
-
 using UnityEngine;
 
 namespace TitleScreen
@@ -9,6 +8,8 @@ namespace TitleScreen
         [SerializeField] Camera worldCamera;
         [SerializeField] LayerMask raycastLayerMask = ~0;
         [SerializeField] TestButton testButton;
+        [SerializeField] bool showRaycastPosition = true;
+        [SerializeField] float debugMarkerSize = 0.2f;
 
         ButtonHover _currentHover;
         TitleButton _titleButton;
@@ -33,14 +34,15 @@ namespace TitleScreen
                 testButton.Unhover(_currentHover.buttonType);
                 _currentHover = null;
             }
-            if(_currentHover != null&& _animator != null)
+
+            if (_currentHover != null && _animator != null)
             {
+                Debug.Log(_currentHover && _animator);
                 if (Input.GetMouseButtonDown(0))
                 {
                     Debug.Log("click");
                     _animator.SetBool("Push", true);
-                   testButton.Click(_currentHover.buttonType);
-                    
+                    testButton.Click(_currentHover.buttonType);
                 }
                 else if (Input.GetMouseButtonUp(0))
                 {
@@ -48,9 +50,6 @@ namespace TitleScreen
                     _animator = null;
                 }
             }
-           
-
-
         }
 
         bool RaycastHoverTarget()
@@ -59,6 +58,7 @@ namespace TitleScreen
 
             Vector2 mouseWorld = worldCamera.ScreenToWorldPoint(Input.mousePosition);
             var hit = Physics2D.OverlapPoint(mouseWorld, raycastLayerMask);
+           
 
             if (hit != null &&
                 hit.TryGetComponent<ButtonHover>(out var hover))
@@ -67,6 +67,8 @@ namespace TitleScreen
 
                 Debug.Log("hit");
                 _currentHover = hover;
+                Debug.Log(_currentHover);
+                Debug.Log(_animator);
                 return true;
             }
 
@@ -74,7 +76,11 @@ namespace TitleScreen
             return false;
         }
 
-
-
+        void OnDrawGizmos()
+        {
+            Vector2 mouseWorld = worldCamera.ScreenToWorldPoint(Input.mousePosition);
+            Gizmos.color = Color.red;
+            Gizmos.DrawSphere(mouseWorld, debugMarkerSize);
+        }
     }
 }

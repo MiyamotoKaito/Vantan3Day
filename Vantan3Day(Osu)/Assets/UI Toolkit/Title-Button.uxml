@@ -1,6 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Title.uss?fileID=7433441132597879392&amp;guid=fe0e52eec311cd14eb85046deed6325f&amp;type=3#Title"/>
-    <ui:VisualElement name="Root">                                         
-        <ui:Button text="Button" name="Title-Button" class="title-button is-hidden" style="height: 120px;"/>
+    <ui:VisualElement name="Root">
+        <ui:Button text="Button" name="Title-Button" icon-image="project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=3506167780502562645&amp;guid=86a03545247a4594cb8c83c89df84b30&amp;type=3#console.erroricon@2x" class="title-button is-shown" style="height: 120px; background-image: url(&quot;project://database/Assets/Arts/outgame/3.png?fileID=-6470460504253458178&amp;guid=7bfac055e0d4e2d4787163529fc8ef8f&amp;type=3#3_0&quot;); border-top-left-radius: -37px; border-top-right-radius: -37px; border-bottom-right-radius: -37px; border-bottom-left-radius: -37px; background-color: rgba(255, 255, 255, 0); font-size: 32px;"/>
     </ui:VisualElement>
 </ui:UXML>
