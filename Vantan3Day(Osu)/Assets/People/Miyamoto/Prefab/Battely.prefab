@@ -109,6 +109,15 @@ MonoBehaviour:
   _returnDuration: 1
   _moveSpeed: 1
   _toReturnTime: 5
+  _rechargeEvent:
+    rid: 7451256264268185731
+  references:
+    version: 2
+    RefIds:
+    - rid: 7451256264268185731
+      type: {class: RechargeEvent, ns: , asm: Assembly-CSharp}
+      data:
+        _reChargeAmount: 30
 --- !u!95 &9096008414390270026
 Animator:
   serializedVersion: 7
@@ -161,7 +170,7 @@ CapsuleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
