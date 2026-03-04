@@ -14,7 +14,6 @@ public class VisitorBaseData : ScriptableObject
     [Header("来訪者の顔差分")]
     [SerializeField] private List<FaceVariationsInfo> _sprites;
     public List<FaceVariationsInfo> FaceVariations => _sprites;
-    
     public Sprite Sprite => _sprite;
     
     [HideInInspector] public VisitorManager VisitorManager;

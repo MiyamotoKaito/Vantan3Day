@@ -7,4 +7,3 @@ public abstract class GoalObject : MonoBehaviour
     public bool IsActiveObject => _isActiveObject;
     protected bool _isActiveObject;
 }
-

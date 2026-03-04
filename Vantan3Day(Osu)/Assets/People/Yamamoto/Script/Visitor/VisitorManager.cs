@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using DG.Tweening;
 using Ingame;
+using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
@@ -14,7 +15,7 @@ public class VisitorManager : MonoBehaviour
 {
     [Header("全ての来訪者のデータ")]
     [SerializeField] private List<VisitorBaseData> _visitors;
-    [Header("UI関連")] 
+    [Header("UIの設定")] 
     [Header("待機場所")] 
     [SerializeField] private Transform _awaitPos;
     [Header("入国場所")]
@@ -27,6 +28,11 @@ public class VisitorManager : MonoBehaviour
     [SerializeField] private float _animTime;
     [Header("バッテリー")]
     [SerializeField] private Battely _battely;
+    [Header("UI")]
+    [Header("来訪者Image")] 
+    [SerializeField] private Image _visitorImage;
+    [Header("来訪者情報カード")]
+    [SerializeField] private Image _visitorInfoCard;
     /// <summary>
     /// 来訪者の設定
     /// 審査が終了後、呼び出す
@@ -61,6 +67,11 @@ public class VisitorManager : MonoBehaviour
     /// </summary>
     public Action  OnBattely;
     /// <summary>
+    /// 来訪者の情報カードの表示切替
+    /// true：表示　false：非表示
+    /// </summary>
+    public Action<bool> OnVisitorInfoCard;
+    /// <summary>
     /// 現在の来訪者を保持
     /// </summary>
     public VisitorBaseData CurrentVisitor { get; private set; }
@@ -74,9 +85,6 @@ public class VisitorManager : MonoBehaviour
     /// true：開始　false：終止
     /// </summary>
     public bool IsNeglectTimeStart {get; private set; }
-    
-    [Header("来訪者")] 
-    [SerializeField] private Image _visitorImage;
 
     private void Awake()
     {
@@ -89,7 +97,11 @@ public class VisitorManager : MonoBehaviour
         OnExit += VisitorsExit;
         OnLeave += VisitorsLeave;
         OnGoBack += VisitorsGoBack;
-        OnBattely += _battely.TriggerEvent;
+        if (_battely != null)
+        {
+            OnBattely += _battely.TriggerEvent;
+        }
+        OnVisitorInfoCard += VisitorInfoCardSwitch;
         OnVisitor?.Invoke();
     }
 
@@ -119,6 +131,16 @@ public class VisitorManager : MonoBehaviour
     private void VisitorsSettings()
     {
         _visitorImage.sprite = CurrentVisitor.Sprite;
+    }
+    
+    /// <summary>
+    /// 来訪者のカード表示切替
+    /// </summary>
+    /// <param name="flag">true：表示　false：非表示</param>>
+    private void VisitorInfoCardSwitch(bool flag)
+    {
+        _visitorInfoCard.enabled = flag;
+        Debug.LogWarning(flag);
     }
 
     /// <summary>
