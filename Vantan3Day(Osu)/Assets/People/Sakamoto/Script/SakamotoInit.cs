@@ -14,7 +14,7 @@ public class SakamotoInit : MonoBehaviour
     [Header("Player Settings")]
     [SerializeField] private PlayerController _playerController;
 
-    public void Awake()
+    public void Start()
     {
         _cameraMover?.Init(_inputBuffer, _cameraConfig, _camera);
         _playerController?.Init(_inputBuffer);

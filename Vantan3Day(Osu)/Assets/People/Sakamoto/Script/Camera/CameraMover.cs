@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class CameraMover : MonoBehaviour
@@ -37,11 +38,12 @@ public class CameraMover : MonoBehaviour
     private void MoveCamera(InputAction.CallbackContext context)
     {
         _moveInput = context.ReadValue<Vector2>();
+        Debug.Log($"CameraMover.MoveCamera: phase={context.phase}, input={_moveInput}");
     }
 
     private void Update()
     {
-        if (_camera == null || _cameraConfig == null)
+        if (_camera == null || _cameraConfig == null || _inputBuffer == null)
             return;
 
         var position = _camera.transform.position;

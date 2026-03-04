@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using NUnit.Framework;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class EventManager : MonoBehaviour
@@ -12,13 +10,14 @@ public class EventManager : MonoBehaviour
     private float _interval;
     private FliesCount _fliesCount;
     private float time = 0;
+    private EmargencyButton _button;
 
     [SerializeReference, SubclassSelector]
     private List<IEvent> _event;
 
     private void Awake()
     {
-        _fliesCount = new FliesCount();
+        _fliesCount = new FliesCount(_button);
     }
     private void Update()
     {
