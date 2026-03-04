@@ -33,6 +33,10 @@ public class Timer : MonoBehaviour
         }
         _timer -= Time.deltaTime;
     }
+    public float GetClearTime()
+    {
+        return _clearTime;
+    }
     public float GetTime()
     {
         return _timer;
