@@ -5,6 +5,7 @@ using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UIElements;
 /// <summary>
 /// ハエのクラス
 /// </summary>
@@ -160,9 +161,9 @@ public class Fly : MonoBehaviour, IPointerClickHandler
         this.gameObject.SetActive(false);
     }
     /// <summary>
-    /// 腕についていて振り払われた時に呼び出すメソッド
+    /// 振り向きメソッド
     /// </summary>
-    public void Return()
+    private void Return()
     {
         _direction *= -1;
 
@@ -183,22 +184,33 @@ public class Fly : MonoBehaviour, IPointerClickHandler
     /// <returns></returns>
     private async UniTask Patrol()
     {
-        var centerX = _currentGoal.transform.position.x;
-
-        // 開始時にcenterXから_amplitude以内に補正
-        var startX = Mathf.Clamp(transform.position.x, centerX - _goalAmp, centerX + _goalAmp);
-        transform.position = new Vector3(startX, transform.position.y, 0);
-
         while (_isGoal)
         {
-            var nextX = transform.position.x + _speed * Time.deltaTime * _direction;
+            var centerX = _currentGoal.transform.position.x;
+            var currentX = transform.position.x;
 
-            if (Mathf.Abs(nextX - centerX) >= _goalAmp)
+            // 範囲外なら中心に向かって移動
+            if (Mathf.Abs(currentX - centerX) >= _goalAmp)
             {
-                Return();
+                var dir = centerX > currentX ? 1 : -1;
+                var nextPos = Vector2.MoveTowards(
+                    transform.position,
+                    _currentGoal.transform.position,
+                    _speed * Time.deltaTime
+                );
+                transform.position = nextPos;
+            }
+            else
+            {
+                // 範囲内なら通常パトロール
+                var nextX = currentX + _speed * Time.deltaTime * _direction;
+                if (Mathf.Abs(nextX - centerX) >= _goalAmp)
+                {
+                    Return();
+                }
+                transform.position = new Vector3(currentX + _speed * Time.deltaTime * _direction, transform.position.y, 0);
             }
 
-            transform.position = new Vector3(transform.position.x + _speed * Time.deltaTime * _direction, transform.position.y, 0);
             await UniTask.Yield(PlayerLoopTiming.Update, _cts.Token);
         }
     }
@@ -206,7 +218,7 @@ public class Fly : MonoBehaviour, IPointerClickHandler
     /// 上に向かって動く処理
     /// </summary>
     /// <returns></returns>
-    private async UniTask MoveToHigh()
+    public async UniTask MoveToHigh()
     {
         Debug.Log($"MoveToHigh開始 現在地:{transform.position} 目標:{_start}");
         Vector2 currentPos = transform.position;
