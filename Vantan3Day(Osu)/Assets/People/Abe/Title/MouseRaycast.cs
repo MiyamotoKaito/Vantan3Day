@@ -58,10 +58,10 @@ namespace TitleScreen
             if (worldCamera == null) return false;
 
             Vector2 mouseWorld = worldCamera.ScreenToWorldPoint(Input.mousePosition);
-            var hit = Physics2D.Raycast(mouseWorld, Vector2.zero, 0f, raycastLayerMask);
+            var hit = Physics2D.OverlapPoint(mouseWorld, raycastLayerMask);
 
-            if (hit.collider != null &&
-                hit.collider.TryGetComponent<ButtonHover>(out var hover))
+            if (hit != null &&
+                hit.TryGetComponent<ButtonHover>(out var hover))
             {
                 _animator = hover.GetComponent<Animator>();
 
