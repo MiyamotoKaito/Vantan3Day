@@ -11,6 +11,7 @@ public class Cursor : MonoBehaviour, IPointerClickHandler
     [SerializeField] private Animator _animator;
 
     private bool _isOpen = false;
+    private bool _canOpen = false;
 
     private void Start()
     {
@@ -22,6 +23,7 @@ public class Cursor : MonoBehaviour, IPointerClickHandler
         if (collision.gameObject.CompareTag("Hand") && !_isOpen)
         {
             _currentRenderer.sprite = _endRenderer;
+            _canOpen = true;
         }
     }
 
@@ -30,11 +32,14 @@ public class Cursor : MonoBehaviour, IPointerClickHandler
         if (collision.gameObject.CompareTag("Hand") && !_isOpen)
         {
             _currentRenderer.sprite = _startRenderer;
+            _canOpen = false;
         }
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        if (!_canOpen) return;
+
         if (_isOpen)
         {
             _currentRenderer.sprite = _startRenderer;
