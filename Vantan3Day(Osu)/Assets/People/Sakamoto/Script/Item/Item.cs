@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using Ingame;
+using System.Collections;
+using System.ComponentModel;
 using UnityEngine;
 public class Item : MonoBehaviour
 {
@@ -8,16 +10,20 @@ public class Item : MonoBehaviour
     [SerializeField] private string _handTag = "Hand";
     [SerializeField] private float _dropDelay = 2f;
     public ExaminationType type;
+    public ItemType _itemType;
     private SpriteRenderer _spriteRenderer;
-
     private Collider2D _collider;
     private Rigidbody2D _rb;
+    private Battely _battely;
+    [SerializeField]
+    private float _consumption;
 
     private void Start()
     {
         _collider = GetComponent<Collider2D>();
         _rb = GetComponent<Rigidbody2D>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        _battely = FindAnyObjectByType<Battely>();
     }
 
     public IEnumerator Drop()
@@ -30,9 +36,36 @@ public class Item : MonoBehaviour
         IsPickable = true;
     }
 
+    public void Excute()
+    {
+        switch (_itemType)
+        {
+            case ItemType.None:
+                break;
+            case ItemType.Kill:
+                if (_battely.CurrentEnergy >= _consumption)
+                {
+                    var flies = FindObjectsByType<Fly>(FindObjectsSortMode.None);
+                    foreach (var fly in flies)
+                    {
+                        fly.Kill();
+                    }
+                }
+                _battely.ConsumeEnergy(_consumption);
+                break;
+            case ItemType.Shutter:
+                if (_battely.CurrentEnergy >= _consumption)
+                {
+                    Debug.Log("Item.Excute: Activating shutter");
+                }
+                _battely.ConsumeEnergy(_consumption);
+                break;
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!collision.gameObject.CompareTag(_handTag) || !IsPickable)
+        if (!collision.gameObject.CompareTag(_handTag) || !IsPickable || _itemType != ItemType.None)
             return;
         // 衝突したオブジェクトから Arm を探す（親方向と子方向の両方をチェック）
         var arm = collision.GetComponentInParent<Arm>() ?? collision.GetComponentInChildren<Arm>();
@@ -71,3 +104,11 @@ public class Item : MonoBehaviour
         _plaeyrController.PickUp();
     }
 }
+
+public enum ItemType
+{
+    None,
+    Kill,
+    Shutter,
+}
+
