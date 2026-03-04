@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class MouseRaycast2D : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class MouseRaycast2D : MonoBehaviour
             {
                 Debug.Log("クリックした: " + hit.collider.name);
 
-                hit.collider.GetComponent<IDelivery>()?.GetEffect();
+                hit.collider.GetComponent<IPointerClickHandler>()?.OnPointerClick(null);
             }
         }
     }
