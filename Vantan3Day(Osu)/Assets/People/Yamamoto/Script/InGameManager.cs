@@ -26,8 +26,8 @@ public class InGameManager : MonoBehaviour
         else
         {
             Destroy(this);
-            OnGameOver -= GameOver;
         }
+        _gameOverUI.SetActive(false);
     }
     
     /// <summary>
