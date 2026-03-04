@@ -119,21 +119,53 @@ public class PlayerController : GoalObject
         var item = hand.GetComponentInChildren<Item>();
         if (item == null)
         {
-            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
-            if (hit.collider != null)
+            var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            var hits = Physics2D.OverlapPointAll(mousePos);
+            Collider2D best = null;
+            int bestOrder = int.MinValue;
+            float bestZ = float.MaxValue;
+
+            if (hits != null)
             {
-                Debug.Log("クリックした: " + hit.collider.name);
-                // 右手に当たったクリックは無視する
-                var arm = hit.collider.GetComponentInParent<Arm>();
-                if (arm != null && arm.IsRightArm)
+                for (int i = 0; i < hits.Length; i++)
                 {
+                    var h = hits[i];
+                    if (h == null) continue;
+                    var arm = h.GetComponentInParent<Arm>();
+                    var isArm = arm != null;
+                    Debug.Log($" hit[{i}] name={h.gameObject.name} isArm={isArm} layer={h.gameObject.layer}");
+                    if (isArm) continue; // skip hand colliders
+
+                    var sr = h.GetComponent<SpriteRenderer>();
+                    int order = sr != null ? sr.sortingOrder : 0;
+                    float z = h.transform.position.z;
+
+                    // choose by sortingOrder then by smaller z
+                    if (best == null || order > bestOrder || (order == bestOrder && z < bestZ))
+                    {
+                        best = h;
+                        bestOrder = order;
+                        bestZ = z;
+                    }
                 }
-                else if (hit.collider.TryGetComponent<IPointerClickHandler>(out var clickHandler))
+            }
+
+            if (best != null)
+            {
+                Debug.Log($"InteractFromActiveHand: selected target={best.gameObject.name} order={bestOrder} z={bestZ}");
+                if (best.TryGetComponent<IPointerClickHandler>(out var clickHandler))
                 {
                     clickHandler.OnPointerClick(null);
                     foreach (var arms in _arms) arms.Attack();
                 }
+                else
+                {
+                    Debug.Log($"InteractFromActiveHand: target {best.gameObject.name} has no IPointerClickHandler");
+                }
+            }
+            else
+            {
+                Debug.Log("InteractFromActiveHand: no non-hand target found");
             }
         }
         else
