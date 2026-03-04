@@ -1,17 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UIElements;
 /// <summary>
 /// ハエのクラス
 /// </summary>
 public class Fly : MonoBehaviour, IPointerClickHandler
 {
+    public bool IsArm => _isArm;
     // ボタンに群がるハエの数が変更された時のイベント
     public event Action<int> FliesCountChanged;
     [Header("ハエの動き")]
@@ -46,6 +45,7 @@ public class Fly : MonoBehaviour, IPointerClickHandler
     private bool _isGettingGoal;
     private bool _isGoal;
     private bool _isReturn;
+    private bool _isArm;
 
     private CancellationTokenSource _cts;
     private void Start()
@@ -169,7 +169,7 @@ public class Fly : MonoBehaviour, IPointerClickHandler
     {
         _direction *= -1;
 
-        transform.DORotate(transform.rotation.y == 0? new Vector3(0, 180, 0) : new Vector3(0, 0, 0), _animDuration,RotateMode.Fast);
+        transform.DORotate(transform.rotation.y == 0 ? new Vector3(0, 180, 0) : new Vector3(0, 0, 0), _animDuration, RotateMode.Fast);
     }
     /// <summary>
     /// 上に戻る
@@ -178,6 +178,7 @@ public class Fly : MonoBehaviour, IPointerClickHandler
     {
         _isGoal = false;
         _isReturn = true;
+        _isArm = false;
         MoveToHigh().Forget();
     }
     /// <summary>
@@ -186,6 +187,11 @@ public class Fly : MonoBehaviour, IPointerClickHandler
     /// <returns></returns>
     private async UniTask Patrol()
     {
+        if (_currentGoal.TryGetComponent<Arm>(out var arm))
+        {
+            _isArm = true;
+        }
+
         while (_isGoal)
         {
             var centerX = _currentGoal.Position.x;
