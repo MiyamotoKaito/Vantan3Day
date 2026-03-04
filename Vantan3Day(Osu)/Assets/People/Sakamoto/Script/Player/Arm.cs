@@ -11,17 +11,12 @@ public class Arm : MonoBehaviour
     [SerializeField] private bool _isRightArm;
     [SerializeField] private string _ready = "Ready";
     [SerializeField] private string _attack = "Attack";
+    [SerializeField] private string _isPickUped = "IsPickUped";
     private Animator _animator;
     private PlayerController _playerController;
     private ArmMover _armMover;
     private bool _canAttack = false;
 
-    private void Awake()
-    {
-        // 保険: Init が呼ばれていないケースでも Animator を取得する
-        if (_animator == null)
-            _animator = GetComponent<Animator>();
-    }
 
     public void Init(ArmMover armMover, PlayerController plaeyrController)
     {
@@ -41,10 +36,14 @@ public class Arm : MonoBehaviour
     {
         if (_animator == null) return;
         if (_playerController == null) return;
+
+        if (_isRightArm == false)
+            _animator.SetBool(_isPickUped, _playerController.IsPickUped);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (_playerController.IsPickUped) return;
         if (collision.gameObject.CompareTag("Fly") && IsActive)
         {
             _animator.SetBool(_ready, true);
@@ -54,6 +53,7 @@ public class Arm : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
+        if (_playerController.IsPickUped) return;
         if (collision.gameObject.CompareTag("Fly") && IsActive)
         {
             _animator.SetBool(_ready, false);
