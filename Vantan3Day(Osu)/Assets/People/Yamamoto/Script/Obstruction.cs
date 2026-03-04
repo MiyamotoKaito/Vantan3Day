@@ -1,7 +1,7 @@
 /// <summary>
 /// 妨害
 /// </summary>
-public class Obstruction
+public abstract class Obstruction
 {
     /// <summary>
     /// 妨害実行
@@ -17,6 +17,17 @@ public class VisionBecomeBlurry : Obstruction
     public override void ObstructionExecution()
     {
         
+    }
+}
+
+/// <summary>
+/// 強制的にゲームオーバー
+/// </summary>
+public class CompulsoryGameOver : Obstruction
+{
+    public override void ObstructionExecution()
+    {
+        InGameManager.Instance.OnGameOver?.Invoke();
     }
 }
 

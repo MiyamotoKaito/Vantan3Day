@@ -46,7 +46,9 @@ public class ImmigrationInspection : MonoBehaviour
         _neglectText.text = _neglectTimer.ToString("0.0");
         if (_neglectTimer <= 0) //放置処理の実行
         {
-            Debug.Log("ゲームオーバーの処理が呼ばれた");
+            //TODO：ここでゲームオーバー処理を行う
+            
+            
             _neglectTimer = 0;
             _visitorManager.SetNeglectTimeFlag(false);
         }
