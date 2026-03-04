@@ -8,7 +8,6 @@ public class Cursor : MonoBehaviour, IPointerClickHandler
     [SerializeField] private Sprite _startRenderer;
     [SerializeField] private Sprite _endRenderer;
     [SerializeField] private Sprite _openRenderer;
-    [SerializeField] private Animator _animator;
 
     private bool _isOpen = false;
     private bool _canOpen = false;

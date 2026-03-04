@@ -46,6 +46,9 @@ public class DeliveryEvent : IEvent
     {
         OnDelivery();
     }
+    /// <summary>
+    /// Itemの配達処理
+    /// </summary>
     private void OnDelivery()
     {
         var available = _posList.Where(p => !p.IsDelivered).ToList();
@@ -53,17 +56,29 @@ public class DeliveryEvent : IEvent
         // 配達可能な場所がなければ早期リターン
         if (available.Count == 0) return;
 
+        // 現在の配達可能場所
         var selected = available[UnityEngine.Random.Range(0, available.Count)];
 
         // 配達中フラグをTrueに
         selected.IsDelivery(true);
 
-        var obj = UnityEngine.Object.Instantiate(_providerList[UnityEngine.Random.Range(0, _providerList.Count)], selected.StartPos, Quaternion.identity);
+        // Itemの生成
+        var obj = UnityEngine.Object.Instantiate(_providerList[UnityEngine.Random.Range(0, _providerList.Count)],
+                                                 selected.StartPos, Quaternion.identity);
+
+        // Itemの初期化
+        var item = obj.GetComponent<BaseDeliveryItem>();
+        item.GetReturnPos(selected.StartPos);
+
+        // 左から配達するなら180度回転させる(移動先の向きにSpriteを合わせたい)
+        _itemList.Add(item);
+        if (selected.StartPos.x < selected.EndPos.x)
+            item.transform.rotation = new Quaternion(0, 180, 0, 0);
+
+        // Itemの移動
         obj.transform.DOMove(selected.EndPos, _deliverySpeed);
 
-        var item = obj.GetComponent<BaseDeliveryItem>();
-        _itemList.Add(item);
-
+        // アクションとアイテムがセットの辞書に登録
         Action handler = () => selected.IsDelivery(false);
         _handlerMap[item] = handler;
         item.OnClicked += handler;

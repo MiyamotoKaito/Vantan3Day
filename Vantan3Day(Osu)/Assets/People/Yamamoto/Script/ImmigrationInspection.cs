@@ -11,15 +11,10 @@ public class ImmigrationInspection : MonoBehaviour
     [Header("放置時間")]
     [SerializeField] private float _neglectTime;
     private float _neglectTimer; //放置時間のタイマー
-
     [Header("放置時間のデバッグUI")] 
     [SerializeField] private TextMeshProUGUI _neglectText;
-
-    /// <summary>
-    /// 入国審査
-    /// プレイヤーが呼び出す
-    /// </summary>
-    public Action<ExaminationType> OnExamination;
+    [Header("PlayerController")]
+    [SerializeField] private PlayerController _playerController;
     
     /// <summary>
     /// 入力した審査の結果
@@ -31,7 +26,7 @@ public class ImmigrationInspection : MonoBehaviour
     private void Awake()
     {
         _visitorManager = FindObjectOfType<VisitorManager>();
-        OnExamination += (type) =>
+        _playerController.ButtonPressed += (type) =>
         {
             if (_visitorManager.IsExaminationInput)
             {
@@ -45,7 +40,6 @@ public class ImmigrationInspection : MonoBehaviour
     private void Update()
     {
         NeglectTimeUpdate();
-        ReviewInput();
     }
 
     /// <summary>
@@ -74,31 +68,6 @@ public class ImmigrationInspection : MonoBehaviour
     {
         _neglectTimer = _neglectTime;
         _neglectText.text = _neglectTimer.ToString("0.0");
-    }
-
-    /// <summary>
-    /// 審査の入力
-    /// </summary>
-    private void ReviewInput()
-    {
-        //TODO：ここはプレイヤーに処理が出来るまで、仮の入力を実装しておく
-        if (Keyboard.current.qKey.wasPressedThisFrame)
-        {
-            _examinationType = ExaminationType.Ok;
-            OnExamination?.Invoke(ExaminationType.Ok);
-        }
-
-        if (Keyboard.current.wKey.wasPressedThisFrame)
-        {
-            _examinationType = ExaminationType.Ng;
-            OnExamination?.Invoke(ExaminationType.Ng);
-        }
-
-        if (Keyboard.current.rKey.wasPressedThisFrame)
-        {
-            _examinationType = ExaminationType.Blockade;
-            OnExamination?.Invoke(ExaminationType.Blockade);
-        }
     }
     
     /// <summary>

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using DG.Tweening;
+using Ingame;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
@@ -24,6 +25,8 @@ public class VisitorManager : MonoBehaviour
     [SerializeField] private Transform _backPos;
     [Header("アニメーション時間")]
     [SerializeField] private float _animTime;
+    [Header("バッテリー")]
+    [SerializeField] private Battely _battely;
     /// <summary>
     /// 来訪者の設定
     /// 審査が終了後、呼び出す
@@ -54,6 +57,10 @@ public class VisitorManager : MonoBehaviour
     /// </summary>
     public Action OnNeglectSet;
     /// <summary>
+    /// バッテリーの変動
+    /// </summary>
+    public Action  OnBattely;
+    /// <summary>
     /// 現在の来訪者を保持
     /// </summary>
     public VisitorBaseData CurrentVisitor { get; private set; }
@@ -82,6 +89,7 @@ public class VisitorManager : MonoBehaviour
         OnExit += VisitorsExit;
         OnLeave += VisitorsLeave;
         OnGoBack += VisitorsGoBack;
+        OnBattely += _battely.TriggerEvent;
         OnVisitor?.Invoke();
     }
 

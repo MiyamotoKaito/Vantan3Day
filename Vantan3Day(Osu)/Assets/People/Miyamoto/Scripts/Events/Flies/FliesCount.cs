@@ -1,16 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public class FliesCount : IDisposable
 {
     private int _count;
+    private int _maxCount;
     private List<Fly> _flies = new List<Fly>();
     private EmargencyButton _emargencyButton;
-    public FliesCount(EmargencyButton button)
+    public FliesCount(EmargencyButton button, int maxCount)
     {
         _count = 0;
         _emargencyButton = button;
+        _maxCount = maxCount;
     }
     /// <summary>
     /// 
@@ -28,9 +31,10 @@ public class FliesCount : IDisposable
     {
         _count += value;
 
-        if (_count <= 3)
+        if (_count >= _maxCount)
         {
             Debug.Log($"ハエがボタンを押した");
+            _emargencyButton.ButtonPush().Forget();
         }
     }
 

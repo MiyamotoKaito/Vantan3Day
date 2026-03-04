@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5dd640cd34a8fb24e85869d4364ea967, type: 3}
-  m_Name: Battely
+  m_Name: BadItem
   m_EditorClassIdentifier: Assembly-CSharp::DeliveryConfig
-  _itemImage: {fileID: -7508107349151861696, guid: 10f79f16aa0ac9242b2ba5b633935532, type: 3}
+  _itemImage: {fileID: -6154727600439981011, guid: 8f8a3d55a20f41640b9d474310b21934, type: 3}
