@@ -55,8 +55,14 @@ public class PlayerController : GoalObject
 
     private void OnDestroy()
     {
+        UnRestActions();
+    }
+
+    public void UnRestActions()
+    {
         _inputBuffer.ArmChangeAction.started -= ArmChange;
         _dropAction.UnRegistAction();
+        _interacter.UnregistAction();
     }
 
     private void RegistAction()
