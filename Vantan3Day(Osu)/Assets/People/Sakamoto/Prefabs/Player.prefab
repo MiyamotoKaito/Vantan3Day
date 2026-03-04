@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1807848505861410377}
   - component: {fileID: 3246035062808394917}
   - component: {fileID: 5779468794243478838}
+  - component: {fileID: 8243831032050388159}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -50,6 +51,12 @@ MonoBehaviour:
   _rightArm: {fileID: 0}
   _leftHand: {fileID: 0}
   _leftArm: {fileID: 0}
+  _currentRenderer: {fileID: 0}
+  _idleRenderer: {fileID: 2882049016101181721, guid: 4399e24a1f81e984597e312e36af5e73, type: 3}
+  _pushRenderer: {fileID: -1471352497108970364, guid: 8cb489376042fa841b64173d42c7ec71, type: 3}
+  arms:
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &3246035062808394917
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -81,3 +88,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5883a214b6cf48418ba13f69da6fef7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DropAction
+--- !u!114 &8243831032050388159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2868081480168787510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a3c0c7c0bec49245b0a26d303969a01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Interacter
