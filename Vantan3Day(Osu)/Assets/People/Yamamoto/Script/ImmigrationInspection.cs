@@ -15,6 +15,9 @@ public class ImmigrationInspection : MonoBehaviour
     [Header("放置時間のデバッグUI")] 
     [SerializeField] private TextMeshProUGUI _neglectText;
 
+    [SerializeField]
+     private PlayerController _playerController;
+
     /// <summary>
     /// 入国審査
     /// プレイヤーが呼び出す
@@ -31,7 +34,8 @@ public class ImmigrationInspection : MonoBehaviour
     private void Awake()
     {
         _visitorManager = FindObjectOfType<VisitorManager>();
-        OnExamination += (type) =>
+
+        _playerController.ButtonPressed += (type) =>
         {
             if (_visitorManager.IsExaminationInput)
             {
@@ -100,6 +104,7 @@ public class ImmigrationInspection : MonoBehaviour
             OnExamination?.Invoke(ExaminationType.Blockade);
         }
     }
+
     
     /// <summary>
     /// 審査内容の判定
