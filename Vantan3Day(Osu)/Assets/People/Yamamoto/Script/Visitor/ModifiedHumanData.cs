@@ -25,6 +25,7 @@ public class ModifiedHumanData : VisitorBaseData
     public override async UniTask ExaminationOk()
     {
         VisitorManager.SetNeglectTimeFlag(false);
+        VisitorManager.VisitorFaceChange(GetFaceVariations(FaceVariationsType.Anger));
         await UniTask.Delay(TimeSpan.FromSeconds(_animTime));
         var ob = new CompulsoryGameOver();
         ob.ObstructionExecution();
@@ -33,6 +34,7 @@ public class ModifiedHumanData : VisitorBaseData
     public override async UniTask ExaminationNg()
     {
         VisitorManager.SetNeglectTimeFlag(false);
+        VisitorManager.VisitorFaceChange(GetFaceVariations(FaceVariationsType.Anger));
         await UniTask.Delay(TimeSpan.FromSeconds(_animTime));
         var ob = new CompulsoryGameOver();
         ob.ObstructionExecution();
@@ -41,6 +43,7 @@ public class ModifiedHumanData : VisitorBaseData
     public override async UniTask ExaminationNeglect()
     {
         VisitorManager.SetNeglectTimeFlag(false);
+        VisitorManager.VisitorFaceChange(GetFaceVariations(FaceVariationsType.Anger));
         await UniTask.Delay(TimeSpan.FromSeconds(_animTime));
         var ob = new CompulsoryGameOver();
         ob.ObstructionExecution();
@@ -51,8 +54,20 @@ public class ModifiedHumanData : VisitorBaseData
         Debug.LogWarning("立ち去る");
         VisitorManager.SetNeglectTimeFlag(false);
         VisitorManager.SetInput(false);
-        VisitorManager.OnLeave?.Invoke();
+        //VisitorManager.OnLeave?.Invoke();
+        VisitorManager.OnGoBack?.Invoke();
         await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
         VisitorManager.OnVisitor?.Invoke();
+    }
+
+    public override Sprite GetFaceVariations(FaceVariationsType type)
+    {
+        Sprite sp = null;
+        foreach (var face in FaceVariations)
+        { 
+            if(face.Type == type) sp = face.Sprite;
+        }
+
+        return sp;
     }
 }

@@ -12,4 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: addf9ca24c9553842a777f5d1203b597, type: 3}
   m_Name: ModifiedHuman_0
   m_EditorClassIdentifier: Assembly-CSharp::ModifiedHumanData
+  _sprite: {fileID: 0}
   _visitorType: 2
+  _sprites:
+  - _type: 0
+    _sprite: {fileID: 0}
+  - _type: 0
+    _sprite: {fileID: 0}
+  VisitorManager: {fileID: 0}
+  AwaitTime: 2
+  _animTime: 3
