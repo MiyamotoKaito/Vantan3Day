@@ -126,11 +126,8 @@ public class VisitorManager : MonoBehaviour
             .Append(_visitorImage.DOColor(Color.white, 0))
             .OnComplete(() =>
             {
-                if (CurrentVisitor != null)
-                {
-                    SetNeglectTimeFlag(true);
-                    OnNeglectSet?.Invoke();
-                }
+                SetNeglectTimeFlag(true);
+                OnNeglectSet?.Invoke();
             });
     }
 
@@ -142,11 +139,8 @@ public class VisitorManager : MonoBehaviour
         _visitorImage.transform.DOMove(_exitPos.position, _animTime).SetEase(Ease.Linear)
             .OnComplete(() =>
             {
-                if (CurrentVisitor != null)
-                {
-                    SetNeglectTimeFlag(false);
-                    OnNeglectSet?.Invoke();
-                }
+                SetNeglectTimeFlag(false);
+                OnNeglectSet?.Invoke();
             });
     }
 
@@ -155,7 +149,14 @@ public class VisitorManager : MonoBehaviour
     /// </summary>
     private void VisitorsLeave()
     {
-        //TODO：通過で向かう場所じゃないところに向かわせる
+        //段々、透明にしていく
+        DOTween.ToAlpha(() =>
+            _visitorImage.color, color => _visitorImage.color = color, 0, _animTime)
+            .OnComplete(() =>
+            {
+                SetNeglectTimeFlag(false);
+                OnNeglectSet?.Invoke();
+            });
     }
 
     /// <summary>

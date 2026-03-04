@@ -34,7 +34,7 @@ public class AliensVisitorData : VisitorBaseData
         Debug.LogWarning("立ち去る");
         VisitorManager.SetNeglectTimeFlag(false);
         VisitorManager.SetInput(false);
-        VisitorManager.OnExit?.Invoke();
+        VisitorManager.OnLeave?.Invoke();
         await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
         VisitorManager.OnVisitor?.Invoke();
     }
