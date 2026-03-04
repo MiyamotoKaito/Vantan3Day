@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Arm : GoalObject
+public class Arm : MonoBehaviour
 {
     public bool IsActive { get; private set; } = true;
     public bool IsRightArm => _isRightArm;
@@ -39,11 +39,6 @@ public class Arm : GoalObject
             {
                 IsActive = false;
             }
-        }
-
-        if (!IsActive)
-        {
-            Position = this.transform.position;
         }
     }
 }

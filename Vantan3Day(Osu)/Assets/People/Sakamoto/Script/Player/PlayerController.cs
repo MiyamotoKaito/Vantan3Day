@@ -2,7 +2,7 @@
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : GoalObject
 {
     /// <summary>
     /// 現在操作中の手が右手かどうか
@@ -35,6 +35,7 @@ public class PlayerController : MonoBehaviour
         _dropAction = GetComponent<DropAction>();
         _interacter = GetComponent<Interacter>();
         _armMover.CurrentHand = _armMover.CurrentHand != null ? _armMover.CurrentHand : _rightHand;
+        _armMover.PreviousHand = _armMover.PreviousHand != null ? _armMover.PreviousHand : _leftHand;
         _armMover.CurrentArm = _armMover.CurrentArm != null ? _armMover.CurrentArm : _rightArm;
         _armMover.Init();
         _dropAction.Init(inputBuffer);
@@ -62,6 +63,7 @@ public class PlayerController : MonoBehaviour
             return;
         OnChange();
         _armMover.CurrentHand = _armMover.CurrentHand == _rightHand ? _leftHand : _rightHand;
+        _armMover.PreviousHand = _armMover.PreviousHand == _rightHand ? _leftHand : _rightHand;
         _armMover.CurrentArm = _armMover.CurrentArm == _rightArm ? _leftArm : _rightArm;
     }
 
@@ -118,5 +120,10 @@ public class PlayerController : MonoBehaviour
     {
         if (IsRightHand) IsRightHand = false;
         else IsRightHand = true;
+    }
+
+    private void Update()
+    {
+        _pos = _armMover.PreviousHand.transform.position;
     }
 }
