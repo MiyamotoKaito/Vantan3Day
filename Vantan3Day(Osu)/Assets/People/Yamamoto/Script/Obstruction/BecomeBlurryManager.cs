@@ -94,7 +94,7 @@ public class BecomeBlurryManager : MonoBehaviour
         color.a = alphaColor;
         _visionImage.DOColor(color, _animTime);
         
-        _recoveryTimer = time;
+        _recoveryTimer += time;
         _isObstructionView = true;
     }
 }
