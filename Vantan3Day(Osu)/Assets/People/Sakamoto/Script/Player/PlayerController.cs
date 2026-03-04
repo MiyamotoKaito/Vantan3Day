@@ -26,7 +26,7 @@ public class PlayerController : GoalObject
     [SerializeField] private SpriteRenderer _currentRenderer;
     [SerializeField] private Sprite _idleRenderer;
     [SerializeField] private Sprite _pushRenderer;
-    [SerializeField] private Arm[] arms;
+    [SerializeField] private Arm[] _arms;
 
     private InputBuffer _inputBuffer;
     private ArmMover _armMover;
@@ -45,10 +45,12 @@ public class PlayerController : GoalObject
         _armMover.Init();
         _dropAction.Init(inputBuffer);
         _interacter.Init(inputBuffer);
-        foreach (Arm arm in arms) arm.Init(_armMover, this);
+        foreach (Arm arm in _arms) arm.Init(_armMover, this);
         RegistAction();
         IsRightHand = true;
         IsFlying = false;
+        // 初期状態に合わせて各 Arm の IsActive を同期
+        foreach (Arm arm in _arms) arm.SetActive(arm.IsRightArm == IsRightHand);
     }
 
     private void OnDestroy()
@@ -67,6 +69,8 @@ public class PlayerController : GoalObject
         if (_rightHand == null || _leftHand == null || _rightArm == null || _leftArm == null)
             return;
         OnChange();
+        // 切替後の現在操作手に合わせて各腕のアクティブ状態を更新
+        foreach (Arm arm in _arms) arm.SetActive(arm.IsRightArm == IsRightHand);
         _armMover.CurrentHand = _armMover.CurrentHand == _rightHand ? _leftHand : _rightHand;
         _armMover.PreviousHand = _armMover.PreviousHand == _rightHand ? _leftHand : _rightHand;
         _armMover.CurrentArm = _armMover.CurrentArm == _rightArm ? _leftArm : _rightArm;
@@ -109,11 +113,11 @@ public class PlayerController : GoalObject
                 var arm = hit.collider.GetComponentInParent<Arm>();
                 if (arm != null && arm.IsRightArm)
                 {
-                    Debug.Log("右手のクリックは無視します: " + hit.collider.name);
                 }
                 else if (hit.collider.TryGetComponent<IPointerClickHandler>(out var clickHandler))
                 {
                     clickHandler.OnPointerClick(null);
+                    foreach (var arms in _arms) arms.Attack();
                 }
             }
         }
@@ -122,7 +126,7 @@ public class PlayerController : GoalObject
             //TODO 書類の上のみで反応するようにする
             // アイテムがある場合はインタラクト処理を呼び出す
             ButtonPressed?.Invoke(item.type);
-             Debug.Log(item.type);
+            Debug.Log(item.type);
         }
 
         //itemにある処理を呼び出す（インタラクト）

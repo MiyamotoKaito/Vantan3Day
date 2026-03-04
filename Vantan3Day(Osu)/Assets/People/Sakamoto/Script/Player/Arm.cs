@@ -16,44 +16,37 @@ public class Arm : MonoBehaviour
     private ArmMover _armMover;
     private bool _canAttack = false;
 
+    private void Awake()
+    {
+        // 保険: Init が呼ばれていないケースでも Animator を取得する
+        if (_animator == null)
+            _animator = GetComponent<Animator>();
+    }
+
     public void Init(ArmMover armMover, PlayerController plaeyrController)
     {
         _armMover = armMover;
         _playerController = plaeyrController;
         _animator = GetComponent<Animator>();
+        IsActive = _isRightArm;
+    }
+
+    // 明示的にアクティブ状態を設定するように変更
+    public void SetActive(bool active)
+    {
+        IsActive = active;
     }
 
     private void Update()
     {
-        if (_isRightArm)
-        {
-            if (_isRightArm == _playerController.IsRightHand)
-            {
-                IsActive = true;
-            }
-            else
-            {
-                IsActive = false;
-            }
-        }
-        else
-        {
-            if (_isRightArm == _playerController.IsRightHand)
-            {
-                IsActive = true;
-            }
-            else
-            {
-                IsActive = false;
-            }
-        }
+        if (_animator == null) return;
+        if (_playerController == null) return;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Fly") && IsActive)
         {
-            Debug.Log("ハエが手に触った");
             _animator.SetBool(_ready, true);
             _canAttack = true;
         }
@@ -63,7 +56,6 @@ public class Arm : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Fly") && IsActive)
         {
-            Debug.Log("ハエが手から離れた");
             _animator.SetBool(_ready, false);
             _canAttack = false;
         }

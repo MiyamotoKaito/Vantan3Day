@@ -1440,6 +1440,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 744510650}
     - target: {fileID: 1807848505861410377, guid: afdc9a3b9adcb5a46be2733c113516d4, type: 3}
+      propertyPath: _arms.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1807848505861410377, guid: afdc9a3b9adcb5a46be2733c113516d4, type: 3}
       propertyPath: _currentRenderer
       value: 
       objectReference: {fileID: 75184720}
@@ -1449,6 +1453,14 @@ PrefabInstance:
       objectReference: {fileID: 744510655}
     - target: {fileID: 1807848505861410377, guid: afdc9a3b9adcb5a46be2733c113516d4, type: 3}
       propertyPath: 'arms.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1152082919}
+    - target: {fileID: 1807848505861410377, guid: afdc9a3b9adcb5a46be2733c113516d4, type: 3}
+      propertyPath: '_arms.Array.data[0]'
+      value: 
+      objectReference: {fileID: 744510655}
+    - target: {fileID: 1807848505861410377, guid: afdc9a3b9adcb5a46be2733c113516d4, type: 3}
+      propertyPath: '_arms.Array.data[1]'
       value: 
       objectReference: {fileID: 1152082919}
     - target: {fileID: 2868081480168787510, guid: afdc9a3b9adcb5a46be2733c113516d4, type: 3}
