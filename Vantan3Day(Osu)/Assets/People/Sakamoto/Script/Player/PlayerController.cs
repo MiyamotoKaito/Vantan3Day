@@ -185,6 +185,14 @@ public class PlayerController : MonoBehaviour
                     return;
                 }
             }
+            foreach (var hit in sortedHits)
+            {
+                if (hit.TryGetComponent<IPointerClickHandler>(out var click))
+                {
+                    click.OnPointerClick(null);
+                    return;
+                }
+            }
         }
         else
         {

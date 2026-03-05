@@ -35,6 +35,7 @@ public class EmargencyButton : GoalObject, IPointerClickHandler
     public async UniTask ButtonPush()
     {
         if (_isPush) return;
+        SoundManager.Instance.PlaySE(SoundManager.SEType.ButtonPush);
         _animator.SetTrigger("Push");
         _isPush = true;
         await UniTask.NextFrame();
