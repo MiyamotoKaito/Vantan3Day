@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class Arm : GoalObject
 {
+    public string ItemUse => _itemUse;
     public bool IsActive { get; private set; } = true;
     public bool IsRightArm => _isRightArm;
     public PlayerController PlayerController => _playerController;
@@ -14,6 +15,7 @@ public class Arm : GoalObject
     [SerializeField] private string _ready = "Ready";
     [SerializeField] private string _attack = "Attack";
     [SerializeField] private string _isPickUped = "IsPickUped";
+    [SerializeField] private string _itemUse = "ItemUse";
     [SerializeField] private float _speed = 1.0f;
     private Animator _animator;
     private PlayerController _playerController;
@@ -34,6 +36,11 @@ public class Arm : GoalObject
         _isActiveObject = IsActive;
     }
 
+    public void PlayItemUse()
+    {
+        _animator.SetTrigger(_itemUse);
+    }
+
     // 明示的にアクティブ状態を設定するように変更
     public void SetActive(bool active)
     {
@@ -46,8 +53,8 @@ public class Arm : GoalObject
         if (_animator == null) return;
         if (_playerController == null) return;
 
-        if (_isRightArm == false)
-            _animator.SetBool(_isPickUped, _playerController.IsPickUped);
+
+        _animator.SetBool(_isPickUped, _playerController.IsPickUped);
 
 
 

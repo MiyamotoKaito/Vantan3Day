@@ -199,6 +199,8 @@ public class PlayerController : MonoBehaviour
             if (item.ItemType != ItemType.None)
             {
                 item.Excute();
+                foreach (var arms in _arms)
+                    arms.PlayItemUse();
             }
             else
             {
