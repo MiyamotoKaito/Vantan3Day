@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6c35a21c1351824f9e73f986d40a74e, type: 3}
   m_Name: CameraConfig
   m_EditorClassIdentifier: Assembly-CSharp::CameraConfig
-  _xMin: -10
-  _xMax: 10
-  _xMoveSpeed: 5
+  _xMin: -8
+  _xMax: 8
+  _xMoveSpeed: 10

@@ -22,49 +22,53 @@ public class AliensVisitorData : VisitorBaseData
     
     public override async UniTask ExaminationOk()
     {
+        if(!VisitorManager.IsExaminationInput)return;
         Debug.LogWarning("妨害後、通過");
         VisitorManager.SetNeglectTimeFlag(false);
         VisitorManager.SetInput(false);
         VisitorManager.VisitorFaceChange(GetFaceVariations(FaceVariationsType.Anger));
         VisitorManager.OnBattely?.Invoke();
-        VisitorManager.OnExit?.Invoke();
         VisitorManager.OnVisitorInfoCard?.Invoke(false);
+        VisitorManager.OnExit?.Invoke();
         await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
         VisitorManager.OnVisitor?.Invoke();
     }
 
     public override async UniTask ExaminationNg()
     {
+        if(!VisitorManager.IsExaminationInput)return;
         Debug.LogWarning("立ち去る");
         VisitorManager.SetNeglectTimeFlag(false);
         VisitorManager.SetInput(false);
-        VisitorManager.OnGoBack?.Invoke();
         VisitorManager.OnVisitorInfoCard?.Invoke(false);
+        VisitorManager.OnGoBack?.Invoke();
         await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
         VisitorManager.OnVisitor?.Invoke();
     }
 
     public override async UniTask ExaminationNeglect()
     {
+        if(!VisitorManager.IsExaminationInput)return;
         Debug.LogWarning("妨害実行");
         VisitorManager.SetNeglectTimeFlag(false);
         VisitorManager.SetInput(false);
         VisitorManager.VisitorFaceChange(GetFaceVariations(FaceVariationsType.Anger));
         VisitorManager.OnBattely?.Invoke();
-        VisitorManager.OnGoBack?.Invoke();
         VisitorManager.OnVisitorInfoCard?.Invoke(false);
+        VisitorManager.OnGoBack?.Invoke();
         await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
         VisitorManager.OnVisitor?.Invoke();
     }
 
     public override async UniTask ExaminationBlockade()
     {
+        if(!VisitorManager.IsExaminationInput)return;
         Debug.LogWarning("封鎖後、妨害を実行");
         VisitorManager.SetNeglectTimeFlag(false);
         VisitorManager.SetInput(false);
         VisitorManager.VisitorFaceChange(GetFaceVariations(FaceVariationsType.Anger));
-        VisitorManager.OnGoBack?.Invoke();
         VisitorManager.OnVisitorInfoCard?.Invoke(false);
+        VisitorManager.OnGoBack?.Invoke();
         await UniTask.Delay(TimeSpan.FromSeconds(AwaitTime));
         VisitorManager.OnVisitor?.Invoke();
     }
