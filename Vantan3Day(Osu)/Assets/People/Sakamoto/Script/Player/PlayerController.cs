@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NUnit.Framework.Internal;
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -158,10 +159,7 @@ public class PlayerController : MonoBehaviour
                     clickHandler.OnPointerClick(null);
                     foreach (var arms in _arms) arms.Attack();
                 }
-                else if(best.TryGetComponent<Item>(out var tool))
-                {
-                    tool.Excute();
-                }
+
                 else
                 {
                     Debug.Log($"InteractFromActiveHand: target {best.gameObject.name} has no IPointerClickHandler");
@@ -174,14 +172,18 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-           if(_arms[0].OnPapperArm || _arms[1].OnPapperArm)
+            if (item.ItemType != ItemType.None)
             {
-               ButtonPressed?.Invoke(item.type); 
+                item.Excute();
             }
-            
-            
+            //TODO 書類の上のみで反応するようにする
+            // アイテムがある場合はインタラクト処理を呼び出す
+            else
+            {
+                ButtonPressed?.Invoke(item.type);
+                Debug.Log(item.type);
+            }
         }
-
         //itemにある処理を呼び出す（インタラクト）
     }
 
