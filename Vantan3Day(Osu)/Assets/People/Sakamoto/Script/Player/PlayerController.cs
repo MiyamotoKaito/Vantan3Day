@@ -180,8 +180,8 @@ public class PlayerController : MonoBehaviour
             // アイテムがある場合はインタラクト処理を呼び出す
             else
             {
-                ButtonPressed?.Invoke(item.type);
-                Debug.Log(item.type);
+                if (_arms[0].OnPapperArm || _arms[1].OnPapperArm)
+                    ButtonPressed?.Invoke(item.type);
             }
         }
         //itemにある処理を呼び出す（インタラクト）
