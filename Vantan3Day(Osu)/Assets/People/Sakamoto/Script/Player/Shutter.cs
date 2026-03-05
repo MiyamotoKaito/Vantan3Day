@@ -41,6 +41,7 @@ public class Shutter : MonoBehaviour
         {
             _isOpen = true;
             _animator.SetTrigger("Open");
+
         }
     }
 }
