@@ -169,6 +169,7 @@ public class VisitorManager : MonoBehaviour
     /// </summary>
     private void VisitorsEntry()
     {
+        if(_visitorImage == null) return;
         _visitorImage.color = Color.black;
         var sq = DOTween.Sequence();
         sq.Append(_visitorImage.transform.DOMove(_entryPos.position, _animTime).SetEase(Ease.Linear))
@@ -185,6 +186,7 @@ public class VisitorManager : MonoBehaviour
     /// </summary>
     private void VisitorsExit()
     {
+        if(_visitorImage == null) return;
         _visitorImage.transform.DOMove(_exitPos.position, _animTime).SetEase(Ease.Linear)
             .OnComplete(() =>
             {
