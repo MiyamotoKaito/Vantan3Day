@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 public class Cursor : MonoBehaviour, IPointerClickHandler
 {
+    public bool IsOpen => _isOpen;
+    public bool CanOpen => _canOpen;
+
     [SerializeField] private SpriteRenderer _currentRenderer;
     [SerializeField] private Sprite _startRenderer;
     [SerializeField] private Sprite _endRenderer;
