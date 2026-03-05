@@ -30,8 +30,8 @@ public class ModifiedHumanData : VisitorBaseData
         VisitorManager.VisitorFaceChange(GetFaceVariations(FaceVariationsType.Anger));
         VisitorManager.OnVisitorInfoCard?.Invoke(false);
         await UniTask.Delay(TimeSpan.FromSeconds(_animTime));
-        var ob = new CompulsoryGameOver();
-        ob.ObstructionExecution();
+        //var ob = new CompulsoryGameOver();
+        //ob.ObstructionExecution();
     }
 
     public override async UniTask ExaminationNg()
@@ -41,8 +41,8 @@ public class ModifiedHumanData : VisitorBaseData
         VisitorManager.VisitorFaceChange(GetFaceVariations(FaceVariationsType.Anger));
         VisitorManager.OnVisitorInfoCard?.Invoke(false);
         await UniTask.Delay(TimeSpan.FromSeconds(_animTime));
-        var ob = new CompulsoryGameOver();
-        ob.ObstructionExecution();
+        //var ob = new CompulsoryGameOver();
+        //ob.ObstructionExecution();
     }
 
     public override async UniTask ExaminationNeglect()
@@ -52,8 +52,8 @@ public class ModifiedHumanData : VisitorBaseData
         VisitorManager.VisitorFaceChange(GetFaceVariations(FaceVariationsType.Anger));
         VisitorManager.OnVisitorInfoCard?.Invoke(false);
         await UniTask.Delay(TimeSpan.FromSeconds(_animTime));
-        var ob = new CompulsoryGameOver();
-        ob.ObstructionExecution();
+        //var ob = new CompulsoryGameOver();
+        //ob.ObstructionExecution();
     }
 
     public override async UniTask ExaminationBlockade()
