@@ -179,5 +179,5 @@ MonoBehaviour:
       data:
         _fly: {fileID: 8318042632607903211, guid: 093d9789d56a7244cb54bce27b75a6fb, type: 3}
         _initPos:
-        - {x: -4.48, y: 5, z: 0}
-        - {x: 4.07, y: 5, z: 0}
+        - {x: -4.48, y: 4.5, z: 0}
+        - {x: 4.07, y: 4.5, z: 0}
