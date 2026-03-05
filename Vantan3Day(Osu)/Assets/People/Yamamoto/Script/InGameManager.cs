@@ -7,7 +7,8 @@ using UnityEngine;
 public class InGameManager : MonoBehaviour
 {
     public static InGameManager Instance;
-    
+    [Header("VisitorManager")]
+    [SerializeField] private VisitorManager _visitorManager;
     [Header("GameOverUI")]
     [SerializeField] private GameObject _gameOverUI;
     
@@ -26,7 +27,9 @@ public class InGameManager : MonoBehaviour
         else
         {
             Destroy(this);
+            OnGameOver -= GameOver;
         }
+        _visitorManager.IsNeglectTimeStart = false;
         _gameOverUI.SetActive(false);
     }
     
@@ -36,5 +39,6 @@ public class InGameManager : MonoBehaviour
     private void GameOver()
     {
         _gameOverUI.SetActive(true);
+        Debug.Log("ゲームオーバー処理");
     }
 }

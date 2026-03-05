@@ -27,33 +27,36 @@ public class ModifiedHumanData : VisitorBaseData
     {
         if(!VisitorManager.IsExaminationInput)return;
         VisitorManager.SetNeglectTimeFlag(false);
+        VisitorManager.SetInput(false);
         VisitorManager.VisitorFaceChange(GetFaceVariations(FaceVariationsType.Anger));
         VisitorManager.OnVisitorInfoCard?.Invoke(false);
         await UniTask.Delay(TimeSpan.FromSeconds(_animTime));
-        //var ob = new CompulsoryGameOver();
-        //ob.ObstructionExecution();
+        var ob = new CompulsoryGameOver();
+        ob.ObstructionExecution();
     }
 
     public override async UniTask ExaminationNg()
     {
         if(!VisitorManager.IsExaminationInput)return;
         VisitorManager.SetNeglectTimeFlag(false);
+        VisitorManager.SetInput(false);
         VisitorManager.VisitorFaceChange(GetFaceVariations(FaceVariationsType.Anger));
         VisitorManager.OnVisitorInfoCard?.Invoke(false);
         await UniTask.Delay(TimeSpan.FromSeconds(_animTime));
-        //var ob = new CompulsoryGameOver();
-        //ob.ObstructionExecution();
+        var ob = new CompulsoryGameOver();
+        ob.ObstructionExecution();
     }
 
     public override async UniTask ExaminationNeglect()
     {
         if(!VisitorManager.IsExaminationInput)return;
         VisitorManager.SetNeglectTimeFlag(false);
+        VisitorManager.SetInput(false);
         VisitorManager.VisitorFaceChange(GetFaceVariations(FaceVariationsType.Anger));
         VisitorManager.OnVisitorInfoCard?.Invoke(false);
         await UniTask.Delay(TimeSpan.FromSeconds(_animTime));
-        //var ob = new CompulsoryGameOver();
-        //ob.ObstructionExecution();
+        var ob = new CompulsoryGameOver();
+        ob.ObstructionExecution();
     }
 
     public override async UniTask ExaminationBlockade()
