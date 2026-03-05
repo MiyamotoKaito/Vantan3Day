@@ -1,20 +1,21 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Shutter : MonoBehaviour
+public class Shutter : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] private Animator _animator;
-
-    private bool _isOpen = false;
+    [SerializeField] private bool _isOpen = false;
+    [SerializeField] private string _str = "";
     private bool _canOpen = false;
 
     private void Start()
     {
+        _animator = GetComponent<Animator>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Hand") && !_isOpen)
+        if (collision.gameObject.CompareTag("Hand"))
         {
             _canOpen = true;
         }
@@ -22,7 +23,7 @@ public class Shutter : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Hand") && !_isOpen)
+        if (collision.gameObject.CompareTag("Hand"))
         {
             _canOpen = false;
         }
@@ -35,12 +36,12 @@ public class Shutter : MonoBehaviour
         if (_isOpen)
         {
             _isOpen = false;
-            _animator.SetTrigger("Close");
+            _animator.SetBool(_str,_isOpen);
         }
         else
         {
             _isOpen = true;
-            _animator.SetTrigger("Open");
+            _animator.SetBool(_str,_isOpen);
 
         }
     }
