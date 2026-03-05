@@ -85,7 +85,7 @@ public class VisitorManager : MonoBehaviour
     /// 放置タイマーの開始
     /// true：開始　false：終止
     /// </summary>
-    public bool IsNeglectTimeStart {get; private set; }
+    public bool IsNeglectTimeStart {get; set; }
 
     private void Awake()
     {
