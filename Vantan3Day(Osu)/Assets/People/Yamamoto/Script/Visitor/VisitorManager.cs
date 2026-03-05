@@ -131,6 +131,7 @@ public class VisitorManager : MonoBehaviour
     /// </summary>
     private void VisitorsSettings()
     {
+        if(_visitorImage ==null) return;
         _visitorImage.sprite = CurrentVisitor.Sprite;
     }
     
@@ -140,6 +141,7 @@ public class VisitorManager : MonoBehaviour
     /// <param name="flag">true：表示　false：非表示</param>>
     private void VisitorInfoCardSwitch(bool flag)
     {
+        if(_visitorInfoCard ==null) return;
         _visitorInfoCard.enabled = flag;
     }
 
