@@ -33,7 +33,6 @@ public class VisitorManager : MonoBehaviour
     [SerializeField] private Image _visitorImage;
     [Header("来訪者情報カード")]
     [SerializeField] private SpriteRenderer _visitorInfoCard;
-    
     /// <summary>
     /// 来訪者の設定
     /// 審査が終了後、呼び出す
@@ -85,7 +84,7 @@ public class VisitorManager : MonoBehaviour
     /// 放置タイマーの開始
     /// true：開始　false：終止
     /// </summary>
-    public bool IsNeglectTimeStart {get; set; }
+    public bool IsNeglectTimeStart {get; private set; }
 
     private void Awake()
     {
@@ -131,7 +130,6 @@ public class VisitorManager : MonoBehaviour
     /// </summary>
     private void VisitorsSettings()
     {
-        if(_visitorImage ==null) return;
         _visitorImage.sprite = CurrentVisitor.Sprite;
     }
     
@@ -141,7 +139,6 @@ public class VisitorManager : MonoBehaviour
     /// <param name="flag">true：表示　false：非表示</param>>
     private void VisitorInfoCardSwitch(bool flag)
     {
-        if(_visitorInfoCard ==null) return;
         _visitorInfoCard.enabled = flag;
     }
 
@@ -151,7 +148,6 @@ public class VisitorManager : MonoBehaviour
     /// <param name="sp">差分</param>>
     public void VisitorFaceChange(Sprite sp)
     {
-        if(_visitorImage == null) return;
         _visitorImage.sprite = sp;
     }
 
@@ -160,7 +156,6 @@ public class VisitorManager : MonoBehaviour
     /// </summary>
     public void VisitorAwaitSet()
     {
-        if(_visitorImage == null) return;
         _visitorImage.transform.position = _awaitPos.position;
     }
 
@@ -169,7 +164,6 @@ public class VisitorManager : MonoBehaviour
     /// </summary>
     private void VisitorsEntry()
     {
-        if(_visitorImage == null) return;
         _visitorImage.color = Color.black;
         var sq = DOTween.Sequence();
         sq.Append(_visitorImage.transform.DOMove(_entryPos.position, _animTime).SetEase(Ease.Linear))
@@ -186,7 +180,6 @@ public class VisitorManager : MonoBehaviour
     /// </summary>
     private void VisitorsExit()
     {
-        if(_visitorImage == null) return;
         _visitorImage.transform.DOMove(_exitPos.position, _animTime).SetEase(Ease.Linear)
             .OnComplete(() =>
             {

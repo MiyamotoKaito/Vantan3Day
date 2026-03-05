@@ -104,8 +104,6 @@ public class SoundManager : MonoBehaviour
         ButtonPush,
         ShatterOpen,
         ShatterClose,
-        WindowOpen,
-        WindowClose,
     }
 }
 

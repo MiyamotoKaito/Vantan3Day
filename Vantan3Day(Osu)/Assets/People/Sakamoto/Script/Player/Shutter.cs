@@ -28,6 +28,11 @@ public class Shutter : MonoBehaviour, IPointerClickHandler
             _canOpen = false;
         }
     }
+    public void OpenShutter(bool isOpen)
+    {
+        _animator.SetBool("Open", isOpen);
+        Debug.Log("OpenShutter: " + isOpen);
+    }
 
     public void OnPointerClick(PointerEventData eventData)
     {

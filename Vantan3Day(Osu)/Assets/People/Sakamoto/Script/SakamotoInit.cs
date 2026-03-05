@@ -1,5 +1,4 @@
 ﻿using Unity.VisualScripting;
-using UnityEditor.Search;
 using UnityEngine;
 
 public class SakamotoInit : MonoBehaviour

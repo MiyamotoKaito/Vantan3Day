@@ -1,11 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class Cursor : MonoBehaviour, IPointerClickHandler
 {
-    public bool IsOpen => _isOpen;
-    public bool CanOpen => _canOpen;
-
     [SerializeField] private SpriteRenderer _currentRenderer;
     [SerializeField] private Sprite _startRenderer;
     [SerializeField] private Sprite _endRenderer;
@@ -45,13 +43,11 @@ public class Cursor : MonoBehaviour, IPointerClickHandler
         {
             _currentRenderer.sprite = _startRenderer;
             _isOpen = false;
-            SoundManager.Instance.PlaySE(SoundManager.SEType.WindowClose);
         }
         else
         {
             _currentRenderer.sprite = _openRenderer;
             _isOpen = true;
-            SoundManager.Instance.PlaySE(SoundManager.SEType.WindowOpen);
         }
         Debug.Log("Cursor.OnPointerClick: Clicked on cursor object " + gameObject.name);
         //_animator.SetTrigger("Clicked");

@@ -12,7 +12,7 @@ public class BadItem : BaseDeliveryItem
     }
     private void ApplyEffect()
     {
-        for (int i = 1; i <= _numberOfEvents[Day._dayCount]; i++)
+        for (int i = 0; i < _numberOfEvents[Day._dayCount]; i++)
         {
             _events[Random.Range(0, _events.Count)].OnEvent(_eventManager);
         }
