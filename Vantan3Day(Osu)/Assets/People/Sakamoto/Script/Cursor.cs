@@ -45,11 +45,13 @@ public class Cursor : MonoBehaviour, IPointerClickHandler
         {
             _currentRenderer.sprite = _startRenderer;
             _isOpen = false;
+            SoundManager.Instance.PlaySE(SoundManager.SEType.WindowClose);
         }
         else
         {
             _currentRenderer.sprite = _openRenderer;
             _isOpen = true;
+            SoundManager.Instance.PlaySE(SoundManager.SEType.WindowOpen);
         }
         Debug.Log("Cursor.OnPointerClick: Clicked on cursor object " + gameObject.name);
         //_animator.SetTrigger("Clicked");
