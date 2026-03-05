@@ -1,9 +1,18 @@
-using System;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Timer : MonoBehaviour
 {
+    [System.Serializable]
+    public class DayTimer
+    {
+        [Min(1)]
+        public int DayCount;
+        public int Time;
+    }
     [SerializeField]
+    private List<DayTimer> _timerList;
     private float _clearTime;
     private float _timer;
     private bool _isCleared;
@@ -44,7 +53,15 @@ public class Timer : MonoBehaviour
 
     public void ResetTimer()
     {
-        _timer = _clearTime;
+        foreach (var timer in _timerList)
+        {
+            if (Day._dayCount == timer.DayCount)
+            {
+                _clearTime = timer.Time;
+                _timer = timer.Time;
+                break;
+            }
+        }
         _isCleared = false;
         _closeTimer = false;
     }
