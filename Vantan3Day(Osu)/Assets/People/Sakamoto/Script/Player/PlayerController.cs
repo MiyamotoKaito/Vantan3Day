@@ -1,5 +1,6 @@
-﻿using NUnit.Framework.Internal;
-using System;
+﻿using System;
+using System.Linq;
+using NUnit.Framework.Internal;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -116,58 +117,73 @@ public class PlayerController : MonoBehaviour
         var hand = IsRightHand ? _rightHand : _leftHand;
         if (hand == null) return;
 
-        //手にあるアイテムを取得
         var item = hand.GetComponentInChildren<Item>();
+
         if (item == null)
         {
             var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             var hits = Physics2D.OverlapPointAll(mousePos);
-            Collider2D best = null;
-            int bestOrder = int.MinValue;
-            float bestZ = float.MaxValue;
 
-            if (hits != null)
-            {
-                for (int i = 0; i < hits.Length; i++)
+            if (hits == null || hits.Length == 0) return;
+
+            // sortingOrder順でソート（手前 → 奥）
+            var sortedHits = hits
+                .Where(h => h != null && h.GetComponentInParent<Arm>() == null)
+                .OrderByDescending(h =>
                 {
-                    var h = hits[i];
-                    if (h == null) continue;
-                    var arm = h.GetComponentInParent<Arm>();
-                    var isArm = arm != null;
-                    Debug.Log($" hit[{i}] name={h.gameObject.name} isArm={isArm} layer={h.gameObject.layer}");
-                    if (isArm) continue; // skip hand colliders
-
                     var sr = h.GetComponent<SpriteRenderer>();
-                    int order = sr != null ? sr.sortingOrder : 0;
-                    float z = h.transform.position.z;
+                    return sr != null ? sr.sortingOrder : 0;
+                })
+                .ToArray();
 
-                    // choose by sortingOrder then by smaller z
-                    if (best == null || order > bestOrder || (order == bestOrder && z < bestZ))
+            Cursor frontCursor = null;
+            BaseDeliveryItem backItem = null;
+
+            foreach (var hit in sortedHits)
+            {
+                // 一番手前のCursorを取得
+                if (frontCursor == null && hit.TryGetComponent<Cursor>(out var cursor))
+                {
+                    frontCursor = cursor;
+                    continue;
+                }
+
+                // Cursorより奥のDeliveryItemを取得
+                if (frontCursor != null && hit.TryGetComponent<BaseDeliveryItem>(out var delivery))
+                {
+                    backItem = delivery;
+                    break;
+                }
+            }
+
+            if (frontCursor != null)
+            {
+                // ① 閉じていて開ける状態なら開く
+                if (!frontCursor.IsOpen && frontCursor.CanOpen)
+                {
+                    frontCursor.OnPointerClick(null);
+                    return;
+                }
+
+                // ② 開いている場合
+                if (frontCursor.IsOpen)
+                {
+                    // 下にアイテムがあるなら発火
+                    if (backItem != null)
                     {
-                        best = h;
-                        bestOrder = order;
-                        bestZ = z;
+                        backItem.OnPointerClick(null);
+
+                        foreach (var arms in _arms)
+                            arms.Attack();
                     }
-                }
-            }
+                    else
+                    {
+                        // 下に何もないなら閉じる
+                        frontCursor.OnPointerClick(null);
+                    }
 
-            if (best != null)
-            {
-                Debug.Log($"InteractFromActiveHand: selected target={best.gameObject.name} order={bestOrder} z={bestZ}");
-                if (best.TryGetComponent<IPointerClickHandler>(out var clickHandler))
-                {
-                    clickHandler.OnPointerClick(null);
-                    foreach (var arms in _arms) arms.Attack();
+                    return;
                 }
-
-                else
-                {
-                    Debug.Log($"InteractFromActiveHand: target {best.gameObject.name} has no IPointerClickHandler");
-                }
-            }
-            else
-            {
-                Debug.Log("InteractFromActiveHand: no non-hand target found");
             }
         }
         else
@@ -176,15 +192,12 @@ public class PlayerController : MonoBehaviour
             {
                 item.Excute();
             }
-            //TODO 書類の上のみで反応するようにする
-            // アイテムがある場合はインタラクト処理を呼び出す
             else
             {
                 if (_arms[0].OnPapperArm || _arms[1].OnPapperArm)
                     ButtonPressed?.Invoke(item.type);
             }
         }
-        //itemにある処理を呼び出す（インタラクト）
     }
 
     private void OnChange()
