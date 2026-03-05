@@ -151,6 +151,7 @@ public class VisitorManager : MonoBehaviour
     /// <param name="sp">差分</param>>
     public void VisitorFaceChange(Sprite sp)
     {
+        if(_visitorImage == null) return;
         _visitorImage.sprite = sp;
     }
 
@@ -159,6 +160,7 @@ public class VisitorManager : MonoBehaviour
     /// </summary>
     public void VisitorAwaitSet()
     {
+        if(_visitorImage == null) return;
         _visitorImage.transform.position = _awaitPos.position;
     }
 
