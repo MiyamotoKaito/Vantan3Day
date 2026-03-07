@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-// SEの種類を決めれるサウンドマネージャー
+/// <summary>
+/// SEの種類を決めれるサウンドマネージャー
+/// </summary>
 public class SoundManager : MonoBehaviour
 {
 

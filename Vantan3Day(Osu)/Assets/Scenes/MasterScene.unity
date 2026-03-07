@@ -351,7 +351,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -1
+  m_SortingOrder: -50
   m_MaskInteraction: 0
   m_Sprite: {fileID: -3608434386515183688, guid: 1e35ac0f073ecb34cb3b27e0e50ef2cb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -430,6 +430,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 4635816770375502778, guid: 34135a7e1abcd1749899c69bff00af08, type: 3}
+    - target: {fileID: 5101408620590320814, guid: 269089c6a2f64fd42b330f272959e78c, type: 3}
+      propertyPath: m_SortingOrder
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 5101408620590320814, guid: 269089c6a2f64fd42b330f272959e78c, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
@@ -541,7 +545,7 @@ GameObject:
   - component: {fileID: 94442090}
   - component: {fileID: 94442091}
   m_Layer: 0
-  m_Name: Green
+  m_Name: OKStamp
   m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1495,6 +1499,7 @@ Transform:
   - {fileID: 1545696017}
   - {fileID: 1331652184}
   - {fileID: 341871606}
+  - {fileID: 1875421376}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &966156769 stripped
@@ -1910,7 +1915,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EventManager
   _interval: 3
-  _maxFlyCount: 0
+  _maxFlyCount: 10
   _event:
   - rid: 7451256252418490556
   - rid: 7451256276475969634
@@ -2188,7 +2193,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1048898324353386633, guid: 467136f22fc981a4e8c014f7cf22d845, type: 3}
       propertyPath: m_Name
-      value: EnergyUI
+      value: ===EnergyUI===
       objectReference: {fileID: 0}
     - target: {fileID: 2919727933991220143, guid: 467136f22fc981a4e8c014f7cf22d845, type: 3}
       propertyPath: m_Name
@@ -2943,7 +2948,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1802469870076216416, guid: 810c4c8cc4fffa048852228b59daec6e, type: 3}
       propertyPath: m_SortingOrder
-      value: -2
+      value: -75
       objectReference: {fileID: 0}
     - target: {fileID: 6363688789359905925, guid: 810c4c8cc4fffa048852228b59daec6e, type: 3}
       propertyPath: m_Pivot.x
@@ -3127,7 +3132,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1822070894
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3254,7 +3259,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -2
+  m_SortingOrder: -100
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: 34003b00c7628bb4fb0ed42b74bb9f24, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -3279,7 +3284,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 951216418}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1912046365 stripped
 GameObject:
@@ -3305,6 +3310,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3376808991136182442, guid: f006a4e73c8e45d4885c1db85ff305cd, type: 3}
+      propertyPath: m_fontStyle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3376808991136182442, guid: f006a4e73c8e45d4885c1db85ff305cd, type: 3}
+      propertyPath: m_VerticalAlignment
+      value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 3376808991136182442, guid: f006a4e73c8e45d4885c1db85ff305cd, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4721288108057640076, guid: f006a4e73c8e45d4885c1db85ff305cd, type: 3}
       propertyPath: m_Name
       value: VisitorUIs
@@ -3387,6 +3404,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6084308699687382767, guid: f006a4e73c8e45d4885c1db85ff305cd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6220337134081716658, guid: f006a4e73c8e45d4885c1db85ff305cd, type: 3}
+      propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6555237230223385413, guid: f006a4e73c8e45d4885c1db85ff305cd, type: 3}
@@ -3536,7 +3557,7 @@ GameObject:
   - component: {fileID: 2080049612}
   - component: {fileID: 2080049611}
   m_Layer: 0
-  m_Name: Red
+  m_Name: NGStamp
   m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4151,7 +4172,10 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 13866061}
-  - {fileID: 1875421376}
+  - {fileID: 1242693844}
+  - {fileID: 124361095}
+  - {fileID: 479767380}
+  - {fileID: 457454221}
   - {fileID: 951216418}
   - {fileID: 2088222704}
   - {fileID: 1486334302}
@@ -4159,17 +4183,13 @@ SceneRoots:
   - {fileID: 1631716683}
   - {fileID: 94442089}
   - {fileID: 2080049615}
-  - {fileID: 1242693844}
-  - {fileID: 457454221}
-  - {fileID: 1527314822}
   - {fileID: 1750506047}
   - {fileID: 1923320569}
   - {fileID: 1915506510}
-  - {fileID: 124361095}
-  - {fileID: 479767380}
+  - {fileID: 1790598332}
   - {fileID: 648806897}
   - {fileID: 380479283}
   - {fileID: 2379410}
   - {fileID: 683089741}
-  - {fileID: 1790598332}
   - {fileID: 29937212}
+  - {fileID: 1527314822}
