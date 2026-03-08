@@ -432,7 +432,7 @@ PrefabInstance:
       objectReference: {fileID: 4635816770375502778, guid: 34135a7e1abcd1749899c69bff00af08, type: 3}
     - target: {fileID: 5101408620590320814, guid: 269089c6a2f64fd42b330f272959e78c, type: 3}
       propertyPath: m_SortingOrder
-      value: 4
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 5101408620590320814, guid: 269089c6a2f64fd42b330f272959e78c, type: 3}
       propertyPath: m_WasSpriteAssigned
@@ -644,7 +644,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 14
+  m_SortingOrder: 40
   m_MaskInteraction: 0
   m_Sprite: {fileID: -6770162153685797658, guid: e847f6a2af9402143b369170494e5b7d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -710,9 +710,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf17a70a46454a74ebe4a58a210e5503, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Item
-  _plaeyrController: {fileID: 686646225}
+  _playerController: {fileID: 686646225}
   _handTag: Hand
-  _dropDelay: 2
+  _dropDelay: 1
   type: 0
   ItemType: 0
   _consumption: 0
@@ -873,7 +873,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 30
   m_MaskInteraction: 0
   m_Sprite: {fileID: 99640342831942521, guid: ab751a935f1b5db45bf2ed9098026b17, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1361,7 +1361,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: -25
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: 702f1f3d67ae6e84693bb24bdc5c1066, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -2152,7 +2152,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 20
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: b38fe004e1db1294a93dce3a289a9f16, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -2637,7 +2637,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: -25
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: 1e806eadd317ef343b02ef484fa6352a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -3057,7 +3057,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 796405713079086611, guid: 9828a5b915eee0e4692104965b3cceeb, type: 3}
       propertyPath: m_SortingOrder
-      value: 3
+      value: 31
       objectReference: {fileID: 0}
     - target: {fileID: 1553226029324891401, guid: 9828a5b915eee0e4692104965b3cceeb, type: 3}
       propertyPath: m_Name
@@ -3575,9 +3575,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf17a70a46454a74ebe4a58a210e5503, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Item
-  _plaeyrController: {fileID: 686646225}
+  _playerController: {fileID: 686646225}
   _handTag: Hand
-  _dropDelay: 2
+  _dropDelay: 1
   type: 1
   ItemType: 0
   _consumption: 0
@@ -3701,7 +3701,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 14
+  m_SortingOrder: 40
   m_MaskInteraction: 0
   m_Sprite: {fileID: -3362699962434557934, guid: a453bc122542c3144966addb06130c76, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -4094,6 +4094,67 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 92c8edb1181e8b748981bd7aa691aabe, type: 3}
+--- !u!1001 &3771751276947692978
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3348466825599325588, guid: 021d337306a62b1479be1165e55469f7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3.249
+      objectReference: {fileID: 0}
+    - target: {fileID: 3348466825599325588, guid: 021d337306a62b1479be1165e55469f7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -3.72
+      objectReference: {fileID: 0}
+    - target: {fileID: 3348466825599325588, guid: 021d337306a62b1479be1165e55469f7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3348466825599325588, guid: 021d337306a62b1479be1165e55469f7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3348466825599325588, guid: 021d337306a62b1479be1165e55469f7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3348466825599325588, guid: 021d337306a62b1479be1165e55469f7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3348466825599325588, guid: 021d337306a62b1479be1165e55469f7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3348466825599325588, guid: 021d337306a62b1479be1165e55469f7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3348466825599325588, guid: 021d337306a62b1479be1165e55469f7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3348466825599325588, guid: 021d337306a62b1479be1165e55469f7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7452681824454461233, guid: 021d337306a62b1479be1165e55469f7, type: 3}
+      propertyPath: m_Name
+      value: "\u30EA\u30E2\u30B3\u30F3_1"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8311133533238592417, guid: 021d337306a62b1479be1165e55469f7, type: 3}
+      propertyPath: _playerController
+      value: 
+      objectReference: {fileID: 686646225}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 021d337306a62b1479be1165e55469f7, type: 3}
 --- !u!1001 &5138345440162401802
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4183,6 +4244,7 @@ SceneRoots:
   - {fileID: 1631716683}
   - {fileID: 94442089}
   - {fileID: 2080049615}
+  - {fileID: 3771751276947692978}
   - {fileID: 1750506047}
   - {fileID: 1923320569}
   - {fileID: 1915506510}

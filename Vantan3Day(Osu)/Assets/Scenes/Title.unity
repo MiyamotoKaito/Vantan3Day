@@ -548,6 +548,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2882049016101181721, guid: bc2d67f2dd484a0408cb7cd6703af49b, type: 3}
     - target: {fileID: 1816541496463948476, guid: 520f35190b93af34f82a3ca7a4466ace, type: 3}
+      propertyPath: m_SortingOrder
+      value: 999
+      objectReference: {fileID: 0}
+    - target: {fileID: 1816541496463948476, guid: 520f35190b93af34f82a3ca7a4466ace, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
@@ -603,6 +607,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5662693212810474213, guid: 520f35190b93af34f82a3ca7a4466ace, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6117138286672276610, guid: 520f35190b93af34f82a3ca7a4466ace, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5
@@ -623,6 +631,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 3385645124071748028, guid: 3fc0f6cff80e38a45a6e3e74d0c58e5d, type: 3}
+    - target: {fileID: 8655429127041322981, guid: 520f35190b93af34f82a3ca7a4466ace, type: 3}
+      propertyPath: m_SortingOrder
+      value: 999
+      objectReference: {fileID: 0}
     - target: {fileID: 8655429127041322981, guid: 520f35190b93af34f82a3ca7a4466ace, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
@@ -691,18 +703,20 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
-    m_FontStyle: 0
+    m_FontSize: 50
+    m_FontStyle: 1
     m_BestFit: 0
-    m_MinSize: 10
-    m_MaxSize: 40
+    m_MinSize: 0
+    m_MaxSize: 295
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Button
+  m_Text: 'Start
+
+'
 --- !u!222 &617465824
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -983,7 +997,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -6, y: -373}
-  m_SizeDelta: {x: 160, y: 30}
+  m_SizeDelta: {x: 160, y: 160}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1295945435
 MonoBehaviour:
@@ -1029,9 +1043,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1550529988}
-        m_TargetAssemblyTypeName: ShutterAnim, Assembly-CSharp
-        m_MethodName: ShutterOpenAnim
+      - m_Target: {fileID: 1938622939}
+        m_TargetAssemblyTypeName: StartButton, Assembly-CSharp
+        m_MethodName: StartPush
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1369,7 +1383,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a830645c59631b4f9cb3eceff3815f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShutterAnim
-  _animSpeed: 1
+  _animTime: 1
   _openedPosY: 6.1
   _closedPosY: 0
 --- !u!1 &1757543334
@@ -1425,6 +1439,52 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5633499911672399016, guid: 603c06af8c545d84c9beefafe0f4fff9, type: 3}
   m_PrefabInstance: {fileID: 582342168}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1938622937
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1938622938}
+  - component: {fileID: 1938622939}
+  m_Layer: 0
+  m_Name: StartButton
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1938622938
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1938622937}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1938622939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1938622937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36cc4b83cc67da940a00f8949c28ff77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StartButton
+  _shutterAnim: {fileID: 1550529988}
+  _inGameSceneName: MasterScene
 --- !u!1 &1972256871 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1821076461468484461, guid: 870bd5110cdbf7c43b925a9c273bcc9f, type: 3}
@@ -1694,3 +1754,4 @@ SceneRoots:
   - {fileID: 18462870}
   - {fileID: 1511344188}
   - {fileID: 1517461195}
+  - {fileID: 1938622938}

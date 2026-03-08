@@ -14,7 +14,7 @@ public class Arm : GoalObject
     [SerializeField] private string _ready = "Ready";
     [SerializeField] private string _attack = "Attack";
     [SerializeField] private string _isPickUped = "IsPickUped";
-    [SerializeField] private float _speed = 1.0f;
+    [SerializeField,Header("ハエを追い払う時の手のスピード")] private float _speed = 1.0f;
     private Animator _animator;
     private PlayerController _playerController;
     private ArmMover _armMover;
@@ -46,7 +46,7 @@ public class Arm : GoalObject
         if (_animator == null) return;
         if (_playerController == null) return;
 
-        if (_isRightArm == false)
+        //if (_isRightArm == false)
             _animator.SetBool(_isPickUped, _playerController.IsPickUped);
 
 

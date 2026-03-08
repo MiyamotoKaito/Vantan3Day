@@ -6,7 +6,7 @@ public class Item : MonoBehaviour
 {
     public bool IsPickable { get; private set; } = true;
 
-    [SerializeField] private PlayerController _plaeyrController;
+    [SerializeField] private PlayerController _playerController;
     [SerializeField] private string _handTag = "Hand";
     [SerializeField] private float _dropDelay = 2f;
     public ExaminationType type;
@@ -15,7 +15,7 @@ public class Item : MonoBehaviour
     private Collider2D _collider;
     private Rigidbody2D _rb;
     private Battely _battely;
-    [SerializeField]
+    [SerializeField,Header("バッテリーの消費量")]
     private float _consumption;
 
     private void Start()
@@ -102,7 +102,7 @@ public class Item : MonoBehaviour
             if (_spriteRenderer != null) _spriteRenderer.enabled = false;
 
             IsPickable = false;
-            _plaeyrController.PickUp();
+            _playerController.PickUp();
         }
         else if (arm.IsRightArm == true && ItemType != ItemType.None)
         {
@@ -121,7 +121,7 @@ public class Item : MonoBehaviour
             if (_spriteRenderer != null) _spriteRenderer.enabled = false;
 
             IsPickable = false;
-            _plaeyrController.PickUp();
+            _playerController.PickUp();
         }
     }
 }

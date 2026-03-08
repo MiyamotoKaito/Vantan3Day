@@ -5,7 +5,7 @@ using DG.Tweening;
 /// </summary>
 public class ShutterAnim : MonoBehaviour
 {
-    [SerializeField] private float _animSpeed = 1.0f;
+    [SerializeField] private float _animTime = 1.0f;
     [SerializeField] private float _openedPosY = 6.1f;
     [SerializeField] private float _closedPosY = 0f;
 
@@ -19,7 +19,7 @@ public class ShutterAnim : MonoBehaviour
     {
         if (!_isOpened)
         {
-            _shutterPos.DOMoveY(_openedPosY, _animSpeed);
+            _shutterPos.DOMoveY(_openedPosY, _animTime);
             _isOpened = true;
         }
     }
@@ -27,7 +27,7 @@ public class ShutterAnim : MonoBehaviour
     {
         if (_isOpened)
         {
-            _shutterPos.DOMoveY(_closedPosY, _animSpeed).SetEase(Ease.OutBounce);
+            _shutterPos.DOMoveY(_closedPosY, _animTime).SetEase(Ease.OutBounce);
             _isOpened = false;
         }
     }
