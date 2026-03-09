@@ -108,6 +108,9 @@ public class SoundManager : MonoBehaviour
         ShatterClose,
         WindowOpen,
         WindowClose,
+        Spray,
+        EnergyUp,
+        EnergyDown,
     }
 }
 

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 936b762954eeee140929d1ebe7f03699, type: 3}
-  m_Name: Human_0
+  m_Name: Man
   m_EditorClassIdentifier: Assembly-CSharp::HumanVisitorData
   _sprite: {fileID: 9184850146289764194, guid: dc6bb7af382387442a5bb8d7bc944ecf, type: 3}
   _visitorType: 0

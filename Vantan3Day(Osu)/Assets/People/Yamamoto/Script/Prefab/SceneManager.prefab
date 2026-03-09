@@ -45,4 +45,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SceneManager
   _sceneNames:
-  - Demo
+  - MasterScene
+  - Title
+  - ClearScene

@@ -52,8 +52,8 @@ MonoBehaviour:
   _leftHand: {fileID: 0}
   _leftArm: {fileID: 0}
   _currentRenderer: {fileID: 0}
-  _idleRenderer: {fileID: 2882049016101181721, guid: 4399e24a1f81e984597e312e36af5e73, type: 3}
-  _pushRenderer: {fileID: -1471352497108970364, guid: 8cb489376042fa841b64173d42c7ec71, type: 3}
+  _idleRenderer: {fileID: 2882049016101181721, guid: bc2d67f2dd484a0408cb7cd6703af49b, type: 3}
+  _pushRenderer: {fileID: -1471352497108970364, guid: f5d214d3c75e8ef4bab92d0d73ed1d6c, type: 3}
   _arms:
   - {fileID: 0}
   - {fileID: 0}

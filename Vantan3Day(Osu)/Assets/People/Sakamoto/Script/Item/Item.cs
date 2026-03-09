@@ -15,7 +15,7 @@ public class Item : MonoBehaviour
     private Collider2D _collider;
     private Rigidbody2D _rb;
     private Battely _battely;
-    [SerializeField,Header("バッテリーの消費量")]
+    [SerializeField, Header("バッテリーの消費量")]
     private float _consumption;
 
     private void Start()
@@ -50,8 +50,8 @@ public class Item : MonoBehaviour
                     {
                         fly.Kill();
                     }
+                    _battely.ConsumeEnergy(_consumption);
                 }
-                _battely.ConsumeEnergy(_consumption);
                 break;
             case ItemType.Shutter:
                 if (_battely.CurrentEnergy >= _consumption)

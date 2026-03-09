@@ -16,9 +16,9 @@ MonoBehaviour:
   _visitorType: 2
   _sprites:
   - _type: 0
-    _sprite: {fileID: 21300000, guid: d17bb3a7568c22949b59471d757d90b2, type: 3}
+    _sprite: {fileID: 8432956558241223073, guid: 07ffa49d91d1ba14bb5a52996a4a4904, type: 3}
   - _type: 1
-    _sprite: {fileID: 21300000, guid: c8bb7cc490161c4469d84557322ac83e, type: 3}
+    _sprite: {fileID: 7234043276127864597, guid: d2b6d6fd5791fd544932864222dedf40, type: 3}
   VisitorManager: {fileID: 0}
   AwaitTime: 2
   _animTime: 3

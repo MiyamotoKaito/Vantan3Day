@@ -45,11 +45,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::VisitorGeneration
   _visitors:
-  - {fileID: 11400000, guid: 08efd065bd445ca4e895d42136b208e9, type: 2}
+  - {fileID: 11400000, guid: ab992b305940c1542b4a67f832717b45, type: 2}
+  - {fileID: 11400000, guid: db1467c9a4367b34eb849b675c3aa628, type: 2}
+  - {fileID: 11400000, guid: a4583483bd754af4ea6faac861d7f03a, type: 2}
   - {fileID: 11400000, guid: 7e8c5216cca816c4abab16f9f83b242c, type: 2}
-  - {fileID: 11400000, guid: 9dd1c42163cdf7c4fa265043e451769f, type: 2}
+  - {fileID: 11400000, guid: 1dbfe31da7308f04a9a847a9beca6f71, type: 2}
+  - {fileID: 11400000, guid: 2b2293f4a74a80a459549255043b7a57, type: 2}
+  - {fileID: 11400000, guid: de66d46aed18c9c43af002d6dbc261a7, type: 2}
+  - {fileID: 11400000, guid: 08efd065bd445ca4e895d42136b208e9, type: 2}
+  - {fileID: 11400000, guid: 319ffcb2e499aa34cbe0ba9b13ddcf27, type: 2}
   _awaitPos: {fileID: 0}
   _entryPos: {fileID: 0}
   _exitPos: {fileID: 0}
+  _backPos: {fileID: 0}
   _animTime: 2
+  _battely: {fileID: 0}
   _visitorImage: {fileID: 0}
+  _visitorInfoCard: {fileID: 0}

@@ -31,10 +31,12 @@ namespace Ingame
         }
         public void ConsumeEnergy(float amount)
         {
+            SoundManager.Instance.PlaySE(SoundManager.SEType.EnergyDown);
             Energy -= amount;
         }
         public void RechargeEnergy(float amount)
         {
+            SoundManager.Instance.PlaySE(SoundManager.SEType.EnergyUp);
             Energy += amount;
         }
 
